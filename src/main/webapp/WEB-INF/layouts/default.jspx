@@ -18,13 +18,72 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="PRAGMA" content="NO-CACHE" />
-</head>
-<body>
-<tiles:insertAttribute name="menu" ignore="true"/>
-<tiles:insertAttribute name="header" ignore="true"/>
-<tiles:insertAttribute name="body" ignore="true"/>
-<tiles:insertAttribute name="footer" ignore="true"/>
-</body>
+    <meta http-equiv="PRAGMA" content="NO-CACHE"/>
 
+    <meta name="description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."/>
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:site" content="@pratikborsadiya"/>
+    <meta property="twitter:creator" content="@pratikborsadiya"/>
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Vali Admin"/>
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme"/>
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin"/>
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png"/>
+    <meta property="og:description"
+          content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."/>
+    <title>Vali Admin - Free Bootstrap 4 Admin Template</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--CSS-->
+    <spring:url value="/resources/styles/main.css" var="valiadmin_css"/>
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${valiadmin_css}"/>
+
+</head>
+<body class="app sidebar-mini rtl">
+<tiles:insertAttribute name="header" ignore="true"/>
+<tiles:insertAttribute name="menu" ignore="true"/>
+<main class="app-content">
+    <tiles:insertAttribute name="body" ignore="true"/>
+</main>
+<!--<tiles:insertAttribute name="footer" ignore="true"/>-->
+
+<!-- Essential javascripts for application to work-->
+<spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
+<spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
+<spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
+<spring:url value="/resources/scripts/main.js" var="main_js"/>
+<spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
+<spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
+
+<script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+<script type="text/javascript">
+    if(document.location.hostname == 'pratikborsadiya.in') {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+
+
+</body>
 </html>
