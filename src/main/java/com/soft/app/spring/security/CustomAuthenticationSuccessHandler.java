@@ -29,7 +29,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
             throws ServletException, IOException {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        LOGGER.info("User {} was login successfully !!!",authorizeUtil.getUserName());
+        LOGGER.info("User : {} was login successfully !!!",authorizeUtil.getUserName());
 
         if (savedRequest == null) {
             super.onAuthenticationSuccess(request, response, authentication);
@@ -40,7 +40,6 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         LOGGER.info("Redirecting to DefaultSavedRequest Url: " + targetUrl);
 
         if (!targetUrl.contains("resource") && !targetUrl.contains("spring_security") && !targetUrl.contains("login") && !targetUrl.contains("logout")) {
-            getRedirectStrategy().sendRedirect(request, response, targetUrl);
 //        	getRedirectStrategy().sendRedirect(request, response, targetUrl);
             getRedirectStrategy().sendRedirect(request, response, "/");
         } else {
