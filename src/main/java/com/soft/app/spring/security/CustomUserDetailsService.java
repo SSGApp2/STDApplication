@@ -49,33 +49,34 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         try {
             AppUser appUser = appUserRepository.findByUsername(userName);
+            CustomUser user = new CustomUser(userName, appUser.getPassword(), new ArrayList<>());
+            this.userName = userName;
             if (BeanUtils.isNotNull(appUser)) {
                 LOGGER.info("---------------------------------");
                 LOGGER.info("----   loadUserByUsername   -----");
                 LOGGER.info("UserName : ===================>{}", userName);
-
-                CustomUser user = new CustomUser(userName, appUser.getPassword(), new ArrayList<>());
-                this.userName = user.getUsername();
+                /* Support Detect for Tomcat Attribute */
+                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 
                 List<AppUserOuAuth> appUserOuAuthList = appUserOuAuthRepository.findByAppUser(appUser);
+
+                authorizeUtil.setUserName(user.getUsername());
                 if (BeanUtils.isNotEmpty(appUserOuAuthList)) {
-                    /* Add to Bean SESSION SCOPE */
-                    authorizeUtil.setUserName(user.getUsername());
-                    authorizeUtil.setUserName(appUserOuAuthList.get(0).getOuCode());
-
-                    //initial Data
-
-                    /* Support Detect for Tomcat Attribute */
-                    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-                    attr.getRequest().getSession(true).setAttribute("userName", userName);
-
-                    LOGGER.info("session : " + attr.getRequest().getSession().getId());
-                    return user;
-
+                    authorizeUtil.setOuCode(appUserOuAuthList.get(0).getOuCode());
+                    authorizeUtil.setRoleCode("user");
                 } else {
-                    LOGGER.error("No OU with username '" + userName + "' found!");
-                    throw new UsernameNotFoundException("No OU with username '" + userName + "' found!");
+                    authorizeUtil.setRoleCode("admin");
                 }
+
+                /* Add to Bean SESSION SCOPE */
+
+                //initial Data
+
+                attr.getRequest().getSession(true).setAttribute("userName", userName);
+
+                LOGGER.info("session : " + attr.getRequest().getSession().getId());
+                return new org.springframework.security.core.userdetails.User(userName, user.getAccessToken(),
+                        true, user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked(), user.getAuthorities());
 
             } else {
                 LOGGER.error("No user with username " + userName + "' found!");
@@ -94,6 +95,7 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean matches(CharSequence rawPassword, String s) {
         this.password = rawPassword.toString();
         LOGGER.info("---------------------------------");
