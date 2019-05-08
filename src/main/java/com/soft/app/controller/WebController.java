@@ -11,7 +11,7 @@ import java.util.Map;
 @Controller
 public class WebController {
     private static final Logger LOGGER = LogManager.getLogger(WebController.class);
-    @GetMapping("")
+    @GetMapping("welcome")
     public String welcome() {
         return "welcome";
     }

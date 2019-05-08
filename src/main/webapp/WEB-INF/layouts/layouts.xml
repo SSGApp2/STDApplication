@@ -10,6 +10,10 @@
     </definition>
 
     <definition name="defaultErrorPage" template="/WEB-INF/layouts/defaultErrorPage.jspx">
-        <put-attribute name="body" value="/WEB-INF/views/errorPage/errorDefault.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/views/errorPage/default.jspx"/>
+    </definition>
+
+    <definition name="defaultLogin" template="/WEB-INF/layouts/defaultLogin.jspx">
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
     </definition>
 </tiles-definitions>

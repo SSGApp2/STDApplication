@@ -1,0 +1,308 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags"
+      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+
+<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat"/>
+
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+<jsp:directive.page pageEncoding="UTF-8"/>
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta http-equiv="PRAGMA" content="NO-CACHE"/>
+
+    <!--<spring:url value="/resources/images/logo.png" var="appicon" />-->
+    <!--<link rel="shortcut icon" href="${appicon}" type="image/x-icon"/>-->
+    <!--<link rel="apple-touch-icon" sizes="60x60" href="${appicon}"/>-->
+    <!--<link rel="apple-touch-startup-image" href="${appicon}"/>-->
+
+    <!--<spring:message code="application_name" var="app_name" htmlEscape="false"/>-->
+    <!--<spring:message code="application_name" var="APPLICATION_NAME"/>-->
+    <!--<title>${APPLICATION_NAME}</title>-->
+    <!--<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>-->
+    <!--<meta name="apple-mobile-web-app-title" content="${app_name}" />-->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <!--CSS-->
+    <style>
+
+        body {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-color: #607D8B;
+
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 0;
+            margin-right: 0;
+            margin: 0;
+            color: #6a6f8c;
+            font: 600 16px/18px 'ThaiSansNeue', sans-serif;
+        }
+
+        .navbar-footer-description {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+46,cccccc+100 */
+            background: #eeeeee; /* Old browsers */
+            background: -moz-linear-gradient(top, #eeeeee 46%, #cccccc 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(46%, #eeeeee), color-stop(100%, #cccccc)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #eeeeee 46%, #cccccc 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #eeeeee 46%, #cccccc 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #eeeeee 46%, #cccccc 100%); /* IE10+ */
+            background: linear-gradient(to bottom, #eeeeee 46%, #cccccc 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0); /* IE6-9 */
+
+        }
+
+        input {
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, .1);
+            /*width:100%;*/
+            color: #fff;
+            display: block;
+            font-size: 16px;
+        }
+
+        button {
+            font-family: "ThaiSansNeue", sans-serif;
+            height: 37px;
+            width: 30%;
+            border: 0px;
+            background: #e74c3c;
+            border-radius: 7px;
+            padding: 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .nav {
+            margin: 0 auto;
+            margin-top: 13%;
+            margin-left: 7%;
+            width: 450px;
+            height: 220px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            text-align: center;
+            padding-top: 1px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+        }
+
+        .navbar {
+            /*background: #eceff1;*/
+            background: rgba(40, 57, 101, .8);
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+
+        }
+
+        strong, small {
+            font-family: "ThaiSansNeue", sans-serif;
+        }
+
+        blockquote footer:before, blockquote small:before, blockquote {
+            content: ' ';
+        }
+
+        *, :after, :before {
+            box-sizing: border-box
+        }
+
+        .clearfix:after, .clearfix:before {
+            content: '';
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both;
+            display: block
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .login-wrap {
+            width: 100%;
+            margin: auto;
+            margin-top: 10%;
+            max-width: 500px;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .login-html {
+            width: 100%;
+            height: 75%;
+            position: absolute;
+            padding: 0px 70px 50px 70px;
+            background: rgba(40, 57, 101, .8);
+
+        }
+
+        .login-html .sign-in-htm,
+        .login-html .sign-up-htm {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            -webkit-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transition: all .4s linear;
+            transition: all .4s linear;
+        }
+
+        .login-html .sign-in,
+        .login-html .sign-up,
+        .login-form .group .check {
+            display: none;
+        }
+
+        .login-html .tab,
+        .login-form .group .label,
+        .login-form .group .button {
+            text-transform: uppercase;
+        }
+
+        .login-html .tab {
+            font-size: 20px;
+            padding-bottom: 5px;
+            margin: 0 15px 10px 0;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+
+        .login-html .sign-in:checked + .tab,
+        .login-html .sign-up:checked + .tab {
+            color: #fff;
+            /*border-color:#1161ee;*/
+        }
+
+        .login-form {
+            min-height: 345px;
+            position: relative;
+            -webkit-perspective: 1000px;
+            -ms-perspective: 1000px;
+            perspective: 1000px;
+            -webkit-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .login-form .group {
+            margin-bottom: 15px;
+        }
+
+        .login-form .group .label,
+        .login-form .group .input,
+        .login-form .group .button {
+            width: 100%;
+            color: #fff;
+            display: block;
+        }
+
+        .login-form .group .input,
+        .login-form .group .button {
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .login-form .group .label {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .login-form .group .button {
+            background: #1161ee;
+        }
+
+        .login-form .group label .icon {
+            width: 15px;
+            height: 15px;
+            border-radius: 2px;
+            position: relative;
+            display: inline-block;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .login-form .group label .icon:before,
+        .login-form .group label .icon:after {
+            content: '';
+            width: 10px;
+            height: 2px;
+            background: #fff;
+            position: absolute;
+            -webkit-transition: all .2s ease-in-out 0s;
+            -ms-transition: all .2s ease-in-out 0s;
+            transition: all .2s ease-in-out 0s;
+        }
+
+        .login-form .group .check:checked + label {
+            color: #fff;
+        }
+
+        .login-html .sign-in:checked + .tab + .login-form .sign-in-htm {
+            -webkit-transform: rotate(0);
+            -ms-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        *
+
+        /
+        input::-webkit-input-placeholder {
+            font-size: 18px;
+            line-height: 3;
+        }
+
+        input[type="text"] {
+            font: small-caption;
+            font-size: 16px
+        }
+
+        input[type="password"] {
+            font: small-caption;
+            font-size: 16px
+        }
+
+        strong, small {
+            font-family: "ThaiSansNeue", sans-serif;
+        }
+
+    </style>
+
+    <!--Script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/util/AjaxUtil.js')}" var="ajaxutil"/>
+    <script type="text/javascript" src="${ajaxutil}"><!-- required for FF3 and Opera --></script>
+</head>
+
+<body class="tundra spring">
+
+<div id="wrapper">
+    <tiles:insertAttribute name="header" ignore="true"/>
+    <tiles:insertAttribute name="menu" ignore="true"/>
+    <div id="main">
+        <tiles:insertAttribute name="body"/>
+        <tiles:insertAttribute name="footer" ignore="true"/>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <!--<spring:url value="/resources/j_spring_security_check" var="form_url"/>-->
+    <c:url value="/j_spring_security_check" var="loginUrl" />
+
+    <spring:message text="security_login_title" var="title" htmlEscape="false"/>
+    <spring:message text="Username" var="label_security_username"/>
+    <spring:message text="Password" var="label_security_password"/>
+    <spring:message text="Login" var="button_login" />
+
+
+    <div  style="padding-top: 40px">
+        <div class="login-wrap">
+
+            <div class="login-html">
+                <input id="tab-1" type="radio"  name="tab" class="sign-in" checked="checked" /><label for="tab-1" class="tab"><!----></label>
+                <div class="login-form">
+                    <div class="sign-in-htm">
+                        <div class="row" style="text-align: left; margin-top: -10px;">
+                            <h2 style="text-align: center;color: white">Application</h2>
+                        </div>
+                        <div class="row">
+                            <div class="form-group has-warning">
+                                <div class="col-sm-12">
+                                    <input id="j_username" style="color: white;width: 100%" type="text" class="form-control" name="j_username" autocomplete="off" placeholder="${label_security_username}" required="true"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px">
+                            <div class="form-group has-warning">
+                                <div class="col-sm-12">
+                                    <input id="j_password" type="password" style="color: white;width: 100%" class="form-control " name="j_password" autocomplete="off" placeholder="${label_security_password}" required="true"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px">
+                            <select id="appRole" >
+                                <c:forEach items="${appRole}" var="role">
+                                    <option value="${role.id}">
+                                        ${role.roleName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div style="margin-top: 15px;text-align: center">
+                            <button type="submit" id="submit_button" class="button" style="background-color: #eb1c2a;width: 250px;margin-top: 10px;font-size: 20px">Register</button>
+                        </div>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" id="screen_width" name="screen_width" value=""/>
+                        <input type="hidden" id="screen_height" name="screen_height" value=""/>
+                        <input type="hidden" name="spring-security-redirect" value="${sessionScope.redirect_url}" />
+                        <script type="text/javascript">
+                            document.getElementById('screen_width').value=screen.width;
+                            document.getElementById('screen_height').value=screen.height;
+                            $('#submit_button').click(function () {
+                                var appUser={
+                                    username:$("#j_username").val(),
+                                    password:$("#j_password").val(),
+                                }
+
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
