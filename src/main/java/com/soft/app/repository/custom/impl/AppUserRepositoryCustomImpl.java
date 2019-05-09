@@ -2,6 +2,8 @@ package com.soft.app.repository.custom.impl;
 
 import com.soft.app.entity.app.AppUser;
 import com.soft.app.repository.custom.AppUserRepositoryCustom;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
@@ -13,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 public class AppUserRepositoryCustomImpl implements AppUserRepositoryCustom {
-
+    private static final Logger LOGGER = LogManager.getLogger(AppUserRepositoryCustomImpl.class);
     @PersistenceContext
     private EntityManager em;
 

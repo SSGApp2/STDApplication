@@ -1,6 +1,6 @@
 package com.soft.app.controller;
 
-import com.soft.app.repository.vcc.iot.IotFootprintRepository;
+import com.soft.app.repository.custom.vcc.iot.IotFootprintRepositoryCustom;
 import com.soft.app.spring.security.AuthorizeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Map;
-
 @Controller
 public class WebController {
     private static final Logger LOGGER = LogManager.getLogger(WebController.class);
@@ -21,7 +19,7 @@ public class WebController {
     AuthorizeUtil authorizeUtil;
 
     @Autowired
-    IotFootprintRepository iotFootprintRepository;
+    IotFootprintRepositoryCustom iotFootprintRepositoryCustom;
 
     @GetMapping("welcome")
     public String welcome() {
@@ -31,7 +29,7 @@ public class WebController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-
+        model.addAttribute("iotFootprints",iotFootprintRepositoryCustom.findByOuth());
         //FIRST PAGE
         return "dashboard/index";
     }

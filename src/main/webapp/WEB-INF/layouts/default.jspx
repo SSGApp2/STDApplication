@@ -14,7 +14,6 @@
 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
 <jsp:directive.page pageEncoding="UTF-8"/>
 
-
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -70,7 +69,7 @@
     <script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${waves_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
-
+    <c:set var="user" value="${pageContext.request.userPrincipal.name}" scope="request"/>
 
 
 </head>
@@ -89,6 +88,19 @@
 <script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script type="text/javascript">
     Waves.init();
+
+    var session = {
+        lang: "${lang}",                                             // the language is page language (eg. TH, EN)
+        context: '${pageContext.request.contextPath}',              // the context path
+        time: '${strDate}',                      // the current date with time
+        user: "${user}",
+        ouCode: "${ouCode}",
+        timeout: parseInt("${pageContext.session.maxInactiveInterval}"),
+    };
+    $('.app-sidebar__user-name').text(session.user);
+    $('.app-sidebar__user-designation').text(session.ouCode);
+
+
 </script>
 
 </body>

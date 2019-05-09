@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface IotFootprintRepository extends JpaRepository<IotFootprint,Long>{
-    
+
 }
