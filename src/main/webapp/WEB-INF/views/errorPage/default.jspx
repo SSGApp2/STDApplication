@@ -1,0 +1,19 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 4/5/2562
+  Time: 20:10 น.
+  To change this template use File | Settings | File Templates.
+-->
+<div xmlns:spring="http://www.springframework.org/tags"     xmlns:form="http://www.springframework.org/tags/form"  xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:jsp="http://java.sun.com/JSP/Page"    version="2.0">
+
+    <div class="message-box">
+        <h1>Error</h1>
+        <p>Error Page Default</p>
+        <div class="buttons-con">
+            <div class="action-link-wrap">
+                <a href="/" class="link-button">Go to Home Page</a>
+            </div>
+        </div>
+    </div>
+</div>
