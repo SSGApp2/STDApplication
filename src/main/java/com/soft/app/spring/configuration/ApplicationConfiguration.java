@@ -27,6 +27,8 @@ public class ApplicationConfiguration  {
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
         tilesConfigurer.setDefinitions("/WEB-INF/layouts/layouts.xml",
                 "/WEB-INF/views/**/views.xml");
+        tilesConfigurer.setCheckRefresh(true);
+        tilesConfigurer.setUseMutableTilesContainer(true);
         return tilesConfigurer;
     }
 

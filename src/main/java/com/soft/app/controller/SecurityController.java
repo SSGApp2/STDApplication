@@ -38,12 +38,6 @@ public class SecurityController {
         return "registration";
     }
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
-        //FIRST PAGE
-        return "welcome";
-    }
-
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

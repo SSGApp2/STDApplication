@@ -5,7 +5,8 @@
   Time: 20:06 น.
   To change this template use File | Settings | File Templates.
 -->
-<header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
+<header class="app-header">
+    <a class="app-header__logo" href="index.html">Visciency</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
@@ -63,4 +64,9 @@
             </ul>
         </li>
     </ul>
+
+    <script type="text/javascript">
+        Waves.attach('.app-nav a,.app-sidebar__toggle', ['waves-button']);
+
+    </script>
 </header>

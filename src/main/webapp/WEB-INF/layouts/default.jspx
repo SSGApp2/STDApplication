@@ -41,49 +41,55 @@
 
     <!--CSS-->
     <spring:url value="/resources/styles/main.css" var="valiadmin_css"/>
+    <spring:url value="/resources/styles/vccmaster.css" var="master_css"/>
+    <spring:url value="/resources/styles/waves.min.css" var="waves_min_css"/>
 
     <!-- Font-icon css-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="${valiadmin_css}"/>
+    <link rel="stylesheet" type="text/css" href="${waves_min_css}"/>
+    <link rel="stylesheet" type="text/css" href="${master_css}"/>
+
+
+
+    <!-- Essential javascripts for application to work-->
+    <spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
+    <spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
+    <spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
+    <spring:url value="/resources/scripts/main.js" var="main_js"/>
+    <spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
+    <spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
+    <spring:url value="/resources/scripts/plugins/waves.min.js" var="waves_min_js"/>
+
+    <script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+    <script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${waves_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+
+
 
 </head>
 <body class="app sidebar-mini rtl">
+
+<div id="loading">x</div>
 <tiles:insertAttribute name="header" ignore="true"/>
 <tiles:insertAttribute name="menu" ignore="true"/>
 <main class="app-content">
+
     <tiles:insertAttribute name="body" ignore="true"/>
+    <tiles:insertAttribute name="footer" ignore="true"/>
 </main>
-<!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 
-<!-- Essential javascripts for application to work-->
-<spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
-<spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
-<spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
-<spring:url value="/resources/scripts/main.js" var="main_js"/>
-<spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
-<spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
 
-<script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-
 <script type="text/javascript">
-    if(document.location.hostname == 'pratikborsadiya.in') {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-72504830-1', 'auto');
-        ga('send', 'pageview');
-    }
+    Waves.init();
 </script>
-
 
 </body>
 </html>

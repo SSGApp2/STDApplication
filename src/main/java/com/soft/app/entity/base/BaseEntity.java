@@ -34,6 +34,10 @@ public abstract class BaseEntity implements Serializable {
 
     /**
      */
+    private String ouCode;
+
+    /**
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date createdDate;
