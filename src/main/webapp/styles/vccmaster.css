@@ -191,7 +191,8 @@ body.sidenav-toggled .app-header__logo {
     display: none;
 }
 
-.carousel-inner img {
+.center {
+    text-align: center;
     margin: auto;
 }
 

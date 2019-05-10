@@ -42,7 +42,7 @@
 
     <!--CSS-->
     <spring:url value="/resources/styles/main.css" var="valiadmin_css"/>
-    <spring:url value="/resources/styles/vccmaster.css" var="master_css"/>
+    <spring:url value="${urls.getForLookupPath('/resources/styles/vccmaster.css')}" var="master_css"/>
     <spring:url value="/resources/styles/waves.min.css" var="waves_min_css"/>
 
     <!-- Font-icon css-->
@@ -100,7 +100,7 @@
 <script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<!--<script src="${main_js}" type="text/javascript">&lt;!&ndash; required for FF3 and Opera &ndash;&gt;</script>-->
 <script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${ajaxutil_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>

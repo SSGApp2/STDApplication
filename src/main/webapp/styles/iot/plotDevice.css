@@ -28,3 +28,29 @@
     border-style: solid;
 }
 
+
+/* carousel  Button outside */
+
+.carousel-inner img {
+    margin: auto;
+    width: 80%;
+}
+
+
+.carousel {
+    margin: 1.5rem;
+}
+.carousel-inner {
+    height: auto;
+}
+.carousel-item{
+    text-align: center;
+}
+.carousel-control-prev {
+    margin-left: -100px;
+}
+
+.carousel-control-next {
+    margin-right: -100px;
+}
+
