@@ -1,15 +1,4 @@
-.holder {
-    width: 900px;
-    height: 900px;
-}
-.dropzone {
-    background-color: #ccc;
-    padding: 10px;
-    width: 700px;
-    height: 700px;
-    border: dashed 4px transparent;
-    float:left;
-}
+
 
 .draggable {
     width: 100px;
@@ -19,6 +8,13 @@
     color: white;
     padding:10px;
     margin: 10px;
+    z-index: 20;
+    position: absolute;
+}
+.dropzone {
+
+    border: dashed 4px transparent;
+    z-index: 100;
 }
 
 .drop-active {

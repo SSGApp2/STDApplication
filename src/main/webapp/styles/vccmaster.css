@@ -178,7 +178,7 @@ body.sidenav-toggled .app-header__logo {
 
 
 #loading {
-    background: url('/VCC/resources/images/loading.gif') no-repeat center center;
+    background: url('/resources/images/loading.gif') no-repeat center center;
     position: absolute;
     top: 0;
     left: 0;
@@ -190,3 +190,8 @@ body.sidenav-toggled .app-header__logo {
     filter: alpha(opacity=30);
     display: none;
 }
+
+.carousel-inner img {
+    margin: auto;
+}
+
