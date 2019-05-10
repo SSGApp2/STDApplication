@@ -1,9 +1,11 @@
 package com.soft.app.spring.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,7 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .httpBasic().and()
+                .authorizeRequests()
                 .antMatchers(
                         "/login/**",
                         "/registration/**",
@@ -47,13 +51,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/resources/**/scripts/**",
                         "/resources/**/styles/**",
                         "/resources/**/fonts/**"
-                        ).permitAll()
+                ).permitAll()
 //                .antMatchers("/resources/**").authenticated()
                 .antMatchers("/**").authenticated()
+
                 .and().logout().logoutUrl("/logout")
                 .and().formLogin().loginPage("/login").loginProcessingUrl("/j_spring_security_check").usernameParameter("j_username").passwordParameter("j_password").successHandler(getAuthenticationSuccessHandler())
                 .and().exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint())
                 .accessDeniedPage("/Access_Denied");
+
+        http.csrf().disable();
     }
 
 
