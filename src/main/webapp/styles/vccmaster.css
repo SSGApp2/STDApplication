@@ -86,6 +86,97 @@ body.sidenav-toggled .app-header__logo {
    background-color: #323B43;
 }
 
+/* Background Colors */
+.bg-empty {
+    background: transparent !important;
+}
+
+.bg-primary {
+    background-color: #3bafda !important;
+}
+
+.bg-success {
+    background-color: #00b19d !important;
+}
+
+.bg-info {
+    background-color: #3ddcf7 !important;
+}
+
+.bg-warning {
+    background-color: #ffaa00 !important;
+}
+
+.bg-danger {
+    background-color: #ef5350 !important;
+}
+
+.bg-muted {
+    background-color: #F5F5F5 !important;
+}
+
+.bg-inverse {
+    background-color: #4c5667 !important;
+}
+
+.bg-purple {
+    background-color: #7266ba !important;
+}
+
+.bg-pink {
+    background-color: #f76397 !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+/* Text Colors */
+.text-white {
+    color: #ffffff;
+}
+
+.text-danger {
+    color: #ef5350 !important;
+}
+
+.text-muted {
+    color: #98a6ad !important;
+}
+
+.text-primary {
+    color: #3bafda !important;
+}
+
+.text-warning {
+    color: #ffaa00 !important;
+}
+
+.text-success {
+    color: #00b19d !important;
+}
+
+.text-info {
+    color: #3ddcf7 !important;
+}
+
+.text-inverse {
+    color: #4c5667 !important;
+}
+
+.text-pink {
+    color: #f76397 !important;
+}
+
+.text-purple {
+    color: #7266ba !important;
+}
+
+.text-dark {
+    color: #ffffff !important;
+}
+
+
 #loading {
     background: url('/VCC/resources/images/loading.gif') no-repeat center center;
     position: absolute;

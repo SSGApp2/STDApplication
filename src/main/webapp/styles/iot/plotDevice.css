@@ -1,0 +1,34 @@
+.holder {
+    width: 900px;
+    height: 900px;
+}
+.dropzone {
+    background-color: #ccc;
+    padding: 10px;
+    width: 700px;
+    height: 700px;
+    border: dashed 4px transparent;
+    float:left;
+}
+
+.draggable {
+    width: 100px;
+    height: 100px;
+    float:left;
+    background-color: #2196F3;
+    color: white;
+    padding:10px;
+    margin: 10px;
+}
+
+.drop-active {
+    border-color: #aaa;
+}
+
+.drop-target {
+    /*background-color: #000;*/
+    color: #FFF;
+    border-color: #fff;
+    border-style: solid;
+}
+
