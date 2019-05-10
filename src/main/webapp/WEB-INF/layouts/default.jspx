@@ -17,7 +17,9 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="PRAGMA" content="NO-CACHE"/>
+    <!--<meta http-equiv="PRAGMA" content="NO-CACHE"/>-->
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <meta name="description"
           content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular."/>
@@ -84,7 +86,24 @@
     <tiles:insertAttribute name="footer" ignore="true"/>
 </main>
 
+<!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 
+<!-- Essential javascripts for application to work-->
+<spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
+<spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
+<spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
+<spring:url value="/resources/scripts/main.js" var="main_js"/>
+<spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
+<spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
+<spring:url value="${urls.getForLookupPath('/resources/scripts/util/AjaxUtil.js')}" var="ajaxutil_js"/>
+
+<script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+<script src="${ajaxutil_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script type="text/javascript">
     Waves.init();
