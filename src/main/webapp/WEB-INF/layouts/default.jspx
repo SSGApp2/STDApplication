@@ -61,7 +61,7 @@
 <!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 
 <!-- Essential javascripts for application to work-->
-<spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
+<spring:url value="/resources/scripts/jquery-1.11.1.min.js" var="jquery_min_js"/>
 <spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
 <spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
 <spring:url value="/resources/scripts/main.js" var="main_js"/>
