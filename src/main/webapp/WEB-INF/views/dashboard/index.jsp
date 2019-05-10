@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Welcome !</h4>
+                <h4 class="page-title">Footprint Setting</h4>
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="#">Minton</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Footprint Setting</li>
                 </ol>
                 <div class="clearfix"></div>
             </div>
@@ -29,7 +29,7 @@
                             <label class="custom-file-label text-left" for="imgInp">Choose file</label>
                         </div>
                         <div class="input-group-prepend">
-                            <span style="margin-left: 10px" class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            <button id="btnUpload" style="margin-left: 10px" type="button" class="btn btn-info btn-md ">Save</button>
                         </div>
                     </div>
                 </div>
@@ -108,6 +108,9 @@
         <style>
             #tbFootprit tr{
                 cursor: pointer;
+            }
+            #tbFootprit tr:hover {
+                background-color: rgba(0, 0, 0, 0.9);
             }
         </style>
         <%--Script--%>
