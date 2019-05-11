@@ -1,0 +1,38 @@
+<jsp:root xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/dashboard"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+    <style>
+        .chartOne {
+            min-width: 30%;
+            max-width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <util:templateDashboard id="graph-temperature" title="Temperature"/>
+            </div>
+            <div class="col-md-4">
+                <util:templateDashboard id="graph-temperature2" title="Temperature"/>
+            </div>
+            <div class="col-md-4">
+                <util:templateDashboard id="graph-temperature3" title="Temperature"/>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.highcharts.com/highcharts.js"><!-- required for FF3 and Opera --></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"><!-- required for FF3 and Opera --></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"><!-- required for FF3 and Opera --></script>
+
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/highcharts_theme.js')}" var="highcharts_theme_js"/>
+    <script src="${highcharts_theme_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/mainDashboard.js')}" var="mainDashboard"/>
+    <script src="${mainDashboard}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+</jsp:root>

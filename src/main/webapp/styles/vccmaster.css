@@ -84,7 +84,12 @@ body.sidenav-toggled .footer {
 }
 body.sidenav-toggled .app-header__logo {
    background-color: #323B43;
+    display: none;
 }
+body.sidenav-toggled .app-sidebar__toggle {
+   background-color: #222D32;
+}
+
 
 /* Background Colors */
 .bg-empty {
@@ -196,3 +201,58 @@ body.sidenav-toggled .app-header__logo {
     margin: auto;
 }
 
+
+/* ===========
+   Badge
+ =============*/
+.badge {
+    font-weight: 600;
+    padding: 3px 5px;
+    font-size: 12px;
+    margin-top: 1px;
+}
+
+.badge-xs {
+    font-size: 9px;
+}
+
+.badge-xs, .badge-sm {
+    -webkit-transform: translate(0, -2px);
+    transform: translate(0, -2px);
+}
+
+.badge-primary {
+    background-color: #3bafda;
+}
+
+.badge-success {
+    background-color: #00b19d;
+}
+
+.badge-info {
+    background-color: #3ddcf7;
+}
+
+.badge-warning {
+    background-color: #ffaa00;
+    color: #ffffff;
+}
+
+.badge-danger {
+    background-color: #ef5350;
+}
+
+.badge-purple {
+    background-color: #7266ba;
+    color: #ffffff;
+}
+
+.badge-pink {
+    background-color: #f76397;
+    color: #ffffff;
+}
+
+.badge-inverse {
+    background-color: #4c5667;
+    color: #ffffff;
+}

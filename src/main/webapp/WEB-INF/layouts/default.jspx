@@ -17,7 +17,6 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--<meta http-equiv="PRAGMA" content="NO-CACHE"/>-->
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
@@ -55,27 +54,29 @@
 
 
     <!-- Essential javascripts for application to work-->
-    <spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>
+    <!--<spring:url value="/resources/scripts/jquery-3.2.1.min.js" var="jquery_min_js"/>-->
+    <spring:url value="/resources/scripts/jquery-1.11.1.min.js" var="jquery_min_js"/>
     <spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
     <spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
     <spring:url value="/resources/scripts/main.js" var="main_js"/>
     <spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
-    <spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
     <spring:url value="/resources/scripts/plugins/waves.min.js" var="waves_min_js"/>
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/util/AjaxUtil.js')}" var="ajaxutil_js"/>
+
 
     <script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
     <script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-    <script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${waves_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${ajaxutil_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
     <c:set var="user" value="${pageContext.request.userPrincipal.name}" scope="request"/>
 
 
 </head>
-<body class="app sidebar-mini rtl">
+<body class="app sidebar-mini rtl pace-done sidenav-toggled">
 
 <div id="loading">x</div>
 <tiles:insertAttribute name="header" ignore="true"/>
@@ -86,24 +87,7 @@
     <!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 </main>
 
-<!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 
-<!-- Essential javascripts for application to work-->
-<spring:url value="/resources/scripts/jquery-1.11.1.min.js" var="jquery_min_js"/>
-<spring:url value="/resources/scripts/popper.min.js" var="popper_min_js"/>
-<spring:url value="/resources/scripts/bootstrap.min.js" var="bootstrap_min_js"/>
-<spring:url value="/resources/scripts/main.js" var="main_js"/>
-<spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
-<spring:url value="/resources/scripts/plugins/chart.js" var="chart_js"/>
-<spring:url value="${urls.getForLookupPath('/resources/scripts/util/AjaxUtil.js')}" var="ajaxutil_js"/>
-
-<script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${popper_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${bootstrap_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<!--<script src="${main_js}" type="text/javascript">&lt;!&ndash; required for FF3 and Opera &ndash;&gt;</script>-->
-<script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${chart_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-<script src="${ajaxutil_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 <script type="text/javascript">
     Waves.init();
@@ -119,6 +103,12 @@
     $('.app-sidebar__user-name').text(session.user);
     $('.app-sidebar__user-designation').text(session.ouCode);
 
+    $('.app-content').click(function () {
+        const isOpenMenu=!$('.app').hasClass('sidenav-toggled');
+        if(isOpenMenu){
+            $('.app').toggleClass('sidenav-toggled');
+        }
+    });
 
 </script>
 

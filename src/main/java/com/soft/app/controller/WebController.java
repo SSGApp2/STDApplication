@@ -1,7 +1,6 @@
 package com.soft.app.controller;
 
 import com.soft.app.repository.custom.vcc.iot.IotDeviceRepositoryCustom;
-import com.soft.app.repository.custom.vcc.iot.IotFootprintRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.spring.security.AuthorizeUtil;
 import org.apache.logging.log4j.LogManager;
@@ -21,9 +20,6 @@ public class WebController {
     AuthorizeUtil authorizeUtil;
 
     @Autowired
-    IotFootprintRepositoryCustom iotFootprintRepositoryCustom;
-
-    @Autowired
     IotMachineRepositoryCustom iotMachineRepositoryCustom;
 
     @Autowired
@@ -35,13 +31,6 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
-        model.addAttribute("iotFootprints",iotFootprintRepositoryCustom.findByOuth());
-        //FIRST PAGE
-        return "dashboard/index";
-    }
-
     @RequestMapping(value = {"/machineSetting"}, method = RequestMethod.GET)
     public String machineSetting(ModelMap model) {
         model.addAttribute("iotMachine",iotMachineRepositoryCustom.findByOuth());
@@ -50,4 +39,8 @@ public class WebController {
         return "dashboard/machineSetting";
     }
 
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String homePage(ModelMap model) {
+        return "redirect:/dashboard";
+    }
 }

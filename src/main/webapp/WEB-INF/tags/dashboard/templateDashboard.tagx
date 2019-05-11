@@ -1,0 +1,32 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 15/3/2562
+  Time: 2:53 น.
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+    <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <jsp:directive.attribute name="title" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+        .divtoBlink{
+            -webkit-transition: background 1.0s ease-in-out;
+            -ms-transition:     background 1.0s ease-in-out;
+            transition:         background 1.0s ease-in-out;
+        }
+
+    </style>
+    <div class="card-box divtoBlink ">
+        <h4 class="header-title m-t-0 m-b-30">${title}</h4>
+
+        <div id="${id}" class="chartOne">
+            <jsp:text/>
+        </div>
+    </div>
+
+
+</jsp:root>
