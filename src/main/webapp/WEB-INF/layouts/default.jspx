@@ -45,12 +45,13 @@
     <spring:url value="/resources/styles/waves.min.css" var="waves_min_css"/>
 
     <!-- Font-icon css-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="${valiadmin_css}"/>
     <link rel="stylesheet" type="text/css" href="${waves_min_css}"/>
     <link rel="stylesheet" type="text/css" href="${master_css}"/>
-
 
 
     <!-- Essential javascripts for application to work-->
@@ -78,17 +79,31 @@
 </head>
 <body class="app sidebar-mini rtl pace-done sidenav-toggled">
 
-<div id="loading">x</div>
+
+
 <tiles:insertAttribute name="header" ignore="true"/>
 <tiles:insertAttribute name="menu" ignore="true"/>
 <main class="app-content">
 
+    <div class="dv-background" style="display: none;">
+        <div class="dv-loading">
+            <spring:url value="/resources/images/ess-loader.png" var="image_loader_url"/>
+            <div class="image-contain"
+                 style="background-image: url(${image_loader_url}); width:30px;height:30px;">
+                <jsp:text/>
+            </div>
+        </div>
+    </div>
+
     <tiles:insertAttribute name="body" ignore="true"/>
+    <tiles:insertAttribute name="rightMenu" ignore="true"/>
     <!--<tiles:insertAttribute name="footer" ignore="true"/>-->
 </main>
 
 
 <script src="${main_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+
 <script type="text/javascript">
     Waves.init();
 
@@ -104,8 +119,8 @@
     $('.app-sidebar__user-designation').text(session.ouCode);
 
     $('.app-content').click(function () {
-        const isOpenMenu=!$('.app').hasClass('sidenav-toggled');
-        if(isOpenMenu){
+        const isOpenMenu = !$('.app').hasClass('sidenav-toggled');
+        if (isOpenMenu) {
             $('.app').toggleClass('sidenav-toggled');
         }
     });

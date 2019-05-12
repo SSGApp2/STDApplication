@@ -1,0 +1,115 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 28/2/2562
+  Time: 11:16 น.
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+    <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <jsp:directive.attribute name="title" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <jsp:directive.attribute name="sensorCode" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <style>
+        .cred {
+            color: red;
+        }
+
+        .cyellow {
+            color: #FFA500;
+        }
+    </style>
+
+
+    <div id="${id}" class="card-box panel panel-default" sensor-code="${sensorCode}">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title pull-left">
+                ${title}
+            </h4>
+            <div class="pull-right">
+                <!--<span class="glyphicon glyphicon-volume-down"><jsp:text/></span>-->
+                <input type="checkbox" id="chkActive${id}" data-toggle="toggle"/>
+            </div>
+        </div>
+        <div class="panel-group">
+            <div class="panel-collapse ">
+                <div class="panel-body">
+                    <!-- body content -->
+                    <div class="row" style="text-align: center; padding-top: 5px;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label text-left">Nomal</label>
+                                <input type="number" id="txtNomal${id}" class="form-control touchspin numbedecionly"></input>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-9 col-sm-offset-3 text-left">
+                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type1${id}" id="adjType1${id}" value="0"/>  Percent(%)</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type1${id}" id="adjType2${id}" value="1"/>  Amount</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-9 col-sm-offset-3 text-left">
+                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos1${id}" value="A"/>  Both</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos2${id}" value="P"/>  Positive</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos3${id}" value="N"/>  Negative</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label text-left cyellow">Warning</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="number" id="txtWarning${id}" class="form-control touchspin numbedecionly"></input>
+                                </div>
+                                <label class="control-label text-left col-sm-1 cyellow">Alert</label>
+                                <div class="col-sm-3">
+                                    <input type="text" id="txtWarningAlert${id}" maxlength="2"
+                                           class="form-control  numberonly"></input>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select id="ddlAlertTimeWR${id}" class="form-control">
+                                        <option>
+                                            <jsp:text/>
+                                        </option>
+                                        <option value="H">H</option>
+                                        <option value="M">M</option>
+                                        <option value="S">S</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label class="control-label text-left  cred">Dangerous</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" id="txtDangerous${id}" class="form-control touchspin numbedecionly"></input>
+                                </div>
+                                <label class="col-sm-1 text-left cred">Alert</label>
+                                <div class="col-sm-3">
+                                    <input type="text" id="txtDangerAlert${id}" maxlength="2"
+                                           class="form-control numberonly"></input>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <select id="ddlAlertTimeDG${id}" class="form-control">
+                                        <option>
+                                            <jsp:text/>
+                                        </option>
+                                        <option value="H">H</option>
+                                        <option value="M">M</option>
+                                        <option value="S">S</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</jsp:root>

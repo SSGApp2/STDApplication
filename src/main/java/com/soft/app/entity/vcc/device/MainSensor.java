@@ -7,7 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -50,4 +53,10 @@ public class MainSensor {
     @Field("MStatus")
     private String mStatus;
 
+    public Date getDateTime() throws ParseException {
+        String dateStr=date+" "+time;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date dt=sdf.parse(dateStr);
+        return dt;
+    }
 }

@@ -1,6 +1,7 @@
 package com.soft.app.entity.vcc.iot;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -30,5 +31,9 @@ public class IotMachine extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotDevice")
     private IotDevice iotDevice;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotMachine")
+    private Set<IotSensor> iotSensor;
 
 }

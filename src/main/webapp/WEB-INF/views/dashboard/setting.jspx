@@ -1,0 +1,77 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 11/5/2562
+  Time: 22:55 น.
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/dashboard" version="2.0">
+
+
+    <div class="container-fluid" id="divSettingRange">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="card-box">
+                    <!--<h4 class="header-title">XDK002</h4>-->
+                    <label class="col-sm-5  col-sm-offset-3" for="ddlDevice">Device</label>
+                    <div class="col-sm-3 ">
+                        <select class="form-control" id="ddlDevice">
+                            <option></option>
+                            <c:forEach items="${iotMachine}" var="iotmachine">
+                                <option value="${iotmachine.iotDevice.deviceCode}"
+                                        code="${iotmachine.iotDevice.deviceCode}">${iotmachine.macName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divSensorRange">
+            <!-- Dashboard -->
+            <div class="row">
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag1" sensorCode="temp" title="Temperature"/>
+                </div>
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag2" sensorCode="humid" title="Humidity"/>
+                </div>
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag3" sensorCode="pressu" title="Pressure"/>
+                </div>
+            </div>
+
+            <!-- Dashboard Row 2 -->
+            <!--<div class="row">-->
+            <!--<div class="col-md-4">-->
+            <!--<util:settingTemplate id="tag4" sensorCode="VIBRAX" title="Vibration"/>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-4">-->
+            <!--<util:settingTemplate id="tag5" sensorCode="ACUST" title="Acoustic"/>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-4">-->
+            <!--<util:settingTemplate id="tag6" sensorCode="acust" title="Light"/>-->
+            <!--</div>-->
+
+            <!--</div>-->
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.2.5/jquery.bootstrap-touchspin.min.js"><!-- required for FF3 and Opera --></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-touchspin/4.2.5/jquery.bootstrap-touchspin.min.css"/>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" type="text/css"
+          rel="stylesheet"/>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"><!-- required for FF3 and Opera --></script>
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/sensorRangeSetting.js')}"
+                var="sensorRangeSetting"/>
+    <script src="${sensorRangeSetting}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+</jsp:root>

@@ -1,6 +1,7 @@
 package com.soft.app.entity.vcc.iot;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,9 @@ public class IotDevice extends BaseEntity{
     @NotNull
     private String deviceName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotDevice")
-    private Set<IotSensor> iotSensor;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotDevice")
     private IotMachine iotMachine;
+
+    private String ouCode;
 }

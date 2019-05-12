@@ -26,7 +26,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if (BeanUtils.isNotNull(modelAndView) && BeanUtils.isNotNull(authorizeUtil.getOuCode())) {
             String ouCode = authorizeUtil.getOuCode();
-            modelAndView.addObject("ouCode",ouCode);
+            modelAndView.getModelMap().put("ouCode",ouCode);
         }
 
         super.postHandle(request, response, handler, modelAndView);

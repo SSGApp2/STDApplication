@@ -40,7 +40,7 @@ public class WebController {
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
+    public String homePage() {
         return "redirect:/dashboard";
     }
 }

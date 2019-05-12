@@ -9,6 +9,7 @@
 
     <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true"/>
     <jsp:directive.attribute name="title" type="java.lang.String" required="true" rtexprvalue="true"/>
+    <jsp:directive.attribute name="sensorCode" type="java.lang.String" required="true" rtexprvalue="true"/>
     <style>
         .pointer {
             cursor: pointer;
@@ -23,7 +24,7 @@
     <div class="card-box divtoBlink ">
         <h4 class="header-title m-t-0 m-b-30">${title}</h4>
 
-        <div id="${id}" class="chartOne">
+        <div id="${id}" class="chartOne" code="${sensorCode}">
             <jsp:text/>
         </div>
     </div>

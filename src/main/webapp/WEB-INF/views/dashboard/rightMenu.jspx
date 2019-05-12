@@ -1,0 +1,35 @@
+
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" id="footer" version="2.0">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <jsp:output omit-xml-declaration="yes"/>
+
+
+  <style>
+    .fixed-plugin {
+      position: fixed;
+      top: 115px;
+      right: 0;
+      width: 64px;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1031;
+      border-radius: 8px 0 0 8px;
+      text-align: center;
+    }
+
+    .fixed-plugin .fa-save {
+      color: #FFFFFF;
+      padding: 10px;
+      border-radius: 0 0 6px 6px;
+      width: auto;
+    }
+  </style>
+
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" >
+        <i class="fa fa-save fa-2x"> </i>
+      </a>
+    </div>
+  </div>
+
+</div>

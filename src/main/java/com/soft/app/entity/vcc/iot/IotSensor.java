@@ -1,5 +1,6 @@
 package com.soft.app.entity.vcc.iot;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +25,15 @@ public class IotSensor extends BaseEntity{
 
     private Double normalValue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iotDevice")
-    IotDevice iotDevice;
+    private Integer seq;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotSensor")
-    private Set<IotSensorRange> iotSensorRange;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iotMachine")
+    IotMachine iotMachine;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "iotSensor")
+    private IotSensorRange iotSensorRange;
+
 
 }

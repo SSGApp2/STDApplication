@@ -1,5 +1,6 @@
 package com.soft.app.entity.vcc.iot;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +26,5 @@ public class IotFootprint extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotFootprint")
     private Set<IotFootprintMachine> iotFootPrintMachines = new HashSet<IotFootprintMachine>();
 
+    private String ouCode;
 }

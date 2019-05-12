@@ -1,6 +1,7 @@
 package com.soft.app.entity.base;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,10 +23,12 @@ public abstract class BaseEntity implements Serializable {
 
     /**
      */
+    @JsonIgnore
     private String createdBy;
 
     /**
      */
+    @JsonIgnore
     private String updatedBy;
 
     /**
@@ -34,16 +37,14 @@ public abstract class BaseEntity implements Serializable {
 
     /**
      */
-    private String ouCode;
-
-    /**
-     */
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date createdDate;
 
     /**
      */
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date updatedDate;

@@ -16,4 +16,9 @@
     <definition name="dashboard/mainDashboard" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/mainDashboard.jspx" />
     </definition>
+
+    <definition name="dashboard/setting" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/setting.jspx" />
+        <put-attribute name="rightMenu" value="/WEB-INF/views/dashboard/rightMenu.jspx" />
+    </definition>
 </tiles-definitions>

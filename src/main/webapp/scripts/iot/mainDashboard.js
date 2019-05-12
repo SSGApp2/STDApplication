@@ -1,7 +1,7 @@
 var intervalFetchData;
 const _TIME_FETCH_DATA = 1*1000; //s * ms
-const _MAX_DATA_TIME=5*60;// min * sec
-const  _TICK_INTERVAL=1*60*1000 // min * sec * ms
+const _MAX_DATA_TIME=1*60;// min * sec
+const  _TICK_INTERVAL=0.5*60*1000 // min * sec * ms
 var MainSensorCurrent={};
 $(function () {
 
@@ -16,7 +16,8 @@ $(function () {
 
     $('.chartOne').each(function (ele) {
         var id = $(this).attr('id');
-        initialHighChart(id);
+        var sensorCode = $(this).attr('code');
+        initialHighChart(id,sensorCode);
     });
 })
 
@@ -46,7 +47,7 @@ function initialHighChart(element,sensorCode) {
                     setInterval(function () {
                         console.log('series size : ',series.points.length);
                         //realTime data
-                        var x = (new Date()).getTime(), // current time
+                        var x = (new Date(MainSensorCurrent['dateTime'])).getTime(), // current time
                             y = parseFloat(MainSensorCurrent[sensorCode]);
                         var data=[x,y];
                         series.addPoint(data, true, true);
@@ -72,7 +73,8 @@ function initialHighChart(element,sensorCode) {
         },
         xAxis: {
             type: "datetime",
-            tickInterval: _TICK_INTERVAL
+            tickInterval: _TICK_INTERVAL,
+            showLastLabel:true
         },
         yAxis: {
             title: {
