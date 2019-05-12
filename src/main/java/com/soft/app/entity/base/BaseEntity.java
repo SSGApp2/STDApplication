@@ -3,6 +3,7 @@ package com.soft.app.entity.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -49,5 +50,6 @@ public abstract class BaseEntity implements Serializable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date updatedDate;
 
-    protected Boolean isActive;
+
+    private String isActive; //Y, N active
 }

@@ -44,20 +44,19 @@
             </div>
 
             <!-- Dashboard Row 2 -->
-            <!--<div class="row">-->
-            <!--<div class="col-md-4">-->
-            <!--<util:settingTemplate id="tag4" sensorCode="VIBRAX" title="Vibration"/>-->
-            <!--</div>-->
+            <div class="row">
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag4" sensorCode="VIBRAX" title="Vibration"/>
+                </div>
 
-            <!--<div class="col-md-4">-->
-            <!--<util:settingTemplate id="tag5" sensorCode="ACUST" title="Acoustic"/>-->
-            <!--</div>-->
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag5" sensorCode="ACUST" title="Acoustic"/>
+                </div>
 
-            <!--<div class="col-md-4">-->
-            <!--<util:settingTemplate id="tag6" sensorCode="acust" title="Light"/>-->
-            <!--</div>-->
-
-            <!--</div>-->
+                <div class="col-md-4">
+                    <util:settingTemplate id="tag6" sensorCode="acust" title="Light"/>
+                </div>
+            </div>
 
         </div>
     </div>

@@ -22,11 +22,16 @@
       border-radius: 0 0 6px 6px;
       width: auto;
     }
+    .csave {
+      background-color: green;
+      cursor: pointer;
+      opacity:0.7;
+    }
   </style>
 
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
-      <a href="#" >
+      <a id="btnSave" onclick="saveSensorRange()" >
         <i class="fa fa-save fa-2x"> </i>
       </a>
     </div>

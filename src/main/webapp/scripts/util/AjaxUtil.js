@@ -7,6 +7,10 @@ var pattern = {
     data: '',
     contentType: "application/json; charset=utf-8",
     headers: {Accept: "application/json"},
+    error: function (xhr) {
+        alert('error!');
+        console.log(xhr);
+    }
     //,
     // beforeSend: function () {
     //     $('.dv-background').show();
@@ -24,14 +28,31 @@ var pattern = {
  */
 
 $(document).on({
-    // ajaxStart: function() { $('.dv-background').show();},
-    // ajaxStop: function() { $('.dv-background').hide(); }
+    ajaxStart: function () {
+        $('.dv-background').show();
+    },
+    ajaxStop: function () {
+        $('.dv-background').hide();
+    }
 });
 
 AjaxUtil.post = function (strUrl, jsonData, bAsync, eBackdrop) {
 
     var options = {
         type: "POST",
+        url: session['context'] + strUrl,
+        data: jsonData,
+        async: bAsync
+    };
+
+    var settings = $.extend({}, pattern, options);
+    return $.ajax(settings);
+};
+
+AjaxUtil.patch = function (strUrl, jsonData, bAsync, eBackdrop) {
+
+    var options = {
+        type: "PATCH",
         url: session['context'] + strUrl,
         data: jsonData,
         async: bAsync
@@ -64,3 +85,7 @@ AjaxUtil.delete = function (strUrl, jsonData, bAsync, eBackdrop) {
     var settings = $.extend({}, pattern, options);
     return $.ajax(settings);
 };
+
+AjaxUtil.list = function (listAjaxSaveData) {
+    return $.when.apply(null, listAjaxSaveData);
+}

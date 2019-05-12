@@ -28,7 +28,7 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
     @Override
     public List<IotMachine> findByOuth() {
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class,"iotM").createAlias("iotM.iotDevice","iod");
-        criteria.add(Restrictions.eq("ouCode", authorizeUtil.getOuCode()));
+        criteria.add(Restrictions.eq("iod.ouCode", authorizeUtil.getOuCode()));
         return criteria.list();
     }
 }
