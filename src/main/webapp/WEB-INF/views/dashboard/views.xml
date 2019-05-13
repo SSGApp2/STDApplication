@@ -9,10 +9,6 @@
         <put-attribute name="body" value="/WEB-INF/views/dashboard/index.jsp" />
     </definition>
 
-    <definition name="dashboard/machineSetting" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/dashboard/machineSetting.jsp" />
-    </definition>
-
     <definition name="dashboard/mainDashboard" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/mainDashboard.jspx" />
     </definition>
