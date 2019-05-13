@@ -3,6 +3,18 @@ const _TIME_FETCH_DATA = 1*1000; //s * ms
 const _MAX_DATA_TIME=1*60;// min * sec
 const  _TICK_INTERVAL=0.5*60*1000 // min * sec * ms
 var MainSensorCurrent={};
+
+
+
+$(document).on({
+    ajaxStart: function () {
+        $('.dv-background').hide();
+    },
+    ajaxStop: function () {
+        $('.dv-background').hide();
+    }
+});
+
 $(function () {
 
 

@@ -1,5 +1,6 @@
 package com.soft.app.util;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -214,5 +215,21 @@ public class BeanUtils {
 			r = obj.toString();
 		}
 		return r;
+	}
+
+	public static String getFileExtension(File file) {
+		String extension = "";
+
+		try {
+			if (file != null && file.exists()) {
+				String name = file.getName();
+				extension = name.substring(name.lastIndexOf("."));
+			}
+		} catch (Exception e) {
+			extension = "";
+		}
+		extension = extension.replace(".", "");
+		return extension;
+
 	}
 }

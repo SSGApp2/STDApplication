@@ -28,8 +28,7 @@ public class IotMachine extends BaseEntity{
     private String lineToken;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "iotDevice")
+    @OneToOne(fetch = FetchType.LAZY)
     private IotDevice iotDevice;
 
 

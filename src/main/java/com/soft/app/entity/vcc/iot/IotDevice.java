@@ -27,4 +27,6 @@ public class IotDevice extends BaseEntity{
     private String deviceName;
 
     private String ouCode;
+
+
 }
