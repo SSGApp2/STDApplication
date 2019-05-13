@@ -27,13 +27,20 @@ public class IotSensor extends BaseEntity{
 
     private Integer seq;
 
+    private Double dangerAmt;
+    private Integer dangerAlert;
+    private String dangerUnit;
+
+    private Double warningAmt;
+    private Integer warningAlert;
+    private String warningUnit;
+
+    private String valueType;
+    private String displayType;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotMachine")
     IotMachine iotMachine;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "iotSensor")
-    private IotSensorRange iotSensorRange;
-
 
 }

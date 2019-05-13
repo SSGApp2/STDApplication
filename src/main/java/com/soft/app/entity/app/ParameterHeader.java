@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(of = {"id"})
-public class AppParameter extends BaseEntity{
+public class ParameterHeader extends BaseEntity{
 
     @NotNull
     @Column(unique = true)
@@ -20,6 +20,6 @@ public class AppParameter extends BaseEntity{
 
     private String parameterDescription;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "appParameter")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parameterHeader")
     private Set<ParameterDetail> parameterDetails = new HashSet<ParameterDetail>();
 }

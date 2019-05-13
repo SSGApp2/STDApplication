@@ -1,7 +1,7 @@
 package com.soft.app.controller;
 
-import com.soft.app.entity.app.AppParameter;
-import com.soft.app.repository.AppParameterRepository;
+import com.soft.app.entity.app.ParameterHeader;
+import com.soft.app.repository.ParameterHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +14,10 @@ import java.util.List;
 public class SwaggerController {
 
     @Autowired
-    private AppParameterRepository appParameterRepository;
+    private ParameterHeaderRepository parameterHeaderRepository;
 
     @GetMapping
-    public List<AppParameter> getAllAppParameter(){
-        return appParameterRepository.findAll();
+    public List<ParameterHeader> getAllAppParameter(){
+        return parameterHeaderRepository.findAll();
     }
 }

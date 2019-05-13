@@ -36,4 +36,6 @@ public class IotMachine extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotMachine")
     private Set<IotSensor> iotSensor;
 
+    private String ouCode;
+
 }

@@ -21,17 +21,6 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(of = { "id" })
 public class IotSensorRange extends BaseEntity{
 
-    private Double dangerAmt;
-    private Integer dangerAlert;
-    private String dangerUnit;
-
-    private Double warningAmt;
-    private Integer warningAlert;
-    private String warningUnit;
-
-    private String valueType;
-    private String displayType;
-
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotSensor")

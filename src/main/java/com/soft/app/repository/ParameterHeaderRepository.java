@@ -1,11 +1,9 @@
 package com.soft.app.repository;
 
-import com.soft.app.entity.app.AppParameter;
+import com.soft.app.entity.app.ParameterHeader;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-public interface AppParameterRepository extends JpaRepository<AppParameter, Long> {
+public interface ParameterHeaderRepository extends JpaRepository<ParameterHeader, Long> {
 
-    AppParameter findByCode(String code);
+    ParameterHeader findByCode(String code);
 }

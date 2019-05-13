@@ -32,4 +32,6 @@ public class AppUser extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "appUser", orphanRemoval = true)
     private Set<AppUserRole> appUserRoles = new HashSet<AppUserRole>();
+
+    private String isAdmin;
 }

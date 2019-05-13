@@ -26,9 +26,5 @@ public class IotDevice extends BaseEntity{
     @NotNull
     private String deviceName;
 
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotDevice")
-    private IotMachine iotMachine;
-
     private String ouCode;
 }
