@@ -8,4 +8,6 @@ public interface IotMachineRepositoryCustom {
 
     List<IotMachine> findByOuth();
 
+    List<IotMachine> findByNotInFootprintOuth();
+
 }

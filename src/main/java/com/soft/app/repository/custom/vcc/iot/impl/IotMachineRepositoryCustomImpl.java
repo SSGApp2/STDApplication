@@ -1,5 +1,6 @@
 package com.soft.app.repository.custom.vcc.iot.impl;
 
+import com.soft.app.entity.vcc.iot.IotFootprintMachine;
 import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.spring.security.AuthorizeUtil;
@@ -7,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,25 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class,"iotM").createAlias("iotM.iotDevice","iod");
         criteria.add(Restrictions.eq("iod.ouCode", authorizeUtil.getOuCode()));
         return criteria.list();
+    }
+
+    @Override
+    public List<IotMachine> findByNotInFootprintOuth() {
+        String ouCode=authorizeUtil.getOuCode();
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class);
+
+//      Find Id in used
+        DetachedCriteria de = DetachedCriteria.forClass(IotFootprintMachine.class);
+        de.createAlias("iotMachine","IotMachine");
+        de.add(Restrictions.eq("IotMachine.ouCode",ouCode));
+        ProjectionList pro = Projections.projectionList();
+        pro.add(Projections.property("IotMachine.id"));
+        de.setProjection(pro);
+        Criterion c1 = Subqueries.propertyNotIn("id", de);
+        criteria.add(c1);
+
+        criteria.add(Restrictions.eq("ouCode",ouCode));
+        return criteria.list();
+
     }
 }

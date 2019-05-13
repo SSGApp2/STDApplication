@@ -9,6 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import com.soft.app.entity.vcc.iot.IotMachine;
+import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,15 +30,26 @@ public class IotMachineControllerJson {
     @Autowired
     IotDeviceRepository iotDeviceRepository;
 
+    @Autowired
+    IotMachineRepositoryCustom iotMachineRepositoryCustom;
+
     @PostMapping("/")
-    public List<IotMachine> createIotMachine(@RequestBody IotMachine iotm){
-        IotDevice iotDevice= iotDeviceRepository.findById(1l).get();
-        IotMachine iotMachine=new IotMachine();
+    public List<IotMachine> createIotMachine(@RequestBody IotMachine iotm) {
+        IotDevice iotDevice = iotDeviceRepository.findById(1l).get();
+        IotMachine iotMachine = new IotMachine();
         iotMachine.setIotDevice(iotDevice);
         iotMachine.setMacName("002");
         iotMachine.setMacCode("002");
         iotMachineRepository.save(iotMachine);
-        return  null;
+        return null;
+    }
+
+
+    @GetMapping("findByNotInFootprintOuth")
+    public List<IotMachine> findByNotInFootprintOuth() {
+        return iotMachineRepositoryCustom.findByNotInFootprintOuth();
+
     }
 
 }
+

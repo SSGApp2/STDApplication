@@ -21,16 +21,21 @@
         <div class="col-lg-12 ">
             <div class="card-box">
 
-                <div class="col-lg-6 center">
+                <div class="col-lg-8 center">
                     <div class="input-group">
-                        <div class="custom-file">
-                            <input id="imgInp" type="file" name="pic" accept="image/*"
-                                   aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label text-left" for="imgInp">Choose file</label>
-                        </div>
-                        <div class="input-group-prepend">
-                            <button id="btnUpload" style="margin-left: 10px" type="button" class="btn btn-info btn-md ">Save</button>
-                        </div>
+                        <form action="/api/common/upload" method="post" enctype="multipart/form-data">
+                            <div class="custom-file">
+                                <input id="imgInp" type="file" name="file" accept="image/*"
+                                       aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label text-left" for="imgInp">Choose file</label>
+
+                            </div>
+                            <div class="input-group-prepend">
+                                <button id="btnUpload" style="margin-left: 10px" type="submit"
+                                        class="btn btn-info btn-md ">Save
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -40,15 +45,22 @@
 
 
     <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div id="box-one" class="draggable">
+                    <p> Machine 1 </p>
+                </div>
+                <div id="box-two" class="draggable">
+                    <p> Machine 2 </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-9">
             <div class="card-box">
-                <div>
-                    <div id="box-one" class="draggable">
-                        <p> Machine 1 </p>
-                    </div>
-                    <div id="box-two" class="draggable">
-                        <p> Machine 2 </p>
-                    </div>
+                <div id="divDropBox">
+
 
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-interval="false"
                          data-ride="carousel">
@@ -56,6 +68,8 @@
                             <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
                         </ol>
                         <div class="carousel-inner " role="listbox">
+
+
                             <div class="carousel-item active">
                                 <img class="d-block img-fluid dropzone "
                                      src="https://coderthemes.com/minton/dark/assets/images/small/img1.jpg"
@@ -65,6 +79,7 @@
                                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                 </div>
                             </div>
+
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -77,8 +92,11 @@
                     </div>
                 </div>
                 <div class="center">
-                    <button id="btnSave" style="margin-right: 10px" type="button" class="btn btn-primary btn-md ">Save</button>
-                    <button id="btnDelete" style="margin-right: 10px" type="button" class="btn btn-danger btn-md ">Delete</button>
+                    <button id="btnSave" style="margin-right: 10px" type="button" class="btn btn-primary btn-md ">Save
+                    </button>
+                    <button id="btnDelete" style="margin-right: 10px" type="button" class="btn btn-danger btn-md ">
+                        Delete
+                    </button>
                     <button id="btnRevert" type="button" class="btn btn-info btn-md ">Revert</button>
                 </div>
             </div>
@@ -89,14 +107,7 @@
                 <table id="tbFootprit" class="table table-borderless">
                     <thead class="thead-dark">
                     </thead>
-                    <tbody>
-                    <tr class="bg-success text-white">
-                        <td>Plant1</td>
-                    </tr>
-                    <tr>
-                        <td>Plant2</td>
-                    </tr>
-                    </tbody>
+                    <tbody id="tbFootprint"></tbody>
                 </table>
             </div>
         </div>
@@ -106,15 +117,22 @@
         <link rel="stylesheet" type="text/css" href="${plotdevice_css}"/>
 
         <style>
-            #tbFootprit tr{
+            #tbFootprit tr {
                 cursor: pointer;
             }
+
             #tbFootprit tr:hover {
                 background-color: rgba(0, 0, 0, 0.9);
+            }
+
+            form {
+                display: inherit;
+                width: 80%;
             }
         </style>
         <%--Script--%>
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"><!-- required for FF3 and Opera --></script>
+        <script src="http://malsup.github.io/jquery.form.js"><!-- required for FF3 and Opera --></script>
 
         <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create.js')}"
                     var="footprint_create"/>
