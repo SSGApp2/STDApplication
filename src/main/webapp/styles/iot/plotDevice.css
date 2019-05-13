@@ -6,10 +6,12 @@
     float:left;
     background-color: #2196F3;
     color: white;
-    padding:10px;
-    margin: 10px;
+    padding:0px;
+    margin: 0px;
     z-index: 20;
     position: absolute;
+    /*-webkit-transform: translate(0px, 0px);*/
+    /*transform: translate(0px, 0px);*/
 }
 .dropzone {
 
@@ -33,7 +35,7 @@
 
 .carousel-inner img {
     margin: auto;
-    width: 80%;
+    width: 100%;
 }
 
 

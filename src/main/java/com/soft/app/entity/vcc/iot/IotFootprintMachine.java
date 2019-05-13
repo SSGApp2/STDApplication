@@ -1,5 +1,6 @@
 package com.soft.app.entity.vcc.iot;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,16 +20,17 @@ public class IotFootprintMachine extends BaseEntity {
     private Double posX;
     private Double posY;
 
+
+    @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotFootprint")
     private IotFootprint iotFootprint;
 
+
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotMachine")
     private IotMachine iotMachine;
-
-
 
 }

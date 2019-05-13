@@ -1,7 +1,6 @@
 package com.soft.app.controller;
 
 import com.soft.app.entity.vcc.iot.IotSensor;
-import com.soft.app.repository.custom.vcc.iot.IotFootprintRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
 import org.apache.logging.log4j.LogManager;
@@ -21,17 +20,17 @@ public class DashboardController {
     private static final Logger LOGGER = LogManager.getLogger(DashboardController.class);
 
     @Autowired
-    private IotFootprintRepositoryCustom iotFootprintRepositoryCustom;
+    private IotMachineRepositoryCustom iotMachineRepositoryCustom;
 
     @Autowired
     private IotSensorRepositoryCustom iotSensorRepositoryCustom;
 
-    @Autowired
-    private IotMachineRepositoryCustom iotMachineRepositoryCustom;
+
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-        model.addAttribute("iotFootprints", iotFootprintRepositoryCustom.findByOuth());
+//        model.addAttribute("iotFootprints", );
+//        model.addAttribute("iotMachines", );
         //FIRST PAGE
         return "dashboard/index";
     }

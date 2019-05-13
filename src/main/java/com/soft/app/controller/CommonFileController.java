@@ -5,10 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,39 +18,7 @@ import java.net.URL;
 public class CommonFileController {
     private static final Logger LOGGER = LogManager.getLogger(CommonFileController.class);
 
-//    @GetMapping("image")
-//    public void urlImage(HttpServletRequest request, HttpServletResponse response
-//            , @RequestParam(value = "moduleCode", required = false) String moduleCode
-//            , @RequestParam(value = "fileName", required = false) String fileName
-//    ) {
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-//        OutputStream outputStream = null;
-//        InputStream inputStream = null;
-//        MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
-//        try {
-//
-//            if (file.exists() && !file.isDirectory()) {
-//                switch (BeanUtils.getFileExtension(file)) {
-//                    case "png":
-//                        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-//                        break;
-//                    case "jpeg":
-//                        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-//                        break;
-//                    case "jpg":
-//                        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-//                        break;
-//                    default:
-//                        response.setContentType(mimetypesFileTypeMap.getContentType(fileName)) break;
-//
-//                }
-//            }
-//        } catch (Exception e) {
-//            LOGGER.error("error {}", e.getMessage(), e);
-//        }
-//    }
-
+    //Preview Image
     @GetMapping(value = "/image", produces = {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_PNG_VALUE})
     @ResponseBody
     public byte[] getImage( @RequestParam(value = "fileName", required = false) String fileName) throws IOException {
@@ -62,4 +28,16 @@ public class CommonFileController {
         InputStream in = url.openStream();
         return IOUtils.toByteArray(in);
     }
+
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        String fileName=multipartFile.getName();
+        byte[] bytes = multipartFile.getBytes();
+        String pathFile="/home/thongchai/Pictures/images/";
+        if (!multipartFile.isEmpty()) {
+            File file = new File(pathFile+fileName);
+        }
+        return "success";
+    }
+
 }
