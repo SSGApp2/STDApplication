@@ -39,7 +39,6 @@ public class IotMachineControllerJson {
         IotMachine iotMachine = new IotMachine();
         iotMachine.setIotDevice(iotDevice);
         iotMachine.setMacName("002");
-        iotMachine.setMacCode("002");
         iotMachineRepository.save(iotMachine);
         return null;
     }

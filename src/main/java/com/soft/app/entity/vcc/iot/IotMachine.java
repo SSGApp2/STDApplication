@@ -2,7 +2,6 @@ package com.soft.app.entity.vcc.iot;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,21 +19,27 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"id"})
 public class IotMachine extends BaseEntity{
 
-    private String macCode;
+
 
     @NotNull
     private String macName;
 
     private String lineToken;
 
-    @JsonIgnore
+
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private IotDevice iotDevice;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotMachine")
     private Set<IotSensor> iotSensor;
+
+    public void addIotSensor(IotSensor iotSensor){
+        iotSensor.setIotMachine(this);
+        this.iotSensor.add(iotSensor);
+    }
 
     private String ouCode;
 

@@ -23,13 +23,13 @@ public class IotSensorRepositoryCustomImpl implements IotSensorRepositoryCustom 
     @Autowired
     AuthorizeUtil authorizeUtil;
 
+
     @Override
-    public List<IotSensor> findByIotDeviceCodeOth(String deviceCode) {
+    public List<IotSensor> findByMachineIdOth(Long id) {
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensor.class);
         criteria.createAlias("iotMachine","IotMachine");
-        criteria.createAlias("IotMachine.iotDevice","IotDevice");
-        criteria.add(Restrictions.eq("IotDevice.ouCode", authorizeUtil.getOuCode()));
-        criteria.add(Restrictions.eq("IotDevice.deviceCode",deviceCode));
+        criteria.add(Restrictions.eq("IotMachine.ouCode", authorizeUtil.getOuCode()));
+        criteria.add(Restrictions.eq("IotMachine.id",id));
         criteria.addOrder(Order.asc("seq"));
         return criteria.list();
     }

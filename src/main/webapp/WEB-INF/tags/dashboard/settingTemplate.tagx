@@ -21,7 +21,7 @@
     </style>
 
 
-    <div id="${id}" class="card-box panel panel-default" sensor-code="${sensorCode}">
+    <div id="${id}" class="card-box panel panel-default" sensor-code="${sensorCode}" sensor-name="${title}">
         <div class="panel-heading clearfix">
             <h4 class="panel-title pull-left">
                 ${title}

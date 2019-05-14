@@ -1,9 +1,10 @@
 var $deviceCode;
-var $dataDeviceCurrent;
+var $dataDeviceCurrent = [];
 
 $(function () {
     $('.touchspin').TouchSpin({
         min: -1000000000,
+        max:10000000000
         // initval: 0
     });
 })
@@ -42,85 +43,120 @@ function clearField() {
     $('[data-toggle="toggle"][type="checkbox"]').bootstrapToggle('off');
 }
 
-
 function renderData() {
-    AjaxUtil.get('/api/iotsensors/findByDeviceCodeOth', {deviceCode: $deviceCode}).complete(function (xhr) {
+    var iotMachine = {
+        id: $('#ddlDevice :selected').attr('data-id')
+    }
+
+    AjaxUtil.get('/rest-api/iotMachines/' + iotMachine.id + '/iotSensor').complete(function (xhr) {
         if (xhr.status == 200) {
-            $dataDeviceCurrent = xhr.responseJSON;
-            console.log($dataDeviceCurrent);
-            $('#divSensorRange input[data-toggle="toggle"]').bootstrapToggle('on');
-            var mapData = {};
-            $.each($dataDeviceCurrent, function (k, v) {
-                mapData[v.sensorCode] = v;
-            });
-            for (var i = 0; i < $('#divSettingRange .panel').length; i++) {
-
-                var $ele = $('#divSettingRange .panel:eq(' + i + ')');
-                const sensorCode = $ele.attr('sensor-code');
-                var v = mapData[sensorCode];
-                if (v != undefined) {
-                    $ele.attr('idSensorWarning', v.id);
-                    const key = $ele.attr('id');
-                    $('#txtNomal' + key).val(v.normalValue);
-
-                    if (v.iotSensorRange.valueType == "0") { //percent
-                        $('[name="type1' + key + '"]:eq(0)').prop('checked', true); //percent
-                    } else if (v.iotSensorRange.valueType == "1") {
-                        $('[name="type1' + key + '"]:eq(1)').prop('checked', true); //amount
-                    }
-
-                    $('[name="type2' + key + '"][value="' + v.iotSensorRange.displayType + '"]').prop('checked', true); //percent
-
-
-                    $('#txtWarning' + key).val(v.iotSensorRange.warningAmt);
-                    $('#txtWarningAlert' + key).val(v.iotSensorRange.warningAlert);
-                    $('#ddlAlertTimeWR' + key).val(v.iotSensorRange.warningUnit);
-
-                    $('#txtDangerous' + key).val(v.iotSensorRange.dangerAmt);
-                    $('#txtDangerAlert' + key).val(v.iotSensorRange.dangerAlert);
-                    $('#ddlAlertTimeDG' + key).val(v.iotSensorRange.dangerUnit);
-
-                    if (v.isActive == 'Y') {
-                        $('#chkActive' + key).bootstrapToggle('on');
-                    } else {
-                        $('#chkActive' + key).bootstrapToggle('off');
-                    }
-                }
-
-
-            }
-
+            $dataDeviceCurrent = xhr.responseJSON.content;
+            renderDataToForm();
         }
     });
 }
 
+function renderDataToForm() {
+
+    console.log($dataDeviceCurrent);
+    $('#divSensorRange input[data-toggle="toggle"]').bootstrapToggle('on');
+    var mapData = {};
+    $.each($dataDeviceCurrent, function (k, v) {
+        mapData[v.sensorCode] = v;
+    });
+    for (var i = 0; i < $('#divSettingRange .panel').length; i++) {
+
+        var $ele = $('#divSettingRange .panel:eq(' + i + ')');
+        const sensorCode = $ele.attr('sensor-code');
+        var v = mapData[sensorCode];
+        if (v != undefined) {
+            $ele.attr('idSensorWarning', v.id);
+            const key = $ele.attr('id');
+            $('#txtNomal' + key).val(v.normalValue);
+
+            if (v.valueType == "0") { //percent
+                $('[name="type1' + key + '"]:eq(0)').prop('checked', true); //percent
+            } else if (v.valueType == "1") {
+                $('[name="type1' + key + '"]:eq(1)').prop('checked', true); //amount
+            }
+
+            $('[name="type2' + key + '"][value="' + v.displayType + '"]').prop('checked', true); //percent
+
+
+            $('#txtWarning' + key).val(v.warningAmt);
+            $('#txtWarningAlert' + key).val(v.warningAlert);
+            $('#ddlAlertTimeWR' + key).val(v.warningUnit);
+
+            $('#txtDangerous' + key).val(v.dangerAmt);
+            $('#txtDangerAlert' + key).val(v.dangerAlert);
+            $('#ddlAlertTimeDG' + key).val(v.dangerUnit);
+
+            if (v.isActive == 'Y') {
+                $('#chkActive' + key).bootstrapToggle('on');
+            } else {
+                $('#chkActive' + key).bootstrapToggle('off');
+            }
+        }
+
+
+    }
+}
+
 
 function saveSensorRange() {
+    //validate
+    if($('#ddlDevice').val()=="")return false;
+
+
     var listAjaxSaveData = [];
+
+    var mapData = {};
     $.each($dataDeviceCurrent, function (k, v) {
-        var IotSensor = {};
-        var dataForm = getDataFontByIdSensor(v.id);
-        IotSensor.id = v.id;
-        IotSensor.isActive = dataForm.isActive;
-        IotSensor.normalValue = dataForm.normalValue;
-        IotSensor.iotSensorRange = dataForm;
-        IotSensor.iotSensorRange.id = v.iotSensorRange.id;
-        IotSensor.iotSensorRange.isActive = null;
-        listAjaxSaveData.push(AjaxUtil.patch('/rest-api/iotSensors/' + v.id, JSON.stringify(IotSensor)));
+        mapData[v.sensorCode] = v;
     });
-    // listAjaxSaveData.push(saveCombineDemo());
-    if (listAjaxSaveData.length > 0) {
-        AjaxUtil.list(listAjaxSaveData).done(function (x) {
-            alert('Save Success');
-        });
+
+    var iotMachine = {
+        id: $('#ddlDevice :selected').attr('data-id')
     }
+
+    var arrSensor = [];
+    for (var i = 0; i < $('#divSettingRange .panel').length; i++) {
+        var $ele = $('#divSettingRange .panel:eq(' + i + ')');
+        const sensorCode = $ele.attr('sensor-code');
+        var v = mapData[sensorCode];
+        var dataForm = getDataFontByElement($ele);
+        var IotSensor = dataForm;
+        var url = '/api/iotsensors/saveOrUpdate?id=' + iotMachine.id;
+        if (v != undefined) {
+            IotSensor.id = v.id;
+            IotSensor.version=v.version;
+            IotSensor.iotMachine=iotMachine;
+        }
+        arrSensor.push(IotSensor);
+    }
+
+    AjaxUtil.post(url, JSON.stringify(arrSensor)).success(function (data) {
+        $dataDeviceCurrent=data;
+        renderDataToForm();
+    });
+
+
+    // listAjaxSaveData.push(saveCombineDemo());
+    // if (listAjaxSaveData.length > 0) {
+    //     AjaxUtil.list(listAjaxSaveData).done(function (x) {
+    //         alert('Save Success');
+    //     });
+
 
 }
 
-function getDataFontByIdSensor(id) {
-    var $ele = $('[idSensorWarning="' + id + '"]');
+function getDataFontByElement($ele) {
+    // var $ele = $('[idSensorWarning="' + id + '"]');
     const key = $ele.attr('id');
     var data = {
+        sensorCode: $ele.attr('sensor-code'),
+        sensorName: $ele.attr('sensor-name'),
+
         normalValue: $('#txtNomal' + key).val(),
         warningAmt: $('#txtWarning' + key).val(),
         warningAlert: $('#txtWarningAlert' + key).val(),
@@ -132,6 +168,8 @@ function getDataFontByIdSensor(id) {
 
         displayType: $('[name="type2' + key + '"]:checked').val(),
         isActive: $('#chkActive' + key).prop('checked'),
+
+
     }
     if (data.isActive) {
         data.isActive = 'Y';

@@ -10,4 +10,6 @@ public interface IotMachineRepositoryCustom {
 
     List<IotMachine> findByNotInFootprintOuth();
 
+    IotMachine findByIdOuth(Long id);
+
 }
