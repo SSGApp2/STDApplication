@@ -16,13 +16,13 @@ $('#btnSaveMachine').click(function () {
         "id": $('#deviceName').val()
     };
     if(update_create_status == 0) {
-        AjaxUtil.post('/api/iotmachine/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
+        AjaxUtil.post('/api/iotmachines/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
             console.log(xhr.status);
             location.reload();
         });
     }else{
         $.ajax({
-            url: "/api/iotmachine/" + $('#machineName').data("idmachine"),
+            url: "/api/iotmachines/" + $('#machineName').data("idmachine"),
             type: 'PUT',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),

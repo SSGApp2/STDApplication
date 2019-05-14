@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = { "id" })
+@EqualsAndHashCode
 public class IotSensor extends BaseEntity{
 
     private String sensorCode;
@@ -43,4 +43,8 @@ public class IotSensor extends BaseEntity{
     @JoinColumn(name = "iotMachine")
     IotMachine iotMachine;
 
+    @Override
+    public String toString() {
+        return "id : "+String.valueOf(this.getId());
+    }
 }

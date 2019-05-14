@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/iotmachine")
+@RequestMapping("api/iotmachines")
 public class IotMachineControllerJson {
     private static final Logger LOGGER = LogManager.getLogger(IotMachineControllerJson.class);
 

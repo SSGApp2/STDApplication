@@ -6,7 +6,7 @@
 <tiles-definitions>
 
     <definition name="dashboard/index" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/dashboard/index.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/index.jspx" />
     </definition>
 
     <definition name="dashboard/mainDashboard" extends="default">
@@ -17,4 +17,10 @@
         <put-attribute name="body" value="/WEB-INF/views/dashboard/setting.jspx" />
         <put-attribute name="rightMenu" value="/WEB-INF/views/dashboard/rightMenu.jspx" />
     </definition>
+
+
+    <definition name="dashboard/device" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/dashboardDevice.jspx" />
+    </definition>
+
 </tiles-definitions>

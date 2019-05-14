@@ -30,6 +30,7 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
     public List<IotMachine> findByOuth() {
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class,"iotM").createAlias("iotM.iotDevice","iod");
         criteria.add(Restrictions.eq("iod.ouCode", authorizeUtil.getOuCode()));
+        criteria.addOrder(Order.asc("macName"));
         return criteria.list();
     }
 

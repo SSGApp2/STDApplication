@@ -25,27 +25,32 @@ public class DashboardController {
     private IotSensorRepositoryCustom iotSensorRepositoryCustom;
 
 
-
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
 //        model.addAttribute("iotFootprints", );
-//        model.addAttribute("iotMachines", );
+        model.addAttribute("iotMachines", iotMachineRepositoryCustom.findByOuth());
         //FIRST PAGE
         return "dashboard/index";
     }
 
     @GetMapping("main/{id}")
-    private String mainDashboard(ModelMap model , @PathVariable(value = "id") Long id) {
-        IotMachine iotMachine=iotMachineRepositoryCustom.findByIdOuth(id);
-        model.put("macName",iotMachine.getMacName());
+    private String mainDashboard(ModelMap model, @PathVariable(value = "id") Long id) {
+        IotMachine iotMachine = iotMachineRepositoryCustom.findByIdOuth(id);
+        model.put("macName", iotMachine.getMacName());
         model.put("iotSensors", iotMachine.getIotSensor());
         return "dashboard/mainDashboard";
     }
 
     @GetMapping("setting")
     private String settingRate(ModelMap model) {
-        model.addAttribute("iotMachine",iotMachineRepositoryCustom.findByOuth());
+        model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
         return "dashboard/setting";
+    }
+
+    @GetMapping("device")
+    private String device(ModelMap model) {
+        model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
+        return "dashboard/device";
     }
 
 
