@@ -18,6 +18,7 @@ $('#btnSaveMachine').click(function () {
     if(update_create_status == 0) {
         AjaxUtil.post('/api/iotmachine/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
             console.log(xhr.status);
+            console.log(xhr);
             location.reload();
         });
     }else{
@@ -50,10 +51,10 @@ $('.btnEditMachine').click(function () {
 
 $('.btnDeleteMachine').click(function () {
     var idMachine = $(this).data("idmachine");
-    var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
-   AjaxUtil.delete('/rest-api/iotMachines/'+idMachine).complete(function (xhr) {
+    var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
+   AjaxUtil.delete('/api/iotmachine/'+idMachine).complete(function (xhr) {
        console.log(xhr.status);
-       if(xhr.status == 204) {
+       if(xhr.status == 200) {
                         $('.row-machine[data-idmachine=' + idMachine + ']').remove();
                     }
    });
