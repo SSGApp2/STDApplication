@@ -1,33 +1,51 @@
 var machineSetting = {};
+var update_create_status = 0;
 $('#btnAddMachine').click(function () {
+    update_create_status = 0;
     $('#iotmachinemodel').modal('show');
     $('#titlemodalMachine').text('Add Machine');
     $('#machineName').val("");
-    machineSetting.FindDeviceNotMachine();
+    //machineSetting.FindDeviceNotMachine();
 });
 
 $('#btnSaveMachine').click(function () {
     var machineName = $('#machineName').val();
     var data = {
-        "iotDevice": {
-            "id": 4
-        },
-        "macName": "Machine005"
+        "macName": machineName,
+        "macCode": "",
+        "id": $('#deviceName').val()
     };
-    console.log(data);
-    AjaxUtil.post('/rest-api/iotMachines',JSON.stringify(data));
+    if(update_create_status == 0) {
+        AjaxUtil.post('/api/iotmachine/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
+            console.log(xhr.status);
+            location.reload();
+        });
+    }else{
+        $.ajax({
+            url: "/api/iotmachine/" + $('#machineName').data("idmachine"),
+            type: 'PUT',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            complete: function(result) {
+                console.log(result.status);
+                location.reload();
+            }
+        });
+    }
 });
 
 $('.btnEditMachine').click(function () {
+    update_create_status = 1;
    var idMachine = $(this).data("idmachine");
-   var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
-   var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(2)').text();
+   var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
+   var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
    var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
     $('#iotmachinemodel').modal('show');
     $('#deviceName').val(deviceID);
     $('#titlemodalMachine').text('Edit Machine');
     $('#machineName').val(machineName);
-    machineSetting.FindDeviceNotMachine('EDIT',deviceID);
+    $('#machineName').data("idmachine", idMachine);
+    // machineSetting.FindDeviceNotMachine('EDIT',deviceID);
 });
 
 $('.btnDeleteMachine').click(function () {
