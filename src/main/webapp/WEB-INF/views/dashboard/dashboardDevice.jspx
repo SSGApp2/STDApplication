@@ -1,0 +1,80 @@
+<jsp:root xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/dashboard" version="2.0">
+
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+        }
+        .imgIcon{
+            display: block;
+            text-align: center;
+            margin: auto;
+        }
+        .dpreal{
+            color: white;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >ACUST</h4>
+                    <img class="imgIcon" src="/resources/images/speaker.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="acust"><jsp:text/></h3>
+                </div>
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >HUMID</h4>
+                    <img class="imgIcon" src="/resources/images/humidity.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="humid"><jsp:text/></h3>
+                </div>
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >LIGHT</h4>
+                    <img class="imgIcon" src="/resources/images/light.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="light"><jsp:text/></h3>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card-box">
+                    <img class="center" src="https://th.mouser.com/images/boschsensortec/lrg/XDK_DSL.JPG"/>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >PRESSU</h4>
+                    <img class="imgIcon" src="/resources/images/pressure.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="pressu"><jsp:text/></h3>
+                </div>
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >TEMP</h4>
+                    <img class="imgIcon" src="/resources/images/thermometer.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="temp"><jsp:text/></h3>
+                </div>
+                <div class="card-box">
+                    <h4 class="header-title m-t-0 " >VIBRA</h4>
+                    <img  class="imgIcon" src="/resources/images/language.png"/>
+                    <h3 class="text-muted m-b-25 font-13 dpreal" code="vibra"><jsp:text/></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <h4 class="header-title m-t-0">Latest Projects</h4>
+                    <p class="text-muted m-b-25 font-13">
+                        Your awesome text goes here.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/dashboardDevice.js')}" var="dashboardDevice"/>
+    <script src="${dashboardDevice}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
+</jsp:root>

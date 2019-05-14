@@ -4,7 +4,7 @@ $(function () {
     var percent = $('.percent');
     var status = $('#status');
 
-    // LoadData();
+    LoadData();
 
     $('form').ajaxForm({
         beforeSend: function () {

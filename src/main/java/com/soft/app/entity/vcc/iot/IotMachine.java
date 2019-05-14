@@ -19,8 +19,6 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"id"})
 public class IotMachine extends BaseEntity{
 
-
-
     @NotNull
     private String macName;
 
