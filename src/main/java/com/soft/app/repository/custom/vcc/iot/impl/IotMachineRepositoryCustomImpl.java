@@ -52,4 +52,13 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
         return criteria.list();
 
     }
+
+    @Override
+    public IotMachine findByIdOuth(Long id) {
+        String ouCode=authorizeUtil.getOuCode();
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class);
+        criteria.add(Restrictions.eq("ouCode",ouCode));
+        criteria.add(Restrictions.eq("id",id));
+        return (IotMachine)criteria.uniqueResult();
+    }
 }

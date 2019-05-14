@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id" })
+//@EqualsAndHashCode(of = { "id" })
 public class IotSensor extends BaseEntity{
 
     private String sensorCode;

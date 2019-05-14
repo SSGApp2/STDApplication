@@ -20,7 +20,8 @@
                         <select class="form-control" id="ddlDevice">
                             <option></option>
                             <c:forEach items="${iotMachine}" var="iotmachine">
-                                <option value="${iotmachine.iotDevice.deviceCode}"
+                                <option value="${iotmachine.id}"
+                                        data-id="${iotmachine.id}"
                                         code="${iotmachine.iotDevice.deviceCode}">${iotmachine.macName}</option>
                             </c:forEach>
                         </select>

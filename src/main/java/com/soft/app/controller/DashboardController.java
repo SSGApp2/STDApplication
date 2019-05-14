@@ -1,5 +1,6 @@
 package com.soft.app.controller;
 
+import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.entity.vcc.iot.IotSensor;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
@@ -8,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,10 +34,11 @@ public class DashboardController {
         return "dashboard/index";
     }
 
-    @GetMapping("main")
-    private String mainDashboard(ModelMap model) {
-        List<IotSensor> iotSensor = iotSensorRepositoryCustom.findByIotDeviceCodeOth("XDK002");
-        model.put("iotSensors", iotSensor);
+    @GetMapping("main/{id}")
+    private String mainDashboard(ModelMap model , @PathVariable(value = "id") Long id) {
+        IotMachine iotMachine=iotMachineRepositoryCustom.findByIdOuth(id);
+        model.put("macName",iotMachine.getMacName());
+        model.put("iotSensors", iotMachine.getIotSensor());
         return "dashboard/mainDashboard";
     }
 
