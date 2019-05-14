@@ -7,15 +7,12 @@ import com.soft.app.repository.vcc.iot.IotMachineRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -33,17 +30,28 @@ public class IotMachineControllerJson {
     @Autowired
     IotMachineRepositoryCustom iotMachineRepositoryCustom;
 
-    @PostMapping("/")
-    public List<IotMachine> createIotMachine(@RequestBody IotMachine iotm) {
-        IotDevice iotDevice = iotDeviceRepository.findById(1l).get();
+    @PostMapping("/createIotMachine")
+    public IotMachine createIotMachine(@RequestBody IotMachine iotm) {
+        IotDevice iotDevice = iotDeviceRepository.findById(iotm.getId()).get();
         IotMachine iotMachine = new IotMachine();
         iotMachine.setIotDevice(iotDevice);
-        iotMachine.setMacName("002");
-        iotMachine.setMacCode("002");
-        iotMachineRepository.save(iotMachine);
-        return null;
+        iotMachine.setMacName(iotm.getMacName());
+        iotMachine.setMacCode(iotm.getMacCode());
+        return  iotMachineRepository.save(iotMachine);
     }
 
+    @PutMapping(value="/{id}")
+    public ResponseEntity<IotMachine> updateIotMachine(@PathVariable("id") long id,@RequestBody IotMachine iotm){
+        IotDevice iotDevice = iotDeviceRepository.findById(iotm.getId()).get();
+        return iotMachineRepository.findById(id)
+                .map(record -> {
+                    record.setMacName(iotm.getMacName());
+                    record.setMacCode(iotm.getMacCode());
+                    record.setIotDevice(iotDevice);
+                    IotMachine updated = iotMachineRepository.save(record);
+                    return ResponseEntity.ok().body(updated);
+                }).orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping("findByNotInFootprintOuth")
     public List<IotMachine> findByNotInFootprintOuth() {

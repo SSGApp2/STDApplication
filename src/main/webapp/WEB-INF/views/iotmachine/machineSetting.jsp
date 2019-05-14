@@ -42,7 +42,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="machineName">Machine Name:<span style="color: red">*</span></label>
-                    <input type="text" class="form-control" id="machineName">
+                    <input type="text" class="form-control" id="machineName" data-idmachine="">
                 </div>
                 <div class="form-group">
                     <label for="deviceName">Device Name:</label>
