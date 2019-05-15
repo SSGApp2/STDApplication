@@ -7,71 +7,102 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 40%;
+            width: 60%;
         }
         .imgIcon{
             display: block;
             text-align: center;
             margin: auto;
         }
-        .dpreal{
+        .dpreal {
             color: white;
+            text-align : center;
+        }
+        .app-content, .app-header__logo, .app-header {
+            background-color: #073761;
+        }
+        .card-box {
+            padding: 20px;
+            border: 1px solid rgba(54, 64, 74, 0.08);
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            background-clip: padding-box;
+            margin-bottom: 20px;
+            background-color: unset;
+        }
+        h2 {
+            color : #36d7f1;
+            /*text-shadow: 0px -1px 4px white, 0px -2px 10px yellow, 0px -10px 20px #ff8000, 0px -18px 40px red;*/
+            /*text-shadow: 0px -1px 4px white, 0px -2px 10px yellow, 0px -10px 20px #ff8000;*/
+            /*text-shadow: 0px -1px 4px white, 0px -2px 10px yellow;*/
+            <!--text-shadow: 0px -1px 3px white;-->
+            text-align: center;
+        }
+        .text-muted {
+            color : white !important;
+        }
+        .bg-frame {
+            background-color : #05254030;
+        }
+        .row {
+            margin-bottom: 20px;
         }
     </style>
 
     <div class="container-fluid">
         <!-- Page-Title -->
-        <div class="row">
+        <div class="row bg-frame">
             <div class="col-lg-2">
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >ACUST</h4>
-                    <img class="imgIcon" src="/resources/images/speaker.png"/>
+                    <h2 class="header-title m-t-0 ">Accelerometer</h2>
+                    <img class="imgIcon img-responsive" src="/resources/images/speaker.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="acust"><jsp:text/></h3>
                 </div>
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >HUMID</h4>
-                    <img class="imgIcon" src="/resources/images/humidity.png"/>
+                    <h2 class="header-title m-t-0 " >Huminity</h2>
+                    <img class="imgIcon img-responsive" src="/resources/images/humidity.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="humid"><jsp:text/></h3>
                 </div>
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >LIGHT</h4>
-                    <img class="imgIcon" src="/resources/images/light.png"/>
+                    <h2 class="header-title m-t-0 " >Light</h2>
+                    <img class="imgIcon img-responsive" src="/resources/images/light.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="light"><jsp:text/></h3>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="card-box">
-                    <img class="center" src="https://th.mouser.com/images/boschsensortec/lrg/XDK_DSL.JPG"/>
+                    <!--<img class="center" src="https://th.mouser.com/images/boschsensortec/lrg/XDK_DSL.JPG"/>-->
+                    <img class="center img-responsive" src="/resources/images/device3.png"/>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >PRESSU</h4>
-                    <img class="imgIcon" src="/resources/images/pressure.png"/>
+                    <h2 class="header-title m-t-0 " >Pressure</h2>
+                    <img class="imgIcon img-responsive" src="/resources/images/pressure.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="pressu"><jsp:text/></h3>
                 </div>
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >TEMP</h4>
-                    <img class="imgIcon" src="/resources/images/thermometer.png"/>
+                    <h2 class="header-title m-t-0 " >Temperature</h2>
+                    <img class="imgIcon img-responsive" src="/resources/images/thermometer.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="temp"><jsp:text/></h3>
                 </div>
                 <div class="card-box">
-                    <h4 class="header-title m-t-0 " >VIBRA</h4>
-                    <img  class="imgIcon" src="/resources/images/language.png"/>
+                    <h2 class="header-title m-t-0 " >Vibration</h2>
+                    <img  class="imgIcon img-responsive" src="/resources/images/language.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="vibra"><jsp:text/></h3>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card-box">
-                    <h4 class="header-title m-t-0">Latest Projects</h4>
-                    <p class="text-muted m-b-25 font-13">
-                        Your awesome text goes here.
-                    </p>
-                </div>
-            </div>
-        </div>
+        <!--<div class="row bg-frame">-->
+            <!--<div class="col-lg-12">-->
+                <!--<div class="card-box">-->
+                    <!--<h2 class="header-title m-t-0">Latest Projects</h2>-->
+                    <!--<p class="text-muted m-b-25 font-13">-->
+                        <!--Your awesome text goes here.-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/dashboardDevice.js')}" var="dashboardDevice"/>

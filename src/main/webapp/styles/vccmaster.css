@@ -1,6 +1,6 @@
 /*Menu*/
 .app-content, .app-header__logo, .app-header {
-    background-color: #323B43;
+    background-color: #073761;
 }
 
 .app-sidebar {
@@ -87,7 +87,7 @@ body {
     -moz-border-radius: 5px;
     background-clip: padding-box;
     margin-bottom: 20px;
-    background-color: #36404a;
+    background-color: #040445;
 }
 
 .footer {
