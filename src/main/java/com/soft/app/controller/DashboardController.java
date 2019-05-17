@@ -38,16 +38,16 @@ public class DashboardController {
         return "dashboard/mainDashboard";
     }
 
-    @GetMapping("setting")
-    private String settingRate(ModelMap model) {
-        model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
-        return "dashboard/setting";
-    }
+
 
     @GetMapping("device")
     private String device(ModelMap model) {
         model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
         return "dashboard/device";
+    }
+    @GetMapping("sensorHistory")
+    private String sensorHistory() {
+        return "dashboard/sensorHistory";
     }
 
 

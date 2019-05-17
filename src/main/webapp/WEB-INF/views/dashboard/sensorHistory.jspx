@@ -1,0 +1,30 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 17/5/2562
+  Time: 10:19 น.
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:spring="http://www.springframework.org/tags"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="card-box">
+                    <div id="container">
+                        <jsp:text/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.highcharts.com/stock/highstock.js"><!-- required for FF3 and Opera --></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"><!-- required for FF3 and Opera --></script>
+
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/sensorHistory.js')}" var="sensorHistory"/>
+    <script src="${sensorHistory}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+</jsp:root>

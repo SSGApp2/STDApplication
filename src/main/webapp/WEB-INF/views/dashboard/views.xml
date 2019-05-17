@@ -13,14 +13,13 @@
         <put-attribute name="body" value="/WEB-INF/views/dashboard/mainDashboard.jspx" />
     </definition>
 
-    <definition name="dashboard/setting" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/dashboard/setting.jspx" />
-        <put-attribute name="rightMenu" value="/WEB-INF/views/dashboard/rightMenu.jspx" />
-    </definition>
-
 
     <definition name="dashboard/device" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/dashboardDevice.jspx" />
+    </definition>
+
+    <definition name="dashboard/sensorHistory" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/sensorHistory.jspx" />
     </definition>
 
 </tiles-definitions>
