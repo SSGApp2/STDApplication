@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @EqualsAndHashCode(of = {"id"})
 public class IotSensorCombineDetail extends BaseEntity{
 
@@ -28,7 +32,7 @@ public class IotSensorCombineDetail extends BaseEntity{
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotSensor")
-    private IotSensorCombine IotSensor;
+    private IotSensor IotSensor;
 
 
 

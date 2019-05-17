@@ -1,95 +1,61 @@
 $(function () {
-    //upload file
-    var bar = $('.bar');
-    var percent = $('.percent');
-    var status = $('#status');
+    /* The dragging code for '.draggable' from the demo above
+ * applies to this demo as well so it doesn't have to be repeated. */
 
-    LoadData();
-
-    $('form').ajaxForm({
-        beforeSend: function () {
-            status.empty();
-            var percentVal = '0%';
-            bar.width(percentVal);
-            percent.html(percentVal);
-        },
-        uploadProgress: function (event, position, total, percentComplete) {
-            var percentVal = percentComplete + '%';
-            bar.width(percentVal);
-            percent.html(percentVal);
-        },
-        complete: function (xhr) {
-            status.html(xhr.responseText);
-        }
-    });
-
-    var startPos = {x: 0, y: 0};
-     //ready
-    interact('.draggable')
-        .draggable({
-            // enable inertial throwing
-            inertia: true,
-            // keep the element within the area of it's parent
-            restrict: {
-                // restriction: "parent",
-                endOnly: true,
-                elementRect: {top: 0, left: 0, bottom: 1, right: 1}
-            },
-            revert:"invalid",
-            // enable autoScroll
-            autoScroll: true,
-            // call this function on every dragmove event
-            onmove: dragMoveListener,
-
-        });
-//
-//
- // enable draggables to be dropped into this
+// enable draggables to be dropped into this
     interact('.dropzone').dropzone({
-        // Require a 50% element overlap for a drop to be possible
-        overlap: 0.50,
+        // only accept elements matching this CSS selector
+        accept: '#yes-drop',
+        // Require a 75% element overlap for a drop to be possible
+        overlap: 0.75,
 
         // listen for drop related events:
 
         ondropactivate: function (event) {
             // add active dropzone feedback
-            event.target.classList.add('drop-active');
+            event.target.classList.add('drop-active')
         },
         ondragenter: function (event) {
-            var draggableElement = event.relatedTarget,
-                dropzoneElement = event.target;
+            var draggableElement = event.relatedTarget;
+            var dropzoneElement = event.target;
 
             // feedback the possibility of a drop
-            event.relatedTarget.textContent = 'Dropped target';
-            dropzoneElement.classList.add('drop-target');
+            dropzoneElement.classList.add('drop-target')
+            draggableElement.classList.add('can-drop')
+            draggableElement.textContent = 'Dragged in'
         },
         ondragleave: function (event) {
             // remove the drop feedback style
-            event.relatedTarget.textContent = 'Dropped out target';
-            event.target.classList.remove('drop-target');
-
-
+            event.target.classList.remove('drop-target')
+            event.relatedTarget.classList.remove('can-drop')
+            event.relatedTarget.textContent = 'Dragged out'
         },
         ondrop: function (event) {
-            event.relatedTarget.textContent = 'Dropped';
-            var dropzonePostion = $(event.target).position(),
-                elementPosition = $(event.relatedTarget).position(),
-                x = elementPosition.left - dropzonePostion.left,
-                y = elementPosition.top - dropzonePostion.top;
-
-            console.log('x',x,'y',y);
+            event.relatedTarget.textContent = 'Dropped'
         },
         ondropdeactivate: function (event) {
             // remove active dropzone feedback
-            event.target.classList.remove('drop-active');
-            event.target.classList.remove('drop-target');
+            event.target.classList.remove('drop-active')
+            event.target.classList.remove('drop-target')
         }
     });
 
 
+    interact('.drag-drop')
+        .draggable({
+            inertia: true,
+            modifiers: [
+                interact.modifiers.restrict({
+                    restriction: "parent",
+                    endOnly: true,
+                    elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+                })
+            ],
+            autoScroll: true,
+            // dragMoveListener from the dragging demo above
+            onmove: dragMoveListener
+        });
 })
-
-
 
 function dragMoveListener(event) {
     var target = event.target,
@@ -106,53 +72,3 @@ function dragMoveListener(event) {
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 }
-
-
-function LoadData() {
-    $('.draggable').remove();
-    AjaxUtil.get('/api/iotmachines/findByNotInFootprintOuth').success(function (data) {
-        console.log(data);
-        $.each(data, function (k, v) {
-            $('#carouselExampleFade').before('<div class="draggable">' +
-                '<p>'+v.macName+'</p>' +
-                '</div>');
-        });
-
-    });
-
-    const $tbFootprint = $('#tbFootprint').empty();
-    AjaxUtil.get('/api/iotfootprints/findByOuth').success(function (data) {
-        $.each(data, function (k, v) {
-            $tbFootprint.append('<tr> ' +
-                '<td>v.name</td>' +
-                '</tr>');
-        });
-        //add Active
-        $('#tbFootprint tr:eq(0)').addClass('bg-success text-white');
-    });
-}
-
-
-
-//Upload Image
-$("#imgInp").change(function () {
-    readURL(this);
-});
-
-function readURL(input) {
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            // $('#blah').attr('src', e.target.result);
-            $('.carousel-item').removeClass('active');
-            var length = $('.carousel-indicators li').length;
-            $('.carousel-indicators').append('<li data-target="#carouselExampleFade" data-slide-to="' + length + '"></li>');
-            $('.carousel-inner').append(' <div class="carousel-item active"> <img  src="' + e.target.result + '" alt=""> </div>');
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-

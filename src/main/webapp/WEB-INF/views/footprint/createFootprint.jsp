@@ -45,23 +45,10 @@
 
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card-box">
-                <div id="box-one" class="draggable">
-                    <p> Machine 1 </p>
-                </div>
-                <div id="box-two" class="draggable">
-                    <p> Machine 2 </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-lg-9">
             <div class="card-box">
                 <div id="divDropBox">
-
-
+                    <div id="yes-drop" class="drag-drop"> #no-drop x</div>
                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-interval="false"
                          data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -129,9 +116,27 @@
                 display: inherit;
                 width: 80%;
             }
+
+
+            svg {
+                width: 100%;
+                height: 120px;
+                background-color: #2e9;
+
+                -ms-touch-action: none;
+                touch-action: none;
+            }
+            .edit-rectangle {
+                fill: #92e;
+                stroke: #fff;
+            }
+
+
         </style>
         <%--Script--%>
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"><!-- required for FF3 and Opera --></script>
+        <%--<script src="https://c4d6f7d727e094887e93-4ea74b676357550bd514a6a5b344c625.ssl.cf2.rackcdn.com/interact-1.1.1.min.js"><!-- required for FF3 and Opera --></script>--%>
+
         <script src="http://malsup.github.io/jquery.form.js"><!-- required for FF3 and Opera --></script>
 
         <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create.js')}"

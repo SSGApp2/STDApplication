@@ -1,8 +1,9 @@
 package com.soft.app.spring.security;
 
+import com.soft.app.entity.app.AppOuAuth;
 import com.soft.app.entity.app.AppUser;
 import com.soft.app.entity.app.AppUserOuAuth;
-import com.soft.app.entity.app.AppUserRole;
+import com.soft.app.repository.AppOuAuthRepository;
 import com.soft.app.repository.AppUserOuAuthRepository;
 import com.soft.app.repository.AppUserRepository;
 import com.soft.app.repository.custom.AppUserRepositoryCustom;
@@ -37,6 +38,9 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
     AppUserRepositoryCustom appUserRepositoryCustom;
 
     @Autowired
+    AppOuAuthRepository appOuAuthRepository;
+
+    @Autowired
     AuthorizeUtil authorizeUtil;
 
     //Default Attribute
@@ -61,18 +65,23 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
                 List<AppUserOuAuth> appUserOuAuthList = appUserOuAuthRepository.findByAppUser(appUser);
 
                 authorizeUtil.setUserName(user.getUsername());
+                List<AppOuAuth> ouAuths = new ArrayList<>();
                 if (BeanUtils.isNotEmpty(appUserOuAuthList)) {
-                    authorizeUtil.setOuCode(appUserOuAuthList.get(0).getOuCode());
+                    authorizeUtil.setOuCode(appUserOuAuthList.get(0).getOuCode()); //set First
+                    for (AppUserOuAuth appUserOuAuth : appUserOuAuthList) {
+                        ouAuths.add(appOuAuthRepository.findByOuCode(appUserOuAuth.getOuCode()));
+                    }
                     authorizeUtil.setRoleCode("user");
                 } else {
                     authorizeUtil.setRoleCode("admin");
+                    ouAuths = appOuAuthRepository.findAll();
                 }
 
                 /* Add to Bean SESSION SCOPE */
 
                 //initial Data
-
                 attr.getRequest().getSession(true).setAttribute("userName", userName);
+                attr.getRequest().getSession(true).setAttribute("ouAuths", ouAuths);
 
                 LOGGER.info("session : " + attr.getRequest().getSession().getId());
                 return new org.springframework.security.core.userdetails.User(userName, user.getAccessToken(),

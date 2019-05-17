@@ -15,6 +15,6 @@
     </definition>
 
     <definition name="defaultLogin" template="/WEB-INF/layouts/defaultLogin.jspx">
-        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+        <!--<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />-->
     </definition>
 </tiles-definitions>

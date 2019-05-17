@@ -16,13 +16,11 @@ $(document).on({
 });
 
 $(function () {
-
+    socketSensor.setDeviceCode(deviceCode);
 
     intervalFetchData = setInterval(function () {
-        AjaxUtil.get('/mainsensors/deviceCode', {deviceCode: 'XDK002'}).success(function (json) {
-            MainSensorCurrent=json;
-        });
-        //realTime data
+        MainSensorCurrent=socketSensor.setCurrentData();
+        $('#txtStatus').text('Status : '+SOCKET_DISPLAY_STATUS);
     }, _TIME_FETCH_DATA);
 
 
@@ -57,7 +55,6 @@ function initialHighChart(element,sensorCode) {
                     var series = this.series[0];
 
                     setInterval(function () {
-                        console.log('series size : ',series.points.length);
                         //realTime data
                         var x = (new Date(MainSensorCurrent['dateTime'])).getTime(), // current time
                             y = parseFloat(MainSensorCurrent[sensorCode]);

@@ -1,5 +1,6 @@
 package com.soft.app.controller;
 
+import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.spring.security.AuthorizeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,13 +18,19 @@ public class WebController {
     @Autowired
     AuthorizeUtil authorizeUtil;
 
+    @Autowired
+    private IotMachineRepositoryCustom iotMachineRepositoryCustom;
+
     @GetMapping("welcome")
     public String welcome() {
         return "welcome";
     }
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String homePage() {
-        return "redirect:/dashboard";
+    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
+    public String homePage(ModelMap model) {
+//        model.addAttribute("iotFootprints", );
+        model.addAttribute("iotMachines", iotMachineRepositoryCustom.findByOuth());
+        //FIRST PAGE
+        return "dashboard/index";
     }
 }

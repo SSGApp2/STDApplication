@@ -5,14 +5,26 @@
   Time: 20:06 น.
   To change this template use File | Settings | File Templates.
 -->
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <header class="app-header">
     <a class="app-header__logo" href="index.html">Visciency</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
-        <li class="app-search">
-            <input class="app-search__input" type="search" placeholder="Search">
-            <button class="app-search__button"><i class="fa fa-search"></i></button>
+        <%--<li class="app-search">--%>
+            <%--<input class="app-search__input" type="search" placeholder="Search">--%>
+            <%--<button class="app-search__button"><i class="fa fa-search"></i></button>--%>
+        <%--</li>--%>
+
+            <!--Change OU-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Ou"><i class="fa fa-globe fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <c:forEach items="${ouAuths}" var="ouAuths">
+                    <li><a class="dropdown-item" href="#" onclick="changeOu('${ouAuths.ouCode}')" ><i class="fa fa-cog fa-lg"></i>${ouAuths.ouName}</a></li>
+                </c:forEach>
+            </ul>
         </li>
         <!--Notification Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
@@ -60,13 +72,22 @@
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
                 <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
                 <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                <li><a class="dropdown-item" href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
             </ul>
         </li>
     </ul>
 
     <script type="text/javascript">
         Waves.attach('.app-nav a,.app-sidebar__toggle', ['waves-button']);
-
+        function logout() {
+            window.location.href="/logout";
+            window.location.href="/login";
+        }
+        function changeOu(ouCode) {
+            AjaxUtil.get('/changeOu',{ouCode:ouCode}).success(function (data) {
+                console.log('changeOu');
+                location.reload();
+            });
+        }
     </script>
 </header>

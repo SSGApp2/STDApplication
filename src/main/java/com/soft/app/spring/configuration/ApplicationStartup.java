@@ -3,7 +3,13 @@ package com.soft.app.spring.configuration;
 import com.soft.app.constant.ServerConstant;
 import com.soft.app.entity.app.ParameterDetail;
 import com.soft.app.entity.app.ParameterHeader;
+import com.soft.app.entity.vcc.iot.IotSensor;
+import com.soft.app.entity.vcc.iot.IotSensorCombine;
+import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
 import com.soft.app.repository.ParameterHeaderRepository;
+import com.soft.app.repository.vcc.iot.IotSensorCombineDetailRepository;
+import com.soft.app.repository.vcc.iot.IotSensorCombineRepository;
+import com.soft.app.repository.vcc.iot.IotSensorRepository;
 import com.soft.app.util.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,12 +26,43 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Autowired
     private ParameterHeaderRepository parameterHeaderRepository;
 
+    @Autowired
+    private IotSensorCombineRepository iotSensorCombineRepository;
+
+    @Autowired
+    private IotSensorRepository iotSensorRepository;
+
+    @Autowired
+    private IotSensorCombineDetailRepository iotSensorCombineDetailRepository;
+
+
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         LOGGER.info("ApplicationStartup.....!");
         LOGGER.info("Swagger UI : /swagger-ui.html");
         LOGGER.info("Spring Data REST : /rest-api");
+
+
+//        IotSensor iotSensor = iotSensorRepository.findAll().get(0);
+//        IotSensor iotSensor2 = iotSensorRepository.findAll().get(1);
+//
+//
+//        IotSensorCombine iotSensorCombine = new IotSensorCombine();
+//        iotSensorCombine.setProfileName("Test");
+//        iotSensorCombineRepository.save(iotSensorCombine);
+//
+//
+//        IotSensorCombineDetail iotSensorCombineDetail = new IotSensorCombineDetail();
+//        iotSensorCombineDetail.setIotSensor(iotSensor);
+//        iotSensorCombineDetail.setIotSensorCombine(iotSensorCombine);
+//        iotSensorCombineDetailRepository.save(iotSensorCombineDetail);
+//
+//        IotSensorCombineDetail iotSensorCombineDetail2 = new IotSensorCombineDetail();
+//        iotSensorCombineDetail2.setIotSensor(iotSensor2);
+//        iotSensorCombineDetail2.setIotSensorCombine(iotSensorCombine);
+//        iotSensorCombineDetailRepository.save(iotSensorCombineDetail2);
+
 
 //        Demo
 //        appParameterRepository.deleteAll();

@@ -5,6 +5,7 @@ import com.soft.app.spring.security.AuthorizeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +34,6 @@ public class SecurityController {
         return "login";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(ModelMap model) {
-        model.addAttribute("appRole", appRoleRepository.findAll());
-        return "registration";
-    }
-
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -49,6 +45,14 @@ public class SecurityController {
 
         return "redirect:/login";
     }
+
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(ModelMap model) {
+        model.addAttribute("appRole", appRoleRepository.findAll());
+        return "registration";
+    }
+
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
@@ -66,5 +70,12 @@ public class SecurityController {
             userName = principal.toString();
         }
         return userName;
+    }
+
+    @RequestMapping(value = {"/changeOu"}, method = RequestMethod.GET)
+    public ResponseEntity<String> changeOu(@RequestParam(value = "ouCode") String ouCode) {
+        LOGGER.debug("Change Ou {}", ouCode);
+        authorizeUtil.setOuCode(ouCode);
+        return ResponseEntity.ok().body(ouCode);
     }
 }

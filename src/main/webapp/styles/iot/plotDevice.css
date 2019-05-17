@@ -1,18 +1,20 @@
 
+.drag-drop {
+    display: inline-block;
+    min-width: 40px;
+    padding: 2em 0.5em;
 
-.draggable {
-    width: 100px;
-    height: 100px;
-    float:left;
-    background-color: #2196F3;
-    color: white;
-    padding:0px;
-    margin: 0px;
-    z-index: 20;
-    position: absolute;
-    /*-webkit-transform: translate(0px, 0px);*/
-    /*transform: translate(0px, 0px);*/
+    color: #fff;
+    background-color: #29e;
+    border: solid 2px #fff;
+
+    touch-action: none;
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+
+    transition: background-color 0.3s;
 }
+
 .dropzone {
 
     border: dashed 4px transparent;
