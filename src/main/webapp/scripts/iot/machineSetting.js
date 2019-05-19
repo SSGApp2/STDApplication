@@ -37,10 +37,10 @@ $('#btnSaveMachine').click(function () {
 
 $('.btnEditMachine').click(function () {
     update_create_status = 1;
-   var idMachine = $(this).data("idmachine");
-   var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
-   var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
-   var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
+    var idMachine = $(this).data("idmachine");
+    var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
+    var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
+    var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
     $('#iotmachinemodel').modal('show');
     $('#deviceName').val(deviceID);
     $('#titlemodalMachine').text('Edit Machine');
@@ -52,12 +52,12 @@ $('.btnEditMachine').click(function () {
 $('.btnDeleteMachine').click(function () {
     var idMachine = $(this).data("idmachine");
     var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
-   AjaxUtil.delete('/api/iotmachine/'+idMachine).complete(function (xhr) {
-       console.log(xhr.status);
-       if(xhr.status == 200) {
-                        $('.row-machine[data-idmachine=' + idMachine + ']').remove();
-                    }
-   });
+    AjaxUtil.delete('/api/iotmachines/'+idMachine).complete(function (xhr) {
+        console.log(xhr.status);
+        if(xhr.status == 200) {
+            $('.row-machine[data-idmachine=' + idMachine + ']').remove();
+        }
+    });
 });
 
 machineSetting.FindDeviceNotMachine = function (mode,id) {
