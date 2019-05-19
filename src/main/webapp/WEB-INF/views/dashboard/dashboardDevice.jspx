@@ -103,6 +103,13 @@
         <!--</div>-->
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"><!-- required for FF3 and Opera --></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"><!-- required for FF3 and Opera --></script>
+
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/util/connectRealTimeMainSensor.js')}" var="connectRealTimeMainSensor"/>
+    <script src="${connectRealTimeMainSensor}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/dashboardDevice.js')}" var="dashboardDevice"/>
     <script src="${dashboardDevice}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 

@@ -1,9 +1,8 @@
 var intervalFetchData;
-const _TIME_FETCH_DATA = 1*1000; //s * ms
-const _MAX_DATA_TIME=1*60;// min * sec
-const  _TICK_INTERVAL=0.5*60*1000 // min * sec * ms
-var MainSensorCurrent={};
-
+const _TIME_FETCH_DATA = 1 * 500; //s * ms
+const _MAX_DATA_TIME = 1 * 60;// min * sec
+const _TICK_INTERVAL = 0.5 * 60 * 1000 // min * sec * ms
+var MainSensorCurrent = {};
 
 
 $(document).on({
@@ -19,31 +18,45 @@ $(function () {
     socketSensor.setDeviceCode(deviceCode);
 
     intervalFetchData = setInterval(function () {
-        MainSensorCurrent=socketSensor.setCurrentData();
-        $('#txtStatus').text('Status : '+SOCKET_DISPLAY_STATUS);
+        MainSensorCurrent = socketSensor.setCurrentData();
+        var current_datetime = (new Date(MainSensorCurrent['dateTime']));
+        var formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
+        $('#txtStatus').text('Status : ' + SOCKET_DISPLAY_STATUS );
+        $('#txtLastUpdate').text('Update : ' + formatted_date );
     }, _TIME_FETCH_DATA);
 
 
     $('.chartOne').each(function (ele) {
         var id = $(this).attr('id');
         var sensorCode = $(this).attr('code');
-        initialHighChart(id,sensorCode);
+        initialHighChart(id, sensorCode);
     });
 })
 
-function setAlertTime() {
-    var $div2blink = $(".divtoBlink"); // Save reference, only look this item up once, then save
+var IntervalStatus = {};
 
-    var backgroundInterval = setInterval(function () {
-        $div2blink.toggleClass("badge-danger");
-    }, 1500);
+function setAlertTime(sensorCode, status) {
+    // var $div2blink = $(".divtoBlink"); // Save reference, only look this item up once, then save
+    var $div2blink = $('.chartOne[code="' + sensorCode + '"]').closest(".divtoBlink");
+    $div2blink.removeClass(function (index, className) {
+        return (className.match(/(^|\s)badge-\S+/g) || []).join(' ');
+    });
+    var toggleClass;
+    if (status == "danger") {
+        toggleClass = "badge-danger";
+    } else if (status == "warning") {
+        toggleClass = "badge-warning";
+    }
+    $div2blink.addClass(toggleClass);
+    // IntervalStatus[sensorCode] = setInterval(function () {
+    //     $div2blink.toggleClass(toggleClass);
+    // }, 1000);
 
-    //clear
-    clearInterval(backgroundInterval);
+
 }
 
 
-function initialHighChart(element,sensorCode) {
+function initialHighChart(element, sensorCode) {
     Highcharts.chart(element, {
         chart: {
             type: 'spline',
@@ -58,8 +71,15 @@ function initialHighChart(element,sensorCode) {
                         //realTime data
                         var x = (new Date(MainSensorCurrent['dateTime'])).getTime(), // current time
                             y = parseFloat(MainSensorCurrent[sensorCode]);
-                        var data=[x,y];
+
+                        var data = [x, y];
                         series.addPoint(data, true, true);
+
+                        var status = MainSensorCurrent[sensorCode + "Status"];
+                        // clearInterval(IntervalStatus[sensorCode]);
+                        // if (status) {
+                        setAlertTime(sensorCode, status);
+                        // }
                     }, _TIME_FETCH_DATA);
                 }
             }
@@ -83,7 +103,7 @@ function initialHighChart(element,sensorCode) {
         xAxis: {
             type: "datetime",
             tickInterval: _TICK_INTERVAL,
-            showLastLabel:true
+            showLastLabel: true
         },
         yAxis: {
             title: {
@@ -93,7 +113,8 @@ function initialHighChart(element,sensorCode) {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+
         },
         tooltip: {
             headerFormat: '<b>{series.name}</b><br/>',

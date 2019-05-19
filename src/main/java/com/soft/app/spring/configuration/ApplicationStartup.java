@@ -1,16 +1,11 @@
 package com.soft.app.spring.configuration;
 
 import com.soft.app.constant.ServerConstant;
-import com.soft.app.entity.app.ParameterDetail;
-import com.soft.app.entity.app.ParameterHeader;
-import com.soft.app.entity.vcc.iot.IotSensor;
-import com.soft.app.entity.vcc.iot.IotSensorCombine;
-import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
 import com.soft.app.repository.ParameterHeaderRepository;
+import com.soft.app.repository.custom.ParameterDetailRepositoryCustom;
 import com.soft.app.repository.vcc.iot.IotSensorCombineDetailRepository;
 import com.soft.app.repository.vcc.iot.IotSensorCombineRepository;
 import com.soft.app.repository.vcc.iot.IotSensorRepository;
-import com.soft.app.util.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +30,8 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Autowired
     private IotSensorCombineDetailRepository iotSensorCombineDetailRepository;
 
+    @Autowired
+    private ParameterDetailRepositoryCustom parameterDetailRepositoryCustom;
 
     @Override
     @Transactional
@@ -43,6 +40,8 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         LOGGER.info("Swagger UI : /swagger-ui.html");
         LOGGER.info("Spring Data REST : /rest-api");
 
+        ServerConstant.VCCWebSocketServer = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCWebSocketServer").getParameterValue2();
+        ServerConstant.VCCJobEngine = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCJobEngine").getParameterValue2();
 
 //        IotSensor iotSensor = iotSensorRepository.findAll().get(0);
 //        IotSensor iotSensor2 = iotSensorRepository.findAll().get(1);
@@ -80,17 +79,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 //        appParameter.setParameterDetails(parameterDetails);
 //        appParameterRepository.save(appParameter);
 
-        ParameterHeader appParameterConfig = parameterHeaderRepository.findByCode("50");
-        if (BeanUtils.isNotNull(appParameterConfig)) {
-
-            for (ParameterDetail parameterDetailCf : appParameterConfig.getParameterDetails()) {
-                LOGGER.debug("Parameter : {} Value : {}", String.valueOf(parameterDetailCf.getParameterValue1()), String.valueOf(parameterDetailCf.getParameterValue2()));
-                if (String.valueOf(parameterDetailCf.getParameterValue1()).equals("EngineServer")) {
-                    ServerConstant.EngineServer = parameterDetailCf.getParameterValue2();
-                }
-
-            }
-        }
     }
 
 }

@@ -63,6 +63,7 @@
     <spring:url value="/resources/scripts/plugins/pace.min.js" var="pace_js"/>
     <spring:url value="/resources/scripts/plugins/waves.min.js" var="waves_min_js"/>
     <spring:url value="${urls.getForLookupPath('/resources/scripts/util/AjaxUtil.js')}" var="ajaxutil_js"/>
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/util/CommonMessage.js')}" var="commonmessage_js"/>
 
 
     <script src="${jquery_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
@@ -72,6 +73,8 @@
     <script src="${pace_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${waves_min_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${ajaxutil_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"><!-- required for FF3 and Opera --></script>
+    <script src="${commonmessage_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
     <c:set var="user" value="${pageContext.request.userPrincipal.name}" scope="request"/>
 
@@ -79,7 +82,17 @@
 </head>
 <body class="app sidebar-mini rtl pace-done sidenav-toggled">
 
-
+<script type="text/javascript">
+    var session = {
+        lang: "${lang}",                                             // the language is page language (eg. TH, EN)
+        context: '${pageContext.request.contextPath}',              // the context path
+        time: '${strDate}',                      // the current date with time
+        user: "${user}",
+        ouCode: "${ouCode}",
+        timeout: parseInt("${pageContext.session.maxInactiveInterval}"),
+    };
+    var ServerConstant=JSON.parse('${ServerConstant}');
+</script>
 
 <tiles:insertAttribute name="header" ignore="true"/>
 <tiles:insertAttribute name="menu" ignore="true"/>
@@ -106,15 +119,6 @@
 
 <script type="text/javascript">
     Waves.init();
-
-    var session = {
-        lang: "${lang}",                                             // the language is page language (eg. TH, EN)
-        context: '${pageContext.request.contextPath}',              // the context path
-        time: '${strDate}',                      // the current date with time
-        user: "${user}",
-        ouCode: "${ouCode}",
-        timeout: parseInt("${pageContext.session.maxInactiveInterval}"),
-    };
     $('.app-sidebar__user-name').text(session.user);
     $('.app-sidebar__user-designation').text(session.ouCode);
 
@@ -124,7 +128,6 @@
             $('.app').toggleClass('sidenav-toggled');
         }
     });
-
 </script>
 
 </body>

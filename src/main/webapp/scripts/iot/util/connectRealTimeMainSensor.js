@@ -14,7 +14,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-const URL_SOCKET = "http://localhost:8090";
+const URL_SOCKET = ServerConstant['VCCWebSocketServer'];
 var CURRENT_MAIN_SENSOR = {};
 $(function () {
     connect();

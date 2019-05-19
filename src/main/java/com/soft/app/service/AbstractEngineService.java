@@ -13,7 +13,7 @@ import java.util.Arrays;
 public abstract class AbstractEngineService {
     private static final Logger LOGGER = LogManager.getLogger(AbstractEngineService.class);
 
-    protected String EngineServer = "http://localhost:9999/VCCJobEngine";
+    protected String EngineServer;
 
     @Autowired
     RestTemplate restTemplate;

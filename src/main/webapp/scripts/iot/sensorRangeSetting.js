@@ -138,6 +138,7 @@ function saveSensorRange() {
     AjaxUtil.post(url, JSON.stringify(arrSensor)).success(function (data) {
         $dataDeviceCurrent=data;
         renderDataToForm();
+        MessageUtil.alert("Save Success");
     });
 
 

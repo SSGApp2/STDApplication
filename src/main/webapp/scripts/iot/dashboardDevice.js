@@ -13,22 +13,19 @@ $(document).on({
 
 
 $(function () {
+    socketSensor.setDeviceCode("XDK001");
     intervalFetchData = setInterval(function () {
-        AjaxUtil.get('/mainsensors/deviceCode', {deviceCode: 'XDK002'}).success(function (json) {
-            MainSensorCurrent = json;
-            $('.dpreal').each(function () {
-                var code = $(this).attr('code');
-                var value='';
-                if (MainSensorCurrent[code]) {
-                    value = MainSensorCurrent[code];
+        MainSensorCurrent = socketSensor.setCurrentData();
+        $('.dpreal').each(function () {
+            var code = $(this).attr('code');
+            var value = '';
+            if (MainSensorCurrent[code]) {
+                value = MainSensorCurrent[code];
 
-                }
-                $(this).text(value);
-            });
-
+            }
+            $(this).text(parseFloat(value).toFixed(3));
         });
         //realTime data
     }, _TIME_FETCH_DATA);
 
 })
-;
