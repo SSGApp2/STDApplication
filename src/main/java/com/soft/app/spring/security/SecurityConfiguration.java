@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/login/**",
                         "/registration/**",
                         "/rest-api/**",
+                        "/actuator/**",
                         "/resources/images/**",
                         "/resources/fonts/**",
                         "/resources/logs/**",
@@ -61,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/Access_Denied");
 
         http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
     }
 
 

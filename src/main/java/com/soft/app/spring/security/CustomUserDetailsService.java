@@ -1,11 +1,11 @@
 package com.soft.app.spring.security;
 
-import com.soft.app.entity.app.AppOuAuth;
-import com.soft.app.entity.app.AppUser;
-import com.soft.app.entity.app.AppUserOuAuth;
+import com.google.gson.Gson;
+import com.soft.app.entity.app.*;
 import com.soft.app.repository.AppOuAuthRepository;
 import com.soft.app.repository.AppUserOuAuthRepository;
 import com.soft.app.repository.AppUserRepository;
+import com.soft.app.repository.ParameterHeaderRepository;
 import com.soft.app.repository.custom.AppUserRepositoryCustom;
 import com.soft.app.util.BeanUtils;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +21,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService, PasswordEncoder {
@@ -42,6 +44,10 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
 
     @Autowired
     AuthorizeUtil authorizeUtil;
+
+
+    @Autowired
+    private ParameterHeaderRepository parameterHeaderRepository;
 
     //Default Attribute
     private String userName;
@@ -78,10 +84,18 @@ public class CustomUserDetailsService implements UserDetailsService, PasswordEnc
                 }
 
                 /* Add to Bean SESSION SCOPE */
-
+                Gson gson=new Gson();
                 //initial Data
                 attr.getRequest().getSession(true).setAttribute("userName", userName);
                 attr.getRequest().getSession(true).setAttribute("ouAuths", ouAuths);
+
+                ParameterHeader appParameterConfig = parameterHeaderRepository.findByCode("50");
+                Map mapServerConstant=new HashMap();
+                for(ParameterDetail parameterDetail:appParameterConfig.getParameterDetails()){
+                    mapServerConstant.put(parameterDetail.getParameterValue1(),parameterDetail.getParameterValue2());
+                }
+                attr.getRequest().getSession(true).setAttribute("ServerConstant", gson.toJson(mapServerConstant));
+
 
                 LOGGER.info("session : " + attr.getRequest().getSession().getId());
                 return new org.springframework.security.core.userdetails.User(userName, user.getAccessToken(),
