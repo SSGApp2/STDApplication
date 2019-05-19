@@ -24,6 +24,9 @@ To change this template use File | Settings | File Templates.
                 class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Setting</span><i
                 class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
+                <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/machine" href="#"><i
+                        class="icon fa fa-circle-o"></i> Machine</a>
+                </li>
                 <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/warning" href="#"><i
                         class="icon fa fa-circle-o"></i> Warning</a>
                 </li>
