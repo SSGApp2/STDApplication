@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<spring:url value="/resources/scripts/iot/machineSetting.js" var="machineSetting"/>
+
 
 <div class="container-fluid">
     <div class="card-box">
@@ -62,4 +62,5 @@
     </div>
 </div>
 
+<spring:url value="${urls.getForLookupPath('/resources/scripts/iot/machineSetting.js')}" var="machineSetting"/>
 <script type="text/javascript" src="${machineSetting}"></script>

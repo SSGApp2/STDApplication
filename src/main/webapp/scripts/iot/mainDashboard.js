@@ -118,7 +118,7 @@ function initialHighChart(element, sensorCode) {
         xAxis: {
             type: 'datetime',
             showLastLabel: true,
-            endOnTick: true
+            // endOnTick: true
         },
         yAxis: {
             title: {
