@@ -48,7 +48,6 @@
     </style>
 
     <div class="container-fluid">
-        <!-- Page-Title -->
         <div class="row bg-frame">
             <div class="col-lg-2">
                 <div class="card-box">
@@ -69,6 +68,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="card-box">
+                    <h2 class="header-title m-t-0 " >Machine001</h2>
                     <!--<img class="center" src="https://th.mouser.com/images/boschsensortec/lrg/XDK_DSL.JPG"/>-->
                     <img class="center img-responsive" src="/resources/images/device3.png"/>
                 </div>

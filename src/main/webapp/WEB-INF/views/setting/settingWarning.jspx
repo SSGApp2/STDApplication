@@ -51,11 +51,11 @@
                 </div>
 
                 <div class="col-md-4">
-                    <util:settingTemplate id="tag5" sensorCode="ACUST" title="Acoustic"/>
+                    <util:settingTemplate id="tag5" sensorCode="acust" title="Acoustic"/>
                 </div>
 
                 <div class="col-md-4">
-                    <util:settingTemplate id="tag6" sensorCode="acust" title="Light"/>
+                    <util:settingTemplate id="tag6" sensorCode="light" title="Light"/>
                 </div>
             </div>
 

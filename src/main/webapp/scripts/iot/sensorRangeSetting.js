@@ -4,11 +4,54 @@ var $dataDeviceCurrent = [];
 $(function () {
     $('.touchspin').TouchSpin({
         min: -1000000000,
-        max:10000000000
+        decimals: 2,
+        step: 0.01,
+        boostat: 5,
+        maxboostedstep: 10,
+        max: 10000000000
         // initval: 0
     });
 })
 
+function updateLabel() {
+    $('.inpWarning').change();
+}
+
+$('.txtNomal,.valueType,.displayType').change(function () {
+    updateLabel();
+})
+
+$('.inpWarning').change(function () {
+    var nomalValue = $(this).closest('.settingHead').find('.txtNomal').val();
+    var current = $(this).val();
+    const valueType = $(this).closest('.settingHead').find('.valueType:checked').val(); //0 percent - 1 amount
+    const displayType = $(this).closest('.settingHead').find('.displayType:checked').val();
+    nomalValue = parseFloat(nomalValue);
+    current = parseFloat(current);
+    if (valueType == "1") {//amount
+        var valPost = nomalValue + current;
+        var valNeg = nomalValue - current;
+
+    } else if (valueType == "0") {//percent
+        var valPost = nomalValue + (nomalValue / 100.0 * current);
+        var valNeg = nomalValue - (nomalValue / 100.0 * current);
+    }
+    $(this).closest('.warningForm').find('.display-val').text('');
+    if (valPost && valNeg) {
+        valPost = valPost.toFixed(2);
+        valNeg = valNeg.toFixed(2);
+        var text = "";
+        if (displayType == "A") {
+            text = "<=" + valNeg + " || >=" + valPost;
+        } else if (displayType == "P") {
+            text = ">=" + valPost;
+        } else if (displayType == "N") {
+            text = "<=" + valNeg;
+        }
+        $(this).closest('.warningForm').find('.display-val').text(text);
+
+    }
+})
 
 $('#ddlDevice').change(function () {
     //Clear Filed
@@ -38,9 +81,12 @@ $('#ddlDevice').change(function () {
 });
 
 function clearField() {
-    $('#divSensorRange').find('input,select').val('');
+    $('#divSensorRange').find('select').val('');
+    $('#divSensorRange').find('[type="number"]').val('');
+    $('#divSensorRange').find('[type="text"]').val('');
     $('#divSensorRange').find('[type="radio"]').prop('checked', false);
     $('[data-toggle="toggle"][type="checkbox"]').bootstrapToggle('off');
+    updateLabel();
 }
 
 function renderData() {
@@ -52,6 +98,7 @@ function renderData() {
         if (xhr.status == 200) {
             $dataDeviceCurrent = xhr.responseJSON.content;
             renderDataToForm();
+            updateLabel();
         }
     });
 }
@@ -105,7 +152,7 @@ function renderDataToForm() {
 
 function saveSensorRange() {
     //validate
-    if($('#ddlDevice').val()=="")return false;
+    if ($('#ddlDevice').val() == "") return false;
 
 
     var listAjaxSaveData = [];
@@ -129,14 +176,14 @@ function saveSensorRange() {
         var url = '/api/iotsensors/saveOrUpdate?id=' + iotMachine.id;
         if (v != undefined) {
             IotSensor.id = v.id;
-            IotSensor.version=v.version;
-            IotSensor.iotMachine=iotMachine;
+            IotSensor.version = v.version;
+            IotSensor.iotMachine = iotMachine;
         }
         arrSensor.push(IotSensor);
     }
 
     AjaxUtil.post(url, JSON.stringify(arrSensor)).success(function (data) {
-        $dataDeviceCurrent=data;
+        $dataDeviceCurrent = data;
         renderDataToForm();
         MessageUtil.alert("Save Success");
     });

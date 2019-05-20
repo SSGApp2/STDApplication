@@ -1,7 +1,7 @@
 var intervalFetchData;
-const _TIME_FETCH_DATA = 1 * 500; //s * ms
+const _TIME_FETCH_DATA = 1 * 700; //s * ms
 const _MAX_DATA_TIME = 1 * 60;// min * sec
-const _TICK_INTERVAL = 0.5 * 60 * 1000 // min * sec * ms
+const _TICK_INTERVAL = 0.1 * 60 * 1000 // min * sec * ms
 var MainSensorCurrent = {};
 
 
@@ -21,8 +21,8 @@ $(function () {
         MainSensorCurrent = socketSensor.setCurrentData();
         var current_datetime = (new Date(MainSensorCurrent['dateTime']));
         var formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
-        $('#txtStatus').text('Status : ' + SOCKET_DISPLAY_STATUS );
-        $('#txtLastUpdate').text('Update : ' + formatted_date );
+        $('#txtStatus').text('Status : ' + SOCKET_DISPLAY_STATUS);
+        $('#txtLastUpdate').text('Update : ' + formatted_date);
     }, _TIME_FETCH_DATA);
 
 
@@ -55,6 +55,7 @@ function setAlertTime(sensorCode, status) {
 
 }
 
+var chartData = [];
 
 function initialHighChart(element, sensorCode) {
     Highcharts.chart(element, {
@@ -73,13 +74,22 @@ function initialHighChart(element, sensorCode) {
                             y = parseFloat(MainSensorCurrent[sensorCode]);
 
                         var data = [x, y];
-                        series.addPoint(data, true, true);
 
-                        var status = MainSensorCurrent[sensorCode + "Status"];
-                        // clearInterval(IntervalStatus[sensorCode]);
-                        // if (status) {
-                        setAlertTime(sensorCode, status);
-                        // }
+                        var len = series.data.length - 1;
+                        var lastData = [null, null];
+                        if (series.data.length > 0) {
+                            lastData = [series.data[len].x, series.data[len].y];
+                        }
+                        if (data[0] == lastData[0] && data[1] == lastData[1]) {
+                        } else {
+                            var shift = series.data.length > _MAX_DATA_TIME;
+                            series.addPoint(data, true, shift);
+
+                            var status = MainSensorCurrent[sensorCode + "Status"];
+                            setAlertTime(sensorCode, status);
+                        }
+
+
                     }, _TIME_FETCH_DATA);
                 }
             }
@@ -92,8 +102,13 @@ function initialHighChart(element, sensorCode) {
         },
         plotOptions: {
             series: {
-                marker: {
-                    enabled: false //remove dot in line
+                dataLabels: {
+                    enabled: true,
+                    formatter: function () {
+                        var isLast = false;
+                        if (this.point.x === this.series.data[this.series.data.length - 1].x && this.point.y === this.series.data[this.series.data.length - 1].y) isLast = true;
+                        return isLast ? parseFloat(this.y).toFixed(3) : '';
+                    }
                 }
             }
         },
@@ -101,9 +116,9 @@ function initialHighChart(element, sensorCode) {
             text: null
         },
         xAxis: {
-            type: "datetime",
-            tickInterval: _TICK_INTERVAL,
-            showLastLabel: true
+            type: 'datetime',
+            showLastLabel: true,
+            endOnTick: true
         },
         yAxis: {
             title: {
@@ -114,11 +129,11 @@ function initialHighChart(element, sensorCode) {
                 width: 1,
                 color: '#808080'
             }],
-
+            showLastLabel: true,
         },
         tooltip: {
             headerFormat: '<b>{series.name}</b><br/>',
-            pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+            pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.3f}'
         },
         legend: {
             enabled: false
@@ -126,24 +141,6 @@ function initialHighChart(element, sensorCode) {
         exporting: {
             enabled: false
         },
-        series: [{
-            name: 'Random data',
-            data: (function () {
-                //initial data
-                // generate an array of random data
-                var data = [],
-                    time = (new Date()).getTime(),
-                    i;
-
-                for (i = -(_MAX_DATA_TIME); i <= 0; i += 1) {
-                    data.push({
-                        x: time + i * 1000,
-                        y: Math.random()
-                    });
-                }
-
-                return data;
-            }())
-        }]
+        series: [{data: []}]
     });
 }

@@ -35,7 +35,7 @@
                     </object>
                 </div>
             </div>
-            <div id="tooltip" display="none" style="position: absolute; display: none;">
+            <div id="tooltip" onclick="linkDevice(this)" display="none" style="position: absolute; display: none;">
                 <jsp:text/>
             </div>
 

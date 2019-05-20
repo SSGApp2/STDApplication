@@ -18,10 +18,13 @@
         .cyellow {
             color: #FFA500;
         }
+        .display-val{
+            margin-left: 10px;
+        }
     </style>
 
 
-    <div id="${id}" class="card-box panel panel-default" sensor-code="${sensorCode}" sensor-name="${title}">
+    <div id="${id}" class="card-box settingHead panel panel-default" sensor-code="${sensorCode}" sensor-name="${title}">
         <div class="panel-heading clearfix">
             <h4 class="panel-title pull-left">
                 ${title}
@@ -36,35 +39,35 @@
                 <div class="panel-body">
                     <!-- body content -->
                     <div class="row" style="text-align: center; padding-top: 5px;">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 " >
                             <div class="form-group">
                                 <label class="control-label text-left">Nomal</label>
-                                <input type="number" id="txtNomal${id}" class="form-control touchspin numbedecionly"></input>
+                                <input type="number" id="txtNomal${id}" class="txtNomal form-control  touchspin numbedecionly"></input>
                             </div>
                             <div class="row form-group">
                                 <div class="col-sm-9 col-sm-offset-3 text-left">
-                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type1${id}" id="adjType1${id}" value="0"/>  Percent(%)</label>
-                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type1${id}" id="adjType2${id}" value="1"/>  Amount</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input class="valueType" type="radio" name="type1${id}" id="adjType1${id}" value="0" />  Percent(%)</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input class="valueType" type="radio" name="type1${id}" id="adjType2${id}" value="1"/>  Amount</label>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-sm-9 col-sm-offset-3 text-left">
-                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos1${id}" value="A"/>  Both</label>
-                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos2${id}" value="P"/>  Positive</label>
-                                    <label class="radio-inline" style="margin-right: 10px"><input type="radio" name="type2${id}" id="adjTypePos3${id}" value="N"/>  Negative</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input class="displayType" type="radio" name="type2${id}" id="adjTypePos1${id}" value="A" />  Both</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input class="displayType" type="radio" name="type2${id}" id="adjTypePos2${id}" value="P"/>  Positive</label>
+                                    <label class="radio-inline" style="margin-right: 10px"><input class="displayType" type="radio" name="type2${id}" id="adjTypePos3${id}" value="N"/>  Negative</label>
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row form-group warningForm">
                                 <div class="col-sm-12">
                                     <label class="control-label text-left cyellow">Warning</label>
+                                    <label class="control-label text-left display-val cyellow"></label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="number" id="txtWarning${id}" class="form-control touchspin numbedecionly"></input>
+                                    <input type="number" id="txtWarning${id}" class="inpWarning form-control touchspin numbedecionly"  data-toggle="tooltip" data-placement="top" title=""></input>
                                 </div>
                                 <label class="control-label text-left col-sm-1 cyellow">Alert</label>
                                 <div class="col-sm-3">
-                                    <input type="text" id="txtWarningAlert${id}" maxlength="2"
-                                           class="form-control  numberonly"></input>
+                                    <input type="text" id="txtWarningAlert${id}" maxlength="2" class="form-control  numberonly"></input>
                                 </div>
                                 <div class="col-sm-3">
                                     <select id="ddlAlertTimeWR${id}" class="form-control">
@@ -79,12 +82,13 @@
                             </div>
 
 
-                            <div class="row form-group">
+                            <div class="row form-group warningForm">
                                 <div class="col-sm-12">
                                     <label class="control-label text-left  cred">Dangerous</label>
+                                    <label class="control-label text-left display-val cred"></label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="text" id="txtDangerous${id}" class="form-control touchspin numbedecionly"></input>
+                                    <input type="text" id="txtDangerous${id}" class="inpWarning  form-control touchspin numbedecionly" data-toggle="tooltip" data-placement="top" title=""></input>
                                 </div>
                                 <label class="col-sm-1 text-left cred">Alert</label>
                                 <div class="col-sm-3">

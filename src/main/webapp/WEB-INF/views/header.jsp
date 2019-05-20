@@ -10,7 +10,7 @@ To change this template use File | Settings | File Templates.
 
 
 <header class="app-header">
-    <a class="app-header__logo" href="index.html">Visciency</a>
+    <a class="app-header__logo" href="/">Visciency</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
                                     aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->

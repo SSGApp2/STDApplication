@@ -1,5 +1,5 @@
 var intervalFetchData;
-const _TIME_FETCH_DATA = 1 * 1000; //s * ms
+const _TIME_FETCH_DATA = 1 * 500; //s * ms
 var MainSensorCurrent = {};
 
 $(document).on({
@@ -23,7 +23,17 @@ $(function () {
                 value = MainSensorCurrent[code];
 
             }
+            var status = MainSensorCurrent[code + "Status"];
             $(this).text(parseFloat(value).toFixed(3));
+            $(this).removeClass(function (index, className) {
+                return (className.match(/(^|\s)badge-\S+/g) || []).join(' ');
+            });
+            if(status=="danger"){
+                $(this).addClass('badge-danger');
+            }else if(status=="warning"){
+                $(this).addClass('badge-warning');
+            }
+
         });
         //realTime data
     }, _TIME_FETCH_DATA);

@@ -34,16 +34,16 @@ To change this template use File | Settings | File Templates.
             </ul>
         </li>
 
-        <li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i
-                class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i
-                class="treeview-indicator fa fa-angle-right"></i></a>
-            <ul class="treeview-menu">
-                <li><a class="treeview-item active" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank
-                    Page</a></li>
-                <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a>
-                </li>
-            </ul>
-        </li>
+        <%--<li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i--%>
+                <%--class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i--%>
+                <%--class="treeview-indicator fa fa-angle-right"></i></a>--%>
+            <%--<ul class="treeview-menu">--%>
+                <%--<li><a class="treeview-item active" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank--%>
+                    <%--Page</a></li>--%>
+                <%--<li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a>--%>
+                <%--</li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
     </ul>
 
     <script type="text/javascript">
