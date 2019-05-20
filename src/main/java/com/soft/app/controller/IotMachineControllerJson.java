@@ -17,6 +17,7 @@ import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/iotmachines")
@@ -38,6 +39,8 @@ public class IotMachineControllerJson {
     @PostMapping("/createIotMachine")
     public IotMachine createIotMachine(@RequestBody IotMachine iotm) {
         IotDevice iotDevice = iotDeviceRepository.findById(iotm.getId()).get();
+        iotDevice.setIsUsed("Y");
+        iotDeviceRepository.save(iotDevice);
         IotMachine iotMachine = new IotMachine();
         iotMachine.setIotDevice(iotDevice);
         iotMachine.setMacName(iotm.getMacName());
@@ -46,22 +49,40 @@ public class IotMachineControllerJson {
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<IotMachine> updateIotMachine(@PathVariable("id") long id,@RequestBody IotMachine iotm){
-        IotDevice iotDevice = iotDeviceRepository.findById(iotm.getId()).get();
-        return iotMachineRepository.findById(id)
-                .map(record -> {
-                    record.setMacName(iotm.getMacName());
+    public ResponseEntity<IotMachine> updateIotMachine(@PathVariable("id") long id,@RequestBody IotMachine iotm) {
+        IotMachine iotMachine = iotMachineRepository.findById(id).get();
+        Long idDeviceOld = iotMachine.getIotDevice().getId();
+        Optional<IotDevice> iotDeviceOld = iotDeviceRepository.findById(idDeviceOld);
+        iotDeviceOld.map(row0 -> {
+
+            row0.setIsUsed("N");
+            iotDeviceRepository.save(row0);
+            IotDevice iotDeviceNew = iotDeviceRepository.findById(iotm.getId()).get();
+            iotDeviceNew.setIsUsed("Y");
+            iotDeviceRepository.save(iotDeviceNew);
+
+            return iotMachineRepository.findById(id)
+                    .map(record -> {
+                        record.setMacName(iotm.getMacName());
 //                    record.setMacCode(iotm.getMacCode());
-                    record.setIotDevice(iotDevice);
-                    IotMachine updated = iotMachineRepository.save(record);
-                    return ResponseEntity.ok().body(updated);
-                }).orElse(ResponseEntity.notFound().build());
+                        record.setIotDevice(iotDeviceNew);
+                        IotMachine updated = iotMachineRepository.save(record);
+                        return ResponseEntity.ok().body(updated);
+                    }).orElse(ResponseEntity.notFound().build());
+
+        }).orElse(ResponseEntity.notFound().build());
+
+    return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path ={"/{id}"})
     public ResponseEntity<?> deleteIotMachine(@PathVariable("id") long id) {
         return iotMachineRepository.findById(id)
                 .map(record -> {
+                   IotDevice iotDevice = iotDeviceRepository.findById(record.getIotDevice().getId()).get();
+                   iotDevice.setIsUsed("N");
+                   iotDeviceRepository.save(iotDevice);
+
                     iotMachineRepository.deleteById(id);
                     iotSensorRepository.findByIotMachineId(id).forEach(row ->{
                         iotSensorRepository.deleteById(row.getId());
