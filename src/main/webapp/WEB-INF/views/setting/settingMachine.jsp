@@ -33,12 +33,12 @@
 
 <div class="modal fade" id="iotmachinemodel" role="dialog">
     <div class="modal-dialog">
-        <div style="background-color: #36404a;" class="modal-content">
+        <div style="background-color: #1d7fc1;" class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="titlemodalMachine">Add Machine</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form>
+            <form id="save_form">
             <div class="modal-body">
 
                 <div class="form-group">
