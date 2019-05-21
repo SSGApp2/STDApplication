@@ -28,12 +28,13 @@ public class SettingController {
     public String machineSetting(ModelMap model) {
         model.addAttribute("iotMachine",iotMachineRepositoryCustom.findByOuth());
         model.addAttribute("iotDevice",iotDeviceRepositoryCustom.findByOuth());
-        //FIRST PAGE
         return "settings/machine";
     }
 
     @GetMapping("combine")
     public String settingComine(ModelMap model){
+        model.addAttribute("iotMachine",iotMachineRepositoryCustom.findByOuth());
+        model.addAttribute("iotDevice",iotDeviceRepositoryCustom.findByOuth());
         return "settings/combine";
     }
 }

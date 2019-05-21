@@ -1,0 +1,88 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: thongchai
+  Date: 26/2/2562
+  Time: 17:41 น.
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <style>
+        .panel-heading span
+        {
+            margin-top: -23px;
+            font-size: 15px;
+            margin-right: -12px;
+        }
+
+        .clickable {
+            background: rgba(0, 0, 0, 0.15);
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .top-modal {
+            z-index: 99999;
+        }
+
+
+
+    </style>
+    <div style="background-color: #0c5460;margin: 3px;border: 1px solid #000000;border-radius: 2px;" class="col-sm-6 col-sm-offset-3">
+        <div class="templateSensor panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">seq</h3>
+                <span class="btn btn-danger btn-sm pull-right  btn-circle 	glyphicon glyphicon-minus" data-effect="fadeOut" onclick="removeSensorItem(this)">x <jsp:text/></span>
+                <!--<span class="pull-right">X</span>-->
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label required">Sensor</label>
+                    <div class="col-sm-6 ">
+                        <select id="ddlSensor" class="form-control sensor" validate="true">
+                            <jsp:text/>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-6">Nomal : <span id="normalid"></span></label>
+                </div>
+                <div class="form-group">
+                    <!--<label for="ddlCondition" class="col-sm-4 control-label required">Criteria</label>-->
+                    <!--<div class="col-sm-6 ">-->
+                        <!--<select id="ddlCondition" class="form-control criteria" validate="true">-->
+                            <!--<option><jsp:text/></option>-->
+                            <!--<option value="LT">Lest Than</option>-->
+                            <!--&lt;!&ndash;<option value="LE">LE</option>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<option value="GT">GT</option>&ndash;&gt;-->
+                            <!--<option value="GT">More Than</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <div class="col-sm-6"><label class="radio-inline"><input type="radio" name="optradio1"/>Percent(%)</label>
+                    <label class="radio-inline"><input type="radio" name="optradio1"/>Amount</label></div><br/>
+                    <div class="col-sm-6"> <label class="radio-inline"><input type="radio" name="optradio2"/>Both</label>
+                    <label class="radio-inline"><input type="radio" name="optradio2"/>Positive</label>
+                        <label class="radio-inline"><input type="radio" name="optradio2"/>Negatine</label></div>
+                </div>
+                <div class="form-group">
+                    <!--<label for="txtRate" class="col-sm-4 control-label required">Rate</label>-->
+                    <form>
+                        <div class="row">
+                    <div class="col-sm-5">
+                        <input type="text" id="txtRate" class="form-control rate" validate="true"></input>
+                    </div>
+                    <div class="col-sm-3">
+                        <input readonly="readonly" type="text" id="txtRate1" class="form-control rate1" validate="true"></input>
+                    </div>
+                    <div class="col-sm-3">
+                        <input readonly="readonly" type="text" id="txtRate2" class="form-control rate2" validate="true"></input>
+                    </div>
+                </div>
+            </form>
+                </div>
+
+            </div><br/>
+        </div>
+    </div>
+</jsp:root>

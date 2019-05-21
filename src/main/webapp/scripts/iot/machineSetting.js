@@ -10,29 +10,37 @@ $('#btnAddMachine').click(function () {
 });
 
 $('#btnSaveMachine').click(function () {
-    var machineName = $('#machineName').val();
-    var data = {
-        "macName": machineName,
-        "id": $('#deviceName').val()
-    };
-    if(update_create_status == 0) {
-        AjaxUtil.post('/api/iotmachines/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
-          //  console.log(xhr.status);
-          //  console.log(xhr);
-            location.reload();
-        });
-    }else{
-        $.ajax({
-            url: "/api/iotmachines/" + $('#machineName').data("idmachine"),
-            type: 'PUT',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            complete: function(result) {
-               // console.log(result.status);
-               location.reload();
+        var machineName = $('#machineName').val();
+        if(machineName != "") {
+            var data = {
+                "macName": machineName,
+                "id": $('#deviceName').val()
+            };
+
+
+            if (update_create_status == 0) {
+                AjaxUtil.post('/api/iotmachines/createIotMachine', JSON.stringify(data)).complete(function (xhr) {
+                    //  console.log(xhr.status);
+                    //  console.log(xhr);
+                    MessageUtil.alert("บันทึกสำเร็จ");
+                    // location.reload();
+                    $('#iotmachinemodel').modal('toggle');
+                });
+            } else {
+                $.ajax({
+                    url: "/api/iotmachines/" + $('#machineName').data("idmachine"),
+                    type: 'PUT',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    complete: function (result) {
+                        // console.log(result.status);
+                        location.reload();
+                    }
+                });
             }
-        });
-    }
+
+
+        }
 });
 
 
@@ -54,12 +62,19 @@ $('.btnEditMachine').click(function () {
 $('.btnDeleteMachine').click(function () {
     var idMachine = $(this).data("idmachine");
     var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
-    AjaxUtil.delete('/api/iotmachines/'+idMachine).complete(function (xhr) {
-        console.log(xhr.status);
-        if(xhr.status == 200) {
-            $('.row-machine[data-idmachine=' + idMachine + ']').remove();
-        }
+    MessageUtil.confirm(machineName+'',function () {
+        AjaxUtil.delete('/api/iotmachines/'+idMachine).complete(function (xhr) {
+            console.log(xhr.status);
+            if(xhr.status == 200) {
+                // $('.row-machine[data-idmachine=' + idMachine + ']').remove();
+                location.reload();
+            }
+        });
     });
+});
+
+$('.btncancel').click(function () {
+    $('.validatr-message').hide();
 });
 
 machineSetting.FindDeviceNotMachine = function (mode,id) {
@@ -89,5 +104,6 @@ machineSetting.FindDeviceNotMachine = function (mode,id) {
         });
     }
 }
-
-
+$( document ).ready(function() {
+    $('form').validatr();
+});
