@@ -29,6 +29,11 @@ public class SettingController {
         model.addAttribute("iotMachine",iotMachineRepositoryCustom.findByOuth());
         model.addAttribute("iotDevice",iotDeviceRepositoryCustom.findByOuth());
         //FIRST PAGE
-        return "iotmachine/machineSetting";
+        return "settings/machine";
+    }
+
+    @GetMapping("combine")
+    public String settingComine(ModelMap model){
+        return "settings/combine";
     }
 }
