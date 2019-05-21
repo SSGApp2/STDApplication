@@ -48,6 +48,11 @@ public class IotSensorControllerJson {
 
 
     }
+
+    @GetMapping("findIotSensorByMachineID")
+    public List<IotSensor> findIotSensorByMachineID( @RequestParam(value = "id") Long id){
+        return  iotSensorRepositoryCustom.findByMachineIdOth(id);
+    }
 }
 
 

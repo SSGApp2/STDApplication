@@ -9,4 +9,118 @@
           xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:util="urn:jsptagdir:/WEB-INF/tags/dashboard" version="2.0">
 
+    <style>
+        #divSensorAdd{
+            max-height: 350px;
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 10px;
+            padding-top: 15px;
+        }
+        .highlight td {
+            background-color: #ebfff6 !important;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="card-box">
+            <h4 class="header-title m-t-0"> Combine Setting</h4>
+
+            <form>
+                <div class="form-group offset-sm-4">
+                    <label class="col-sm-5">Machine</label>
+                    <div class="col-sm-5">
+                        <select id="ddlMachine" class="form-control">
+                            <c:forEach items="${iotMachine}" var="iotmachine">
+                                <option value="${iotmachine.id}"
+                                        data-iddevice="${iotmachine.iotDevice.id}"
+                                        data-devicename="${iotmachine.iotDevice.deviceName}">
+                                    <c:out value="${iotmachine.macName}"></c:out>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group offset-sm-4">
+                    <label class="col-sm-5">Device</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly="readonly" class="form-control" id="deviceCombine" data-iddevice=""/>
+                    </div>
+                </div>
+
+                <div class="form-group offset-sm-4">
+                    <div style="display: none;" id="templateSensor">
+                        <jsp:include page="/WEB-INF/views/setting/templateSensorCriteria.jspx"></jsp:include>
+                    </div>
+                    <div id="divSensorAdd" style="display: none">
+                        <jsp:text/>
+                    </div>
+                </div>
+
+                <div class="form-group offset-sm-4">
+                    <div class="offset-sm-1 col-sm-4 text-center">
+                        <button type="button" id="btnAddSensor" class="btn btn-success" style="padding: unset;border-radius: 80px;height: 40px;width: 40px;margin: 3px"><span style="font-size: 20px;">+</span></button>
+                        <label for="btnAdd" >Add Sensor</label>
+                    </div>
+                </div>
+
+                <div class="form-group offset-sm-4">
+                    <label class="col-sm-5 control-label required">Repeat</label>
+                    <div class="col-sm-2 ">
+                        <input type="text" id="txtRepeat" validate="true" class="form-control"/>
+                    </div>
+                    <div class="col-sm-1">
+                        <select id="ddlRepeatUnit" class="form-control" validate="true">
+                            <option value="0">H</option>
+                            <option value="1">M</option>
+                            <option value="2">S</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group offset-sm-4">
+                    <label for="txtMessage" class="col-sm-5 control-label required ">Alert Message</label>
+                    <div class="col-sm-5">
+                        <input type="text" id="txtMessage" validate="true" class="form-control"/>
+                    </div>
+                </div>
+
+                <!--บันทึก-->
+                <div class="form-group offset-sm-5">
+                    <div class="col-sm-12" style="margin-top: 10px">
+                        <button type="button" style="display: none" id="btnNew" class="btn btn-primary">New</button>
+                        <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    <div class="card-box">
+        <div class="table-responsive">
+        <table class="table mb-0" id="table-id">
+            <thead>
+            <tr>
+                <th class="text-center">Sensor1</th>
+                <th class="text-center">Sensor2</th>
+                <th class="text-center">Sensor3</th>
+                <th class="text-center">Sensor4</th>
+                <th class="text-center">Sensor5</th>
+                <th class="text-center">Sensor6</th>
+                <th class="text-center">Edit</th>
+            </tr>
+            </thead>
+            <tbody id="dataGrid">
+            <jsp:text/>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/settingCombine.js')}" var="setting_combine"/>
+
+    <script type="text/javascript" src="${setting_combine}"></script>
 </jsp:root>
