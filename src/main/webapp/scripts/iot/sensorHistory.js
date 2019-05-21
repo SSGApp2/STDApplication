@@ -1,3 +1,10 @@
+
+//
+$('[data-provide="datepicker"]').datepicker().datepicker("setDate", new Date());
+$("#dateFrom").on('changeDate', function(ev){
+    console.log($(this).datepicker('getDate'));
+});
+
 // $.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/large-dataset.json', function (data) {
 $.getJSON('/api/mainsensorviews/example', function (data) {
 

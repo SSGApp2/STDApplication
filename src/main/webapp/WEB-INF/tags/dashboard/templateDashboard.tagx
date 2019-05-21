@@ -14,14 +14,18 @@
         .pointer {
             cursor: pointer;
         }
-        .divtoBlink{
+
+        .divtoBlink {
             -webkit-transition: background 1.0s ease-in-out;
-            -ms-transition:     background 1.0s ease-in-out;
-            transition:         background 1.0s ease-in-out;
+            -ms-transition: background 1.0s ease-in-out;
+            transition: background 1.0s ease-in-out;
         }
 
     </style>
     <div class="card-box divtoBlink ">
+        <div class="pull-right"><a  href="/dashboard/sensorHistory">
+            <button type="button"><span class="fa fa-bars"></span></button>
+        </a></div>
         <h4 class="header-title m-t-0 m-b-30">${title}</h4>
 
         <div id="${id}" class="chartOne" code="${sensorCode}">

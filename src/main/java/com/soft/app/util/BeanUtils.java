@@ -1,5 +1,7 @@
 package com.soft.app.util;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
@@ -231,5 +233,10 @@ public class BeanUtils {
 		extension = extension.replace(".", "");
 		return extension;
 
+	}
+
+	public static String toStringJson(Object obj){
+		Gson gson=new Gson();
+		return gson.toJson(obj);
 	}
 }

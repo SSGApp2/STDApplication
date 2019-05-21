@@ -51,12 +51,12 @@
         <div class="row bg-frame">
             <div class="col-lg-2">
                 <div class="card-box">
-                    <h2 class="header-title m-t-0 ">Accelerometer</h2>
+                    <h2 class="header-title m-t-0 ">Acoustic</h2>
                     <img class="imgIcon img-responsive" src="/resources/images/speaker.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="acust"><jsp:text/></h3>
                 </div>
                 <div class="card-box">
-                    <h2 class="header-title m-t-0 " >Huminity</h2>
+                    <h2 class="header-title m-t-0 " >Humidity</h2>
                     <img class="imgIcon img-responsive" src="/resources/images/humidity.png"/><br/>
                     <h3 class="text-muted m-b-25 font-13 dpreal" code="humid"><jsp:text/></h3>
                 </div>
