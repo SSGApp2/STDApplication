@@ -6,6 +6,7 @@ $('#btnAddMachine').click(function () {
     $('#iotmachinemodel').modal('show');
     $('#titlemodalMachine').text('Add Machine');
     $('#machineName').val("");
+    $('#machinelinetoken').val("");
     machineSetting.FindDeviceNotMachine();
 });
 
@@ -13,9 +14,11 @@ $('#btnAddMachine').click(function () {
 $("#save_form").submit(function(e) {
     e.preventDefault();
         var machineName = $('#machineName').val();
+        var lineToken = $('#machinelinetoken').val();
         if(machineName != "") {
             var data = {
                 "macName": machineName,
+                "lineToken": lineToken,
                 "id": $('#deviceName').val()
             };
 
@@ -46,8 +49,6 @@ $("#save_form").submit(function(e) {
                     }
                 });
             }
-
-
         }
 });
 
@@ -57,12 +58,14 @@ $('.btnEditMachine').click(function () {
     var idMachine = $(this).data("idmachine");
     var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
     var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
+    var lineToken = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(2)').text();
     var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
     devicceOld = deviceID;
     $('#iotmachinemodel').modal('show');
     $('#deviceName').val(deviceID);
     $('#titlemodalMachine').text('Edit Machine');
     $('#machineName').val(machineName);
+    $('#machinelinetoken').val(lineToken);
     $('#machineName').data("idmachine", idMachine);
     machineSetting.FindDeviceNotMachine('EDIT',deviceID);
 });
