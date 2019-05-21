@@ -30,7 +30,7 @@ To change this template use File | Settings | File Templates.
                 <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/warning" href="#"><i
                         class="icon fa fa-circle-o"></i> Warning</a>
                 </li>
-                <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Combine</a></li>
+                <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/combine" href="#"><i class="icon fa fa-circle-o"></i> Combine</a></li>
             </ul>
         </li>
 

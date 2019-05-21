@@ -5,10 +5,17 @@
 
 <tiles-definitions>
 
-
     <definition name="settings/warning" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/setting/settingWarning.jspx"/>
         <put-attribute name="rightMenu" value="/WEB-INF/views/setting/rightMenu.jspx"/>
+    </definition>
+
+    <definition name="settings/combine" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/setting/settingCombine.jspx"/>
+    </definition>
+
+    <definition name="settings/machine" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/setting/settingMachine.jsp" />
     </definition>
 
 
