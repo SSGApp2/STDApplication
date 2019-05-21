@@ -35,7 +35,8 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
-            background-color: #607D8B;
+            /*background-color: #607D8B;*/
+            background-color: #073761;
 
             padding-left: 0;
             padding-right: 0;
@@ -63,7 +64,7 @@
             border: none;
             padding: 15px 20px;
             border-radius: 25px;
-            background: rgba(255, 255, 255, .1);
+            /*background: rgba(255, 255, 255, .1);*/
             /*width:100%;*/
             color: #fff;
             display: block;
@@ -146,7 +147,9 @@
             height: 75%;
             position: absolute;
             padding: 0px 70px 50px 70px;
-            background: rgba(40, 57, 101, .8);
+            /*background: rgba(40, 57, 101, .8);*/
+            background: #1d7fc1;
+            border-radius : 20px;
 
         }
 
@@ -273,12 +276,16 @@
 
         input[type="text"] {
             font: small-caption;
-            font-size: 16px
+            font-size: 16px;
+            color: black;
+            width: 100%;
         }
 
         input[type="password"] {
             font: small-caption;
-            font-size: 16px
+            font-size: 16px;
+            color: black;
+            width: 100%;
         }
 
         strong, small {
