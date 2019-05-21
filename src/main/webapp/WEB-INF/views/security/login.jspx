@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="form-group has-warning">
                                 <div class="col-sm-12">
-                                    <input id="j_username" style="color: white;width: 100%" type="text"
+                                    <input id="j_username" type="text"
                                            class="form-control" name="j_username" autocomplete="off"
                                            placeholder="${label_security_username}" required="true"/>
                                 </div>
@@ -35,15 +35,18 @@
                         <div class="row" style="margin-top: 15px">
                             <div class="form-group has-warning">
                                 <div class="col-sm-12">
-                                    <input id="j_password" type="password" style="color: white;width: 100%"
+                                    <input id="j_password" type="password"
                                            class="form-control " name="j_password" autocomplete="off"
                                            placeholder="${label_security_password}" required="true"/>
                                 </div>
                             </div>
                         </div>
                         <div style="margin-top: 15px;text-align: center">
+                            <!--<button type="submit" id="submit_button" class="button"-->
+                                    <!--style="background-color: #eb1c2a;width: 250px;margin-top: 10px;font-size: 20px">LOGIN-->
+                            <!--</button>-->
                             <button type="submit" id="submit_button" class="button"
-                                    style="background-color: #eb1c2a;width: 250px;margin-top: 10px;font-size: 20px">LOGIN
+                                    style="background-color: #083761;width: 250px;margin-top: 10px;font-size: 20px">LOGIN
                             </button>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

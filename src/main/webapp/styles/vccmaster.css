@@ -69,7 +69,8 @@ body.sidenav-toggled .app-sidebar__toggle {
 body {
     background: #323b44;
     margin: 0;
-    color: #98a6ad;
+    /*color: #98a6ad;*/
+    color: white;
     overflow-x: hidden !important;
     font-size: 0.95rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -87,7 +88,8 @@ body {
     -moz-border-radius: 5px;
     background-clip: padding-box;
     margin-bottom: 20px;
-    background-color: #040445;
+    /*background-color: #040445;*/
+    background-color: #1d7fc1;
 }
 
 .footer {

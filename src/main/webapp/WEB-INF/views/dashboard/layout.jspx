@@ -10,6 +10,14 @@
             border-radius: 5px;
             padding: 5px;
         }
+
+        a {
+            color: white;
+        }
+
+        .fa-gear:before, .fa-cog:before, .fa-battery-4:before, .fa-battery:before, .fa-battery-full:before{
+            color: white;
+        }
     </style>
     <div class="container-fluid">
         <!-- Page-Title -->
@@ -44,14 +52,14 @@
                     <div class="card-box widget-user">
                         <div>
                             <div class="wid-u-info col-sm-12" style="display: inline-flex">
-                                <div class="col-sm-4 center">
+                                <div class="col-sm-6 center">
                                     <a style="font-size: 20px"
                                        href="/dashboard/main/${iotMachines.id}">${iotMachines.macName}</a>
                                 </div>
-                                <div class="col-sm-4 center">
+                                <div class="col-sm-3 center">
                                     <span class="fa fa-battery-full logo text-success"></span>
                                 </div>
-                                <div class="col-sm-4 center">
+                                <div class="col-sm-3 center">
                                     <span class="fa fa-cog logo text-success"></span>
                                 </div>
                             </div>
