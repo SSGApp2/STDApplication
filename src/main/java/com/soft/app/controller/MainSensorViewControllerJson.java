@@ -33,7 +33,7 @@ public class MainSensorViewControllerJson {
         return mainSensorViewService.example();
     }
 
-    @GetMapping("/example")
+    @GetMapping("/example2")
     public ResponseEntity<String> getDataByDateFromTo(
             @RequestParam(value = "deviceCode") String deviceCode,
             @RequestParam(value = "sensorCode") String sensorCode,
