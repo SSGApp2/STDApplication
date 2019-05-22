@@ -44,6 +44,8 @@ public class IotMachineControllerJson {
         IotMachine iotMachine = new IotMachine();
         iotMachine.setIotDevice(iotDevice);
         iotMachine.setMacName(iotm.getMacName());
+        iotMachine.setLineToken(iotm.getLineToken());
+        iotMachine.setDescription(iotm.getDescription());
 //        iotMachine.setMacCode(iotm.getMacCode());
         return  iotMachineRepository.save(iotMachine);
     }
@@ -65,6 +67,7 @@ public class IotMachineControllerJson {
                     .map(record -> {
                         record.setMacName(iotm.getMacName());
                         record.setLineToken(iotm.getLineToken());
+                        record.setDescription(iotm.getDescription());
 //                    record.setMacCode(iotm.getMacCode());
                         record.setIotDevice(iotDeviceNew);
                         IotMachine updated = iotMachineRepository.save(record);

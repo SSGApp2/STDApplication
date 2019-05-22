@@ -119,7 +119,7 @@
 
 <script type="text/javascript">
     Waves.init();
-    $('.app-sidebar__user-name').text(session.user);
+    $('.app-sideb_user-name').text(session.user);
     $('.app-sidebar__user-designation').text(session.ouCode);
 
     $('.app-content').click(function () {

@@ -1,17 +1,5 @@
 $('#btnAddSensor').click(function () {
     var id = $('#ddlMachine').val();
-    // AjaxIotSensor.findByMachineID($('#ddlMachine').val()).complete(function (xhr) {
-    //     if (xhr.status = 200) {
-    //         var data = xhr.responseJSON;
-    //         var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
-    //         if(data.length != 0 && seq < 7) {
-    //             var key = createCriteriaTemplate(data);
-    //             var $ddlSensor = $('#ddlSensor' + key);
-    //             $ddlSensor.focus();
-    //         }
-    //     }
-    // });
-
     AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+id).complete(function (xhr) {
         if (xhr.status = 200) {
             var data = xhr.responseJSON;
@@ -27,16 +15,22 @@ $('#btnAddSensor').click(function () {
 function createCriteriaTemplate(datasensor) {
     $('#divSensorAdd').show();
     var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
-    var key = seq;
+    var key = new Date().getTime();
     var $ddlSensor = 'ddlSensor_' + key;
     var $ddlCondition = 'ddlCondition_' + key;
     var $txtRate = 'txtRate_' + key;
+    var $txtRate1 = 'txtRate1_' + key;
+    var $txtRate2 = 'txtRate2_' + key;
+    var $formRate = 'formRate_' + key;
     var $normalid = 'normalid_' + key;
 
     var template = $('#templateSensor')[0].innerHTML
         .replace('ddlSensor', $ddlSensor)
         .replace('ddlCondition', $ddlCondition)
         .replace('txtRate', $txtRate)
+        .replace('txtRate1', $txtRate1)
+        .replace('txtRate2', $txtRate2)
+        .replace('formRate', $formRate)
         .replace('seq', seq)
         .replace('normalid', $normalid);
     $('#divSensorAdd').append(template);
@@ -49,9 +43,11 @@ function createCriteriaTemplate(datasensor) {
     $ddlSensor.append('<option></option>');
     $('select#ddlSensor_'+key).change(function () {
         var keyid = $(this).attr("id").split('_')[1];
-        var datasensorNamol = $(this).find('option:selected').data("normalvalue");
-        $('span#normalid_'+keyid).text(datasensorNamol);
+        var datasensorNormal = $(this).find('option:selected').data("normalvalue");
+        $('span#normalid_'+keyid).text(datasensorNormal);
+        $('input#txtRate_'+keyid).data("normalvalue",datasensorNormal);
     });
+
     $.each(datasensor,function (k, v) {
         $ddlSensor.append('<option  value="' + v.id + '" code="' + v.sensorCode + '" version="' + v.version + '"data-normalvalue="'+ v.normalValue +'" >' + v.sensorName + '</option>');
     });
@@ -63,6 +59,18 @@ function createCriteriaTemplate(datasensor) {
 
     return key;
 
+}
+
+function calNomal(e) {
+    // console.log(e.id.split('_')[1]);
+    var keyID = e.id.split('_')[1];
+    var thisValue = e.value;
+    $('#formRate_'+keyID).find('input.rate1').val()
+    var normalValue = $('#ddlSensor_'+ keyID).find('option:selected').data("normalvalue");
+    $('#formRate_'+keyID).find('input.rate1').val(parseFloat(normalValue) - parseFloat(thisValue));
+    $('#formRate_'+keyID).find('input.rate2').val(parseFloat(normalValue) + parseFloat(thisValue));
+    console.log(normalValue+'  '+thisValue);
+    // $('input#txtRate_'+keyid).text(datasensorNamol);
 }
 
 function removeSensorItem(ele) {
@@ -83,6 +91,50 @@ function removeSensorItem(ele) {
         }
     });
 }
+
+$('#btnSaveCombine').click(function () {
+    const deviceID = $('#inputDevices').data("iddevice");
+    var iotSensorCombineDetail = [];
+    var countID = 0;
+    $('#divSensorAdd .templateSensor').each(function (k, v) {
+        var data = {
+            iotSensor: {id:$(v).find('select.sensor').val()},
+            valueType: "A",
+            amount: $(v).find('input[name="optradio1"][type="radio"]:checked').data("idamount"),
+            displayType: "HH",
+            iotSensorCombine:{id:countID}
+        };
+        iotSensorCombineDetail.push(data);
+        // console.log(v)
+        countID++;
+    });
+
+    if (iotSensorCombineDetail.length == 0) {
+        MessageUtil.alertWarning("Please add sensor");
+        return false;
+    }
+
+    var data = {
+        alertMessage: $('#txtMessage').val(),
+        repeatAlert:"",
+        repeatUnit:"",
+        repeatType:"",
+        AlertType:"",
+        iotSensorCombineDetails: iotSensorCombineDetail
+    };
+
+    // $.ajax({
+    //     type: 'POST',
+    //     contentType:"application/json; charset=utf-8",
+    //     url:"http://localhost:8083/api/settingwarning/saveIotSensorCombine",
+    //     data: JSON.stringify(data),
+    //     complete:function (xhr) {
+    //         //  console.log(xhr);
+    //     }
+    // });
+    AjaxUtil.post('api/iotsensorcombines')
+
+});
 
 $(function () {
     $('#deviceCombine').val($('#ddlMachine').find('option:selected').data("devicename"));

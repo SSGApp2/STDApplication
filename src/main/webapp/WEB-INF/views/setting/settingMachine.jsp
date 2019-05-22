@@ -12,7 +12,7 @@
                 <tr>
                     <th>Machine Name</th>
                     <th>Device Name</th>
-                    <th>Line Token</th>
+                    <th>Description</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -22,7 +22,7 @@
                 <tr class="row-machine" data-idmachine="${iotmachine.id}" data-iddevice="${iotmachine.iotDevice.id}">
                     <td><c:out value="${iotmachine.macName}"/></td>
                     <td><c:out value="${iotmachine.iotDevice.deviceName}"/></td>
-                    <td><c:out value="${iotmachine.lineToken}"/></td>
+                    <td><c:out value="${iotmachine.description}"/></td>
                     <td><span class="badge badge-warning waves-effect btnEditMachine" data-idmachine="${iotmachine.id}" title="Edit">Edit</span></td>
                     <td><span class="badge badge-danger waves-effect btnDeleteMachine" data-idmachine="${iotmachine.id}" title="Delete">Delete</span></td>
                 </tr>
@@ -43,6 +43,16 @@
             <form id="save_form">
             <div class="modal-body">
                 <div class="form-group">
+                    <label for="deviceName">Device Name:</label>
+                    <select class="input-large form-control" id="deviceName">
+                        <option value="0">-- select device --</option>
+                        <c:forEach items="${iotDevice}" var="iotdevice">
+                            <option value="${iotdevice.id}" data-isused="${iotdevice.isUsed}"><c:out value="${iotdevice.deviceName}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="machineName">Machine Name:<span style="color: red">*</span></label>
                     <input type="text" class="form-control" id="machineName" data-idmachine="" required>
 
@@ -52,14 +62,11 @@
                     <input type="text" class="form-control" id="machinelinetoken" data-idmachine="">
 
                 </div>
+
                 <div class="form-group">
-                    <label for="deviceName">Device Name:</label>
-                    <select class="input-large form-control" id="deviceName">
-                        <option value="0">-- select device --</option>
-                        <c:forEach items="${iotDevice}" var="iotdevice">
-                            <option value="${iotdevice.id}" data-isused="${iotdevice.isUsed}"><c:out value="${iotdevice.deviceName}"/></option>
-                        </c:forEach>
-                    </select>
+                    <label for="machinedescription">Description:</label>
+                    <input type="text" class="form-control" id="machinedescription" data-idmachine="">
+
                 </div>
 
             </div>
