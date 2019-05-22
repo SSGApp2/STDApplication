@@ -33,8 +33,8 @@ public class MainSensorViewControllerJson {
         return mainSensorViewService.example();
     }
 
-    @GetMapping("/example2")
-    public ResponseEntity<String> getDataByDateFromTo(
+    @GetMapping("/findByCriteria")
+    public ResponseEntity<String> findByCriteria(
             @RequestParam(value = "deviceCode") String deviceCode,
             @RequestParam(value = "sensorCode") String sensorCode,
             @RequestParam(value = "dateFrom", required = false) String dateFrom,
@@ -46,7 +46,7 @@ public class MainSensorViewControllerJson {
         map.put("dateTo",dateTo);
         map.put("deviceCode",deviceCode);
         map.put("sensorCode",sensorCode);
-        return mainSensorViewService.getDataByDateFromTo(BeanUtils.toStringJson(map));
+        return mainSensorViewService.findByCriteria(BeanUtils.toStringJson(map));
     }
 
 

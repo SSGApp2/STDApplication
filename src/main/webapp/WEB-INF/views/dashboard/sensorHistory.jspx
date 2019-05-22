@@ -37,15 +37,18 @@
 
     <script src="https://code.highcharts.com/stock/highstock.js"><!-- required for FF3 and Opera --></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"><!-- required for FF3 and Opera --></script>
+    <script src="http://cdn.date-fns.org/v1.3.0/date_fns.min.js"><!-- required for FF3 and Opera --></script>
 
     <spring:url value="/resources/scripts/datepicker/bootstrap-datepicker.js" var="bootstrap_datepicker_js"/>
     <spring:url value="/resources/scripts/datepicker/bootstrap-datepicker-thai.js" var="bootstrap_datepicker_thai_js"/>
-    <spring:url value="/resources/scripts/datepicker/locales/bootstrap-datepicker.th.js"
-                var="bootstrap_datepicker_th_js"/>
+    <spring:url value="/resources/scripts/datepicker/locales/bootstrap-datepicker.th.js" var="bootstrap_datepicker_th_js"/>
 
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/util/DateUtils.js')}" var="dateutils_js"/>
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/sensorHistory.js')}" var="sensorHistory"/>
+
     <script src="${bootstrap_datepicker_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${bootstrap_datepicker_thai_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${bootstrap_datepicker_th_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${dateutils_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     <script src="${sensorHistory}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 </jsp:root>
