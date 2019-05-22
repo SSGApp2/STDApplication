@@ -43,6 +43,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         ServerConstant.VCCWebSocketServer = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCWebSocketServer").getParameterValue2();
         ServerConstant.VCCJobEngine = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCJobEngine").getParameterValue2();
 
+//      //For Dev
+        ServerConstant.VCCJobEngine="http://localhost:9999/VCCJobEngine";
+
 //        IotSensor iotSensor = iotSensorRepository.findAll().get(0);
 //        IotSensor iotSensor2 = iotSensorRepository.findAll().get(1);
 //
