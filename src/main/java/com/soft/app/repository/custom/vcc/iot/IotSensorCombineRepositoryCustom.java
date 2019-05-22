@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface IotSensorCombineRepositoryCustom{
-    List<IotSensorCombine> findDetailAllByID(Long id);
+    List<Map> findDetailAllByID(Long id);
 }
