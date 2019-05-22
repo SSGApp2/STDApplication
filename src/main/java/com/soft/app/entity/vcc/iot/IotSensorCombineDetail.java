@@ -32,7 +32,7 @@ public class IotSensorCombineDetail extends BaseEntity{
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iotSensor")
-    private IotSensor IotSensor;
+    private IotSensor iotSensor;
 
 
 

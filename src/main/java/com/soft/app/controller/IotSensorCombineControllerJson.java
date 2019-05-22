@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //@RequestMapping("api/iotsensorcombines")
@@ -41,6 +42,11 @@ public class IotSensorCombineControllerJson {
 
     @Autowired
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
+
+    @GetMapping("sensorcombinedetailall")
+    public  List<Map> sensorCombineDetailAll(@RequestParam(value = "id") Long id){
+        return iotSensorCombineRepositoryCustom.findDetailAllByID(id);
+    }
 
     @PostMapping("saveIotSensorCombine")
     @Transactional
