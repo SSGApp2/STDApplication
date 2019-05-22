@@ -57,11 +57,11 @@
                     <input type="text" class="form-control" id="machineName" data-idmachine="" required>
 
                 </div>
-                <div class="form-group">
-                    <label for="machinelinetoken">Line Token:</label>
-                    <input type="text" class="form-control" id="machinelinetoken" data-idmachine="">
+                <%--<div class="form-group">--%>
+                    <%--<label for="machinelinetoken">Line Token:</label>--%>
+                    <%--<input type="text" class="form-control" id="machinelinetoken" data-idmachine="">--%>
 
-                </div>
+                <%--</div>--%>
 
                 <div class="form-group">
                     <label for="machinedescription">Description:</label>
