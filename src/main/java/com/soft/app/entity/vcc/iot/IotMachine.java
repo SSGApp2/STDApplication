@@ -24,6 +24,8 @@ public class IotMachine extends BaseEntity{
 
     private String lineToken;
 
+    private String description;
+
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
