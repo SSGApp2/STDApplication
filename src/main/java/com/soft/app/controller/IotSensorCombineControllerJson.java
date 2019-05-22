@@ -13,15 +13,12 @@ import com.soft.app.repository.vcc.iot.IotSensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/iotsensorcombines")
+//@RequestMapping("api/iotsensorcombines")
 public class IotSensorCombineControllerJson {
 
     @Autowired
@@ -45,13 +42,14 @@ public class IotSensorCombineControllerJson {
     @Autowired
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
 
-
     @PostMapping("saveIotSensorCombine")
     @Transactional
     public ResponseEntity<List<IotSensorCombine>> saveIotSensorCombine(@RequestBody IotSensorCombineCustom iotSensorCombine){
 
         IotSensorCombine iotSensorCombine1 = new IotSensorCombine();
         iotSensorCombine1.setAlertMessage(iotSensorCombine.getAlertMessage());
+        iotSensorCombine1.setRepeatAlert(iotSensorCombine.getRepeatAlert());
+        iotSensorCombine1.setRepeatUnit(iotSensorCombine.getRepeatUnit());
         iotSensorCombineRepository.save(iotSensorCombine1);
 
         List<IotSensorCombineDetail> iotSensorCombineDetails = iotSensorCombine.getIotSensorCombineDetails();

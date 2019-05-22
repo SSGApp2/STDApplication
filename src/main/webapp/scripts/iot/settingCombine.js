@@ -22,6 +22,8 @@ function createCriteriaTemplate(datasensor) {
     var $txtRate1 = 'txtRate1_' + key;
     var $txtRate2 = 'txtRate2_' + key;
     var $formRate = 'formRate_' + key;
+    var $optradio1 = 'optradio1_' + key;
+    var $optradio2 = 'optradio2_' + key;
     var $normalid = 'normalid_' + key;
 
     var template = $('#templateSensor')[0].innerHTML
@@ -30,6 +32,11 @@ function createCriteriaTemplate(datasensor) {
         .replace('txtRate', $txtRate)
         .replace('txtRate1', $txtRate1)
         .replace('txtRate2', $txtRate2)
+        .replace('optradio1', $optradio1)
+        .replace('optradio2', $optradio1)
+        .replace('optradio3', $optradio2)
+        .replace('optradio4', $optradio2)
+        .replace('optradio5', $optradio2)
         .replace('formRate', $formRate)
         .replace('seq', seq)
         .replace('normalid', $normalid);
@@ -99,9 +106,9 @@ $('#btnSaveCombine').click(function () {
     $('#divSensorAdd .templateSensor').each(function (k, v) {
         var data = {
             iotSensor: {id:$(v).find('select.sensor').val()},
-            valueType: "A",
-            amount: $(v).find('input[name="optradio1"][type="radio"]:checked').data("idamount"),
-            displayType: "HH",
+            valueType:  $(v).find('input.value-type[type="radio"]:checked').data("idtype"),
+            amount: $(v).find('input.rate').val(),
+            displayType: $(v).find('input.display-type[type="radio"]:checked').data("displaytype"),
             iotSensorCombine:{id:countID}
         };
         iotSensorCombineDetail.push(data);
@@ -116,23 +123,14 @@ $('#btnSaveCombine').click(function () {
 
     var data = {
         alertMessage: $('#txtMessage').val(),
-        repeatAlert:"",
-        repeatUnit:"",
-        repeatType:"",
-        AlertType:"",
+        repeatUnit:$('#ddlRepeatUnit').val(),
+        repeatAlert:$('#txtRepeat').val(),
         iotSensorCombineDetails: iotSensorCombineDetail
     };
 
-    // $.ajax({
-    //     type: 'POST',
-    //     contentType:"application/json; charset=utf-8",
-    //     url:"http://localhost:8083/api/settingwarning/saveIotSensorCombine",
-    //     data: JSON.stringify(data),
-    //     complete:function (xhr) {
-    //         //  console.log(xhr);
-    //     }
-    // });
-    AjaxUtil.post('api/iotsensorcombines')
+    AjaxUtil.post('/saveIotSensorCombine', JSON.stringify(data)).complete(function (xhr) {
+        // console.log(xhr);
+    });
 
 });
 
