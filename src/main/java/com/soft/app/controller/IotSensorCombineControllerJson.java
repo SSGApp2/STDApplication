@@ -4,6 +4,7 @@ import com.soft.app.entity.vcc.iot.IotSensorCombine;
 import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
 import com.soft.app.entity.vcc.iot.custom.IotSensorCombineCustom;
 import com.soft.app.repository.custom.vcc.iot.IotDeviceRepositoryCustom;
+import com.soft.app.repository.custom.vcc.iot.IotSensorCombineDetailRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
 import com.soft.app.repository.vcc.iot.IotDeviceRepository;
@@ -44,8 +45,8 @@ public class IotSensorCombineControllerJson {
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
 
     @GetMapping("sensorcombinedetailall")
-    public  List<Map> sensorCombineDetailAll(@RequestParam(value = "id") Long id){
-        return iotSensorCombineRepositoryCustom.findDetailAllByID(id);
+    public  List<Map> sensorCombineDetailAll(){
+        return iotSensorCombineRepositoryCustom.findDetailAllByOuth();
     }
 
     @PostMapping("saveIotSensorCombine")
@@ -74,5 +75,11 @@ public class IotSensorCombineControllerJson {
 //            List<IotSensorCombine> iotSensorCombine2 = iotSensorCombineRepositoryCustom.findById(iotSensorCombine1.getId());
             return ResponseEntity.ok().body(null);
         }
+    }
+
+    @Transactional
+    @PostMapping("deletesettingcombine")
+    public void deleteSettingCombine(@RequestParam(value = "id") Long id){
+        iotSensorCombineRepository.deleteById(id);
     }
 }

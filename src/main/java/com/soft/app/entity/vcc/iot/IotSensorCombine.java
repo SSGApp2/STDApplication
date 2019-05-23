@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,5 +29,5 @@ public class IotSensorCombine extends BaseEntity {
     private String alertMessage;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "iotSensorCombine")
-    private Set<IotSensorCombineDetail> iotSensorCombineDetails;
+    private List<IotSensorCombineDetail> iotSensorCombineDetails;
 }
