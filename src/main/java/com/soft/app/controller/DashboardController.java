@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("dashboard")
@@ -29,7 +28,7 @@ public class DashboardController {
     @GetMapping("main/{id}")
     private String mainDashboard(ModelMap model, @PathVariable(value = "id") Long id) {
         IotMachine iotMachine = iotMachineRepositoryCustom.findByIdOuth(id);
-        if(BeanUtils.isNull(iotMachine)){
+        if (BeanUtils.isNull(iotMachine)) {
             return "errorPage/error404";
         }
         model.put("macName", iotMachine.getMacName());
@@ -39,14 +38,15 @@ public class DashboardController {
     }
 
 
-
     @GetMapping("device")
     private String device(ModelMap model) {
         model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
         return "dashboard/device";
     }
-    @GetMapping("sensorHistory")
-    private String sensorHistory() {
+
+    @GetMapping("sensorHistory/{id}")
+    private String sensorHistory(ModelMap model, @PathVariable(value = "id") Long id) {
+        model.addAttribute("IotSensor", iotSensorRepositoryCustom.findByIdOth(id));
         return "dashboard/sensorHistory";
     }
 

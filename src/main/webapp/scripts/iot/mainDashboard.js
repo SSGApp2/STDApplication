@@ -1,6 +1,6 @@
 var intervalFetchData;
 const _TIME_FETCH_DATA = 1 * 700; //s * ms
-const _MAX_DATA_TIME = 1 * 60;// min * sec
+const _MAX_DATA_TIME = 1 * 20;// min * sec
 const _TICK_INTERVAL = 0.1 * 60 * 1000 // min * sec * ms
 var MainSensorCurrent = {};
 
@@ -36,7 +36,7 @@ $(function () {
 var IntervalStatus = {};
 
 function setAlertTime(sensorCode, status) {
-    // var $div2blink = $(".divtoBlink"); // Save reference, only look this item up once, then save
+
     var $div2blink = $('.chartOne[code="' + sensorCode + '"]').closest(".divtoBlink");
     $div2blink.removeClass(function (index, className) {
         return (className.match(/(^|\s)badge-\S+/g) || []).join(' ');
@@ -48,9 +48,6 @@ function setAlertTime(sensorCode, status) {
         toggleClass = "badge-warning";
     }
     $div2blink.addClass(toggleClass);
-    // IntervalStatus[sensorCode] = setInterval(function () {
-    //     $div2blink.toggleClass(toggleClass);
-    // }, 1000);
 
 
 }
