@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,8 +34,8 @@ public class IotMachine extends BaseEntity{
     private IotDevice iotDevice;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotMachine")
-    private Set<IotSensor> iotSensor;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "iotMachine")
+    private List<IotSensor> iotSensor;
 
     public void addIotSensor(IotSensor iotSensor){
         iotSensor.setIotMachine(this);

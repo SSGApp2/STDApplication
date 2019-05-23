@@ -1,7 +1,11 @@
 package com.soft.app.repository.custom.vcc.iot;
 
 import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IotSensorCombineDetailRepositoryCustom extends JpaRepository<IotSensorCombineDetail, Long>{
+import java.util.List;
+
+@Repository
+public interface IotSensorCombineDetailRepositoryCustom{
+  List<IotSensorCombineDetail> findBySensorCombineID(Long id);
 }

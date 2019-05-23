@@ -123,6 +123,5 @@
     </div>
 
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/settingCombine.js')}" var="setting_combine"/>
-
     <script type="text/javascript" src="${setting_combine}"></script>
 </jsp:root>

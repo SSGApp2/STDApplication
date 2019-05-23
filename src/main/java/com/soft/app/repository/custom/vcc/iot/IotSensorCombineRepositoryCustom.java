@@ -9,5 +9,5 @@ import java.util.Map;
 
 @Repository
 public interface IotSensorCombineRepositoryCustom{
-    List<Map> findDetailAllByID(Long id);
+    List<Map> findDetailAllByOuth();
 }
