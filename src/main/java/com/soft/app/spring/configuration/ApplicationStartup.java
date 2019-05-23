@@ -1,11 +1,13 @@
 package com.soft.app.spring.configuration;
 
 import com.soft.app.constant.ServerConstant;
+import com.soft.app.entity.app.ParameterDetail;
 import com.soft.app.repository.ParameterHeaderRepository;
 import com.soft.app.repository.custom.ParameterDetailRepositoryCustom;
 import com.soft.app.repository.vcc.iot.IotSensorCombineDetailRepository;
 import com.soft.app.repository.vcc.iot.IotSensorCombineRepository;
 import com.soft.app.repository.vcc.iot.IotSensorRepository;
+import com.soft.app.util.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +42,16 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         LOGGER.info("Swagger UI : /swagger-ui.html");
         LOGGER.info("Spring Data REST : /rest-api");
 
-        ServerConstant.VCCWebSocketServer = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCWebSocketServer").getParameterValue2();
-        ServerConstant.VCCJobEngine = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCJobEngine").getParameterValue2();
-
+        ParameterDetail parameterDetail = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCWebSocketServer");
+        if (BeanUtils.isNotNull(parameterDetail)) {
+            ServerConstant.VCCWebSocketServer = parameterDetail.getParameterValue2();
+        }
+        parameterDetail = parameterDetailRepositoryCustom.findByParameterCodeAndParameterValue1("50", "VCCJobEngine");
+        if (BeanUtils.isNotNull(parameterDetail)) {
+            ServerConstant.VCCJobEngine = parameterDetail.getParameterValue2();
+        }
 //      //For Dev
-        ServerConstant.VCCJobEngine="http://localhost:9999/VCCJobEngine";
+        ServerConstant.VCCJobEngine = "http://localhost:9999/VCCJobEngine";
 
 //        IotSensor iotSensor = iotSensorRepository.findAll().get(0);
 //        IotSensor iotSensor2 = iotSensorRepository.findAll().get(1);
