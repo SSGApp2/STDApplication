@@ -30,10 +30,10 @@
 
     </style>
     <div style="background-color: rgba(38,173,255,0.6);margin: 3px;border: 1px solid #1db1ff;border-radius: 3px;" class="col-sm-6 col-sm-offset-3 templateID">
-        <div class="panel panel-default templateSensor">
+        <div class="panel panel-default templateSensor" id="TemplateSensorID" data-combinedetail="">
             <div class="panel-heading">
                 <h3 class="panel-title">seq</h3>
-                <span class="btn btn-danger btn-sm pull-right  btn-circle 	glyphicon glyphicon-minus" data-effect="fadeOut" onclick="removeSensorItem(this)">x <jsp:text/></span>
+                <span class="btn btn-danger btn-sm pull-right  btn-circle 	glyphicon glyphicon-minus" data-effect="fadeOut" id="btnDeleteCombine" onclick="removeSensorItem(this)">x <jsp:text/></span>
                 <!--<span class="pull-right">X</span>-->
             </div>
             <div class="panel-body">

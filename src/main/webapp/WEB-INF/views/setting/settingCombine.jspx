@@ -26,7 +26,7 @@
         <div class="card-box">
             <h4 class="header-title m-t-0"> Combine Setting</h4>
 
-            <form>
+            <form id="form_save_combine">
                 <div class="form-group offset-sm-4">
                     <label class="col-sm-5">Machine</label>
                     <div class="col-sm-5">
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="form-group offset-sm-4">
-                    <div class="offset-sm-1 col-sm-4 text-center">
+                    <div class="offset-sm-1 col-sm-4 text-center" id="addsensor_div">
                         <button type="button" id="btnAddSensor" class="btn btn-success" style="padding: unset;border-radius: 80px;height: 40px;width: 40px;margin: 3px"><span style="font-size: 20px;">+</span></button>
                         <label for="btnAdd" >Add Sensor</label>
                     </div>
@@ -70,7 +70,7 @@
                     <label class="col-sm-5 control-label required">Repeat<span style="color: red">*</span></label>
                     <div class="row" style="margin-left: 2px;">
                     <div class="col-sm-2 ">
-                        <input type="number" id="txtRepeat" validate="true" class="form-control"/>
+                        <input type="number" id="txtRepeat" validate="true" class="form-control" required="required"/>
                     </div>
                     <div class="col-sm-2">
                         <select id="ddlRepeatUnit" class="form-control" validate="true">
@@ -85,7 +85,7 @@
                 <div class="form-group offset-sm-4">
                     <label for="txtMessage" class="col-sm-5 control-label required ">Alert Message<span style="color: red">*</span></label>
                     <div class="col-sm-5">
-                        <input type="text" id="txtMessage" validate="true" class="form-control"/>
+                        <input type="text" id="txtMessage" validate="true" class="form-control" required="required"/>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                 <div class="form-group offset-sm-5">
                     <div class="col-sm-12" style="margin-top: 10px">
                         <button type="button" style="display: none" id="btnNew" class="btn btn-primary">New</button>
-                        <button type="button" id="btnSaveCombine" class="btn btn-success">Save</button>
+                        <button type="submit" id="btnSaveCombine" class="btn btn-success">Save</button>
                     </div>
                 </div>
 

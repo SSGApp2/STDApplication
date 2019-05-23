@@ -49,6 +49,11 @@ public class IotSensorCombineControllerJson {
         return iotSensorCombineRepositoryCustom.findDetailAllByOuth();
     }
 
+
+    @GetMapping("finddetailallbyid")
+    public  List<Map> findDetailAllByID(@RequestParam(value = "id") Long id){
+        return iotSensorCombineRepositoryCustom.findDetailAllByID(id);
+    }
     @PostMapping("saveIotSensorCombine")
     @Transactional
     public ResponseEntity<List<IotSensorCombine>> saveIotSensorCombine(@RequestBody IotSensorCombineCustom iotSensorCombine){
@@ -77,9 +82,30 @@ public class IotSensorCombineControllerJson {
         }
     }
 
+    @PostMapping("/updateSensorCombine")
+    @Transactional
+    public ResponseEntity<?> updateSensorCombine(
+            @RequestBody IotSensorCombineCustom iotSensorCombine,
+            @RequestParam(value = "id") Long id
+           ){
+       return iotSensorCombineRepository.findById(id).map(row -> {
+           row.setAlertMessage(iotSensorCombine.getAlertMessage());
+           row.setRepeatUnit(iotSensorCombine.getRepeatUnit());
+           row.setRepeatAlert(iotSensorCombine.getRepeatAlert());
+           iotSensorCombineRepository.save(row);
+            return ResponseEntity.ok().build();
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
     @Transactional
     @PostMapping("deletesettingcombine")
     public void deleteSettingCombine(@RequestParam(value = "id") Long id){
         iotSensorCombineRepository.deleteById(id);
+    }
+
+    @PostMapping("deleteSensorCombineDetail")
+    @Transactional
+    public void deleteSensorCombineDetail(@RequestBody String dataid){
+        String id = dataid;
     }
 }
