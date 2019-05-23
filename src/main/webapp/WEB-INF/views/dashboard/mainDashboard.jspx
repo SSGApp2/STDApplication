@@ -32,7 +32,7 @@
         <div class="row">
             <c:forEach items="${iotSensors}" var="iotSensors" varStatus="loop">
                 <div class="col-md-4">
-                    <util:templateDashboard id="dash-bord-${iotSensors.id}" sensorCode="${iotSensors.sensorCode}"
+                    <util:templateDashboard id="${iotSensors.id}" sensorCode="${iotSensors.sensorCode}"
                                             title="${iotSensors.sensorName}"/>
                 </div>
             </c:forEach>

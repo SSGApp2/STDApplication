@@ -27,10 +27,29 @@ public class IotSensorRepositoryCustomImpl implements IotSensorRepositoryCustom 
     @Override
     public List<IotSensor> findByMachineIdOth(Long id) {
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensor.class);
-        criteria.createAlias("iotMachine","IotMachine");
+        criteria.createAlias("iotMachine", "IotMachine");
         criteria.add(Restrictions.eq("IotMachine.ouCode", authorizeUtil.getOuCode()));
-        criteria.add(Restrictions.eq("IotMachine.id",id));
+        criteria.add(Restrictions.eq("IotMachine.id", id));
         criteria.addOrder(Order.asc("seq"));
         return criteria.list();
+    }
+
+    @Override
+    public IotSensor findByMachineCodeAndSensorCodeOth(String sensorCode) {
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensor.class);
+        criteria.createAlias("iotMachine", "IotMachine");
+        criteria.add(Restrictions.eq("IotMachine.ouCode", authorizeUtil.getOuCode()));
+        criteria.add(Restrictions.eq("IotMachine.id", 11L));
+        criteria.add(Restrictions.eq("sensorCode", sensorCode));
+        return (IotSensor) criteria.uniqueResult();
+    }
+
+    @Override
+    public IotSensor findByIdOth(Long id) {
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensor.class);
+        criteria.createAlias("iotMachine", "IotMachine");
+        criteria.add(Restrictions.eq("IotMachine.ouCode", authorizeUtil.getOuCode()));
+        criteria.add(Restrictions.eq("id",id));
+        return (IotSensor) criteria.uniqueResult();
     }
 }

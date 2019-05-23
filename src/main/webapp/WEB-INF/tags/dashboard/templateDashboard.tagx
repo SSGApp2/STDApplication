@@ -23,12 +23,12 @@
 
     </style>
     <div class="card-box divtoBlink ">
-        <div class="pull-right"><a  href="/dashboard/sensorHistory">
+        <div class="pull-right"><a  href="/dashboard/sensorHistory/${id}">
             <button type="button"><span class="fa fa-bars"></span></button>
         </a></div>
         <h4 class="header-title m-t-0 m-b-30">${title}</h4>
 
-        <div id="${id}" class="chartOne" code="${sensorCode}">
+        <div id="dash-bord-${id}" class="chartOne" code="${sensorCode}">
             <jsp:text/>
         </div>
     </div>

@@ -26,7 +26,6 @@ public class IotSensorControllerJson {
     private IotMachineRepository iotMachineRepository;
 
 
-
     @PostMapping("saveOrUpdate")
     @Transactional
     public List<IotSensor> saveOrUpdate(@RequestBody List<IotSensor> iotSensors,
@@ -35,7 +34,7 @@ public class IotSensorControllerJson {
         IotMachine iotMachine = iotMachineRepository.findById(id).get();
         for (IotSensor iotSensor : iotSensors) {
             if (BeanUtils.isNotNull(iotSensor.getId())) { //update
-                IotSensor iot=iotSensorRepository.findById(iotSensor.getId()).get();
+                IotSensor iot = iotSensorRepository.findById(iotSensor.getId()).get();
                 iotSensor.setIotMachine(iotMachine);
                 iotSensor.setVersion(iot.getVersion());
                 iotSensorRepository.save(iotSensor);
@@ -50,8 +49,13 @@ public class IotSensorControllerJson {
     }
 
     @GetMapping("findIotSensorByMachineID")
-    public List<IotSensor> findIotSensorByMachineID( @RequestParam(value = "id") Long id){
-        return  iotSensorRepositoryCustom.findByMachineIdOth(id);
+    public List<IotSensor> findIotSensorByMachineID(@RequestParam(value = "id") Long id) {
+        return iotSensorRepositoryCustom.findByMachineIdOth(id);
+    }
+
+    @GetMapping("findByMachineCodeAndSensorCodeOth")
+    public IotSensor findByMachineCodeAndSensorCodeOth(@RequestParam(value = "sensorCode") String sensorCode) {
+        return iotSensorRepositoryCustom.findByMachineCodeAndSensorCodeOth(sensorCode);
     }
 }
 

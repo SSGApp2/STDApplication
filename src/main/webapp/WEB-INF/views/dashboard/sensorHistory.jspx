@@ -13,22 +13,71 @@
     <spring:url value="/resources/styles/datepicker.css" var="datepicker"/>
     <link rel="stylesheet" type="text/css" href="${datepicker}"/>
 
+    <script>
+        const deviceCode = '${IotSensor.iotMachine.iotDevice.deviceCode}';
+        const sensorCode = '${IotSensor.sensorCode}';
+        const titleHeader = '${IotSensor.sensorName}';
+    </script>
+
 
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="card-box">
+                    <h4 class="header-title">Device : ${IotSensor.iotMachine.iotDevice.deviceName}</h4>
+                    <h4 class="header-title">Machine : ${IotSensor.iotMachine.macName}</h4>
+                    <h4 class="header-title">Sensor : ${IotSensor.sensorName}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="card-box">
                     <div class="row">
                         <div class="col-lg-12">
-                            <input  id="dateFrom" class="from-control" type="text" data-provide="datepicker" data-date-language="th-th"/>
-                            <input  id="dateTo" class="from-control" type="text" data-provide="datepicker" data-date-language="th-th"/>
+
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label style="margin-right: 5px;margin-left: 5px">Date</label>
+                                            <div id="divfrom" class="col-sm-3">
+                                                <input id="dateFrom" class="form-control" type="text"
+                                                       data-provide="datepicker" data-date-language="th-th"/>
+                                            </div>
+                                            <div id="divMonthfrom" class="col-sm-3" style="display: none">
+                                                <input id="monthFrom" class="form-control" type="text"
+                                                       data-date-language="th-th"/>
+                                            </div>
+                                            <label class="divTo"
+                                                   style="margin-right: 5px;margin-left: 5px;display: none">To</label>
+                                            <div class="divTo col-sm-3" style="display: none">
+                                                <input id="dateTo" class="form-control" type="text"
+                                                       data-provide="datepicker" data-date-language="th-th"/>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <select class="form-control" id="selectDateType">
+                                                    <option value="Today">Today</option>
+                                                    <option value="Week">Week</option>
+                                                    <option value="Month">Month</option>
+                                                    <option value="Custom">Custom Range</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
                     <div id="container">
                         <jsp:text/>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -37,11 +86,14 @@
 
     <script src="https://code.highcharts.com/stock/highstock.js"><!-- required for FF3 and Opera --></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"><!-- required for FF3 and Opera --></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"><!-- required for FF3 and Opera --></script>
+    <script src="http://code.highcharts.com/maps/modules/map.js"><!-- required for FF3 and Opera --></script>
     <script src="http://cdn.date-fns.org/v1.3.0/date_fns.min.js"><!-- required for FF3 and Opera --></script>
 
     <spring:url value="/resources/scripts/datepicker/bootstrap-datepicker.js" var="bootstrap_datepicker_js"/>
     <spring:url value="/resources/scripts/datepicker/bootstrap-datepicker-thai.js" var="bootstrap_datepicker_thai_js"/>
-    <spring:url value="/resources/scripts/datepicker/locales/bootstrap-datepicker.th.js" var="bootstrap_datepicker_th_js"/>
+    <spring:url value="/resources/scripts/datepicker/locales/bootstrap-datepicker.th.js"
+                var="bootstrap_datepicker_th_js"/>
 
     <spring:url value="${urls.getForLookupPath('/resources/scripts/util/DateUtils.js')}" var="dateutils_js"/>
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/sensorHistory.js')}" var="sensorHistory"/>

@@ -176,10 +176,10 @@ a {
   -webkit-text-decoration-skip: objects;
 }
 
-a:hover {
-  color: #004a43;
-  text-decoration: underline;
-}
+/*a:hover {*/
+  /*color: #004a43;*/
+  /*text-decoration: underline;*/
+/*}*/
 
 a:not([href]):not([tabindex]) {
   color: inherit;
