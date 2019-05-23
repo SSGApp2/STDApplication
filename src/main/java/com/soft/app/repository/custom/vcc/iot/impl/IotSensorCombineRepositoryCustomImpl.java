@@ -50,4 +50,32 @@ public class IotSensorCombineRepositoryCustomImpl implements IotSensorCombineRep
 
         return criteria.list();
     }
+
+    @Override
+    public List<Map> findDetailAllByID(Long id){
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensorCombine.class,"iotsc")
+                .createAlias("iotSensorCombineDetails","iotscd")
+                .createAlias("iotscd.iotSensor","iots")
+                .createAlias("iots.iotMachine", "iotm");
+
+        criteria.add(Restrictions.eq("iotsc.id", id));
+
+        ProjectionList projectionList = Projections.projectionList();
+        projectionList.add(Projections.property("iotm.id"), "machineID");
+        projectionList.add(Projections.property("iotscd.id"), "combineDetailID");
+        projectionList.add(Projections.property("iotscd.amount"), "amount");
+        projectionList.add(Projections.property("iotscd.valueType"), "valueType");
+        projectionList.add(Projections.property("iotscd.displayType"), "displayType");
+        projectionList.add(Projections.property("iotsc.id"),"combineID");
+        projectionList.add(Projections.property("iotsc.repeatAlert"),"repeatAlert");
+        projectionList.add(Projections.property("iotsc.repeatUnit"),"repeatUnit");
+        projectionList.add(Projections.property("iotsc.alertMessage"),"alertMessage");
+        projectionList.add(Projections.property("iots.id"),"sensorID");
+        projectionList.add(Projections.property("iots.normalValue"),"normalValue");
+        criteria.setProjection(projectionList);
+        criteria.addOrder(Order.asc("combineDetailID"));
+        criteria.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP); //TOMAP
+
+        return criteria.list();
+    }
 }

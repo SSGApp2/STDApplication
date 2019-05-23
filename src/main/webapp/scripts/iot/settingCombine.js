@@ -1,18 +1,33 @@
+var sensorOfMachine;
+var create_or_update = 0;
+var tempDeleteCombineDetail = [];
+
 $('#btnAddSensor').click(function () {
+    create_or_update = 0;
     var id = $('#ddlMachine').val();
-    AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+id).complete(function (xhr) {
-        if (xhr.status = 200) {
-            var data = xhr.responseJSON;
             var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
-            if(data.length != 0 && seq < 7) {
-                var key = createCriteriaTemplate(data);
-                var $ddlSensor = $('#ddlSensor' + key);
+            if(seq < 7) {
+                var key = createCriteriaTemplate(sensorOfMachine, 'ADD');
+                var $ddlSensor = $('#ddlSensor_' + key);
                 $ddlSensor.focus();
+                if(seq == 6){
+                    $('#addsensor_div').hide();
+                }
             }
-        }});
+
 });
 
-function createCriteriaTemplate(datasensor) {
+
+
+function getSensorByMachineID(id) {
+    AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+id).complete(function (xhr) {
+        if (xhr.status = 200) {
+            sensorOfMachine = xhr.responseJSON;
+        }
+    });
+}
+
+function createCriteriaTemplate(datasensor,mode,datadetail) {
     $('#divSensorAdd').show();
     var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
     var key = new Date().getTime();
@@ -25,6 +40,8 @@ function createCriteriaTemplate(datasensor) {
     var $optradio1 = 'optradio1_' + key;
     var $optradio2 = 'optradio2_' + key;
     var $normalid = 'normalid_' + key;
+    var $templateSensorID = 'templateSensorID_' + key;
+    var $btnDeleteCombine = 'btnDeleteCombine_' + key;
 
     var template = $('#templateSensor')[0].innerHTML
         .replace('ddlSensor', $ddlSensor)
@@ -38,6 +55,8 @@ function createCriteriaTemplate(datasensor) {
         .replace('optradio4', $optradio2)
         .replace('optradio5', $optradio2)
         .replace('formRate', $formRate)
+        .replace('TemplateSensorID', $templateSensorID)
+        .replace('btnDeleteCombine', $templateSensorID)
         .replace('seq', seq)
         .replace('normalid', $normalid);
     $('#divSensorAdd').append(template);
@@ -64,25 +83,87 @@ function createCriteriaTemplate(datasensor) {
         $('#ddlDevice').attr('disabled', false);
     }
 
+    if(mode == 'EDIT'){
+            $('#templateSensorID_'+key).data("combinedetail", datadetail.combineDetailID);
+            $('#ddlSensor_'+key).val(datadetail.sensorID);
+            $('span#normalid_'+key).text(datadetail.normalValue);
+            $('input[type="radio"][data-idtype="'+datadetail.valueType+'"][name="optradio1_'+key+'"]').attr('checked','checked');
+            $('input[type="radio"][data-displaytype="'+datadetail.displayType+'"][name="optradio2_'+key+'"]').attr('checked','checked');
+            $('#txtRate_'+key).val(datadetail.amount);
+
+        var normalValue = datadetail.normalValue;
+        if(normalValue != '') {
+            calBothPositiveNegatine(key, datadetail.displayType, datadetail.valueType, parseFloat(normalValue), parseFloat(datadetail.amount));
+        }
+    }
+
     return key;
 
 }
 
+function calBothPositiveNegatine(keys,e1,e2,normal,rate) {
+    if(e1 == 'A'){
+        if(parseInt(e2) == 1){
+            var ans = calAmount(normal,rate);
+            setRateCal(keys,ans[0],ans[1]);
+        }else {
+            var anss = calPercent(normal,rate);
+            var ans = calAmount(normal,anss);
+            setRateCal(keys,ans[0],ans[1]);
+    }
+    }else if(e1 == 'P'){
+        if(parseInt(e2) == 1){
+            var ans = calAmount(normal,rate);
+            setRateCal(keys,normal,ans[1]);
+        }else {
+            var anss = calPercent(normal,rate);
+            var ans = calAmount(normal,anss);
+            setRateCal(keys,normal,ans[1]);
+        }
+    }else if(e1 == 'N'){
+        if(parseInt(e2) == 1){
+            var ans = calAmount(normal,rate);
+            setRateCal(keys,ans[0],normal);
+        }else {
+            var anss = calPercent(normal,rate);
+            var ans = calAmount(normal,anss);
+            setRateCal(keys,ans[0],normal);
+        }
+    }
+}
+
+function calPercent(a,b) {
+    return (a/100) * b;
+}
+function calAmount(a,b) {
+    return [a-b,a+b];
+}
+
 function calNomal(e) {
-    // console.log(e.id.split('_')[1]);
     var keyID = e.id.split('_')[1];
     var thisValue = e.value;
-    $('#formRate_'+keyID).find('input.rate1').val()
+    var option1 =   $('input[type="radio"][name="optradio1_'+keyID+'"]:checked').data("idtype");
+    var option2 =   $('input[type="radio"][name="optradio2_'+keyID+'"]:checked').data("displaytype");
     var normalValue = $('#ddlSensor_'+ keyID).find('option:selected').data("normalvalue");
-    $('#formRate_'+keyID).find('input.rate1').val(parseFloat(normalValue) - parseFloat(thisValue));
-    $('#formRate_'+keyID).find('input.rate2').val(parseFloat(normalValue) + parseFloat(thisValue));
-    console.log(normalValue+'  '+thisValue);
-    // $('input#txtRate_'+keyid).text(datasensorNamol);
+    if(normalValue != '' && thisValue != '') {
+        calBothPositiveNegatine(keyID, option2, option1, parseFloat(normalValue), parseFloat(thisValue));
+    }
+}
+
+function setRateCal(key,r1,r2) {
+    $('#formRate_'+key).find('input.rate1').val(r1);
+    $('#formRate_'+key).find('input.rate2').val(r2);
 }
 
 function removeSensorItem(ele) {
     $('#divSensorAdd').hide();
-
+    var key = ele.id.split('_')[1];
+    if(create_or_update == 1){
+       var idCombineDetail = $('#templateSensorID_'+key).data("combinedetail");
+        tempDeleteCombineDetail.push(idCombineDetail);
+        // console.log(key);
+        // console.log(tempDeleteCombineDetail);
+    }
     $(ele).closest('.templateSensor').parent().empty();
     $('#ddlDevice').attr('disabled', false);
     $('#divSensorAdd .panel-title').each(function (i, ele) {
@@ -97,14 +178,24 @@ function removeSensorItem(ele) {
             $(this).remove();
         }
     });
+
+    var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
+    if(seq <= 6) {
+        $('#addsensor_div').show();
+
+    }
 }
 
-$('#btnSaveCombine').click(function () {
+$('#form_save_combine').submit(function(e) {
+    e.preventDefault();
     const deviceID = $('#inputDevices').data("iddevice");
     var iotSensorCombineDetail = [];
     var countID = 0;
     $('#divSensorAdd .templateSensor').each(function (k, v) {
-        var data = {
+        var idCombineDetail = $(v).data("combinedetail");
+
+       var data = {
+            id: (idCombineDetail != '')?idCombineDetail:0,
             iotSensor: {id:$(v).find('select.sensor').val()},
             valueType:  $(v).find('input.value-type[type="radio"]:checked').data("idtype"),
             amount: $(v).find('input.rate').val(),
@@ -127,13 +218,32 @@ $('#btnSaveCombine').click(function () {
         repeatAlert:$('#txtRepeat').val(),
         iotSensorCombineDetails: iotSensorCombineDetail
     };
-
+if(create_or_update == 0) {
     AjaxUtil.post('/saveIotSensorCombine', JSON.stringify(data)).complete(function (xhr) {
         // console.log(xhr);
         findSensorComdineDetailAll();
     });
-
+    }else{
+    AjaxUtil.post('/updateSensorCombine?id='+ 103, JSON.stringify(data)).complete(function (xhr) {
+       if(xhr.status == 200){
+           console.log(xhr);
+           if(tempDeleteCombineDetail.length != 0){
+           deleteCombineDetail();
+           tempDeleteCombineDetail = [];
+           }
+       }
+    });
+    }
 });
+
+function deleteCombineDetail() {
+    var data = {dataid:tempDeleteCombineDetail};
+    AjaxUtil.post('/deleteSensorCombineDetail', JSON.stringify(data)).complete(function (xhr) {
+        if(xhr.status == 200){
+            console.log(xhr);
+        }
+    });
+}
 
 function findSensorComdineDetailAll() {
     AjaxUtil.get('/sensorcombinedetailall').complete(function (xhr) {
@@ -196,6 +306,10 @@ function setTableCombineDetail(data) {
 
     $('#dataGrid').append(tabletHtml);
 
+   $('.btnEditCombine').click(function () {
+       editCombineSetting($(this));
+   });
+
    $('.btnDeleteCombine').click(function () {
        var idCombine = $(this).data("idcombine");
        MessageUtil.confirm('',function () {
@@ -209,13 +323,52 @@ function setTableCombineDetail(data) {
    });
 }
 
+function editCombineSetting(e) {
+    create_or_update = 1;
+    var idCombine = e.data("idcombine");
+    var idMachine = $('#ddlMachine').val();
+    var data;
+    AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+idMachine).complete(function (xhr) {
+        if (xhr.status = 200) {
+            sensorOfMachine = xhr.responseJSON;
+            AjaxUtil.get('/finddetailallbyid?id='+idCombine).complete(function (xhrx) {
+                if(xhrx.status==200){
+                    data = JSON.parse(xhrx.responseText);
+                    setForTemplateEdit(data, sensorOfMachine);
+                }
+            });
+        }
+    });
+
+
+}
+
+function setForTemplateEdit(datadetail, datasensor) {
+
+    if(datadetail != null && datadetail.length != 0) {
+        $('#ddlMachine').val(datadetail[0].machineID);
+        $('#txtRepeat').val(datadetail[0].repeatAlert);
+        $('#ddlRepeatUnit').val(datadetail[0].repeatUnit);
+        $('#txtMessage').val(datadetail[0].alertMessage);
+        for (var i = 0; i < datadetail.length; i++) {
+            // console.log(datadetail[i]);
+            createCriteriaTemplate(datasensor, 'EDIT', datadetail[i]);
+        }
+    }
+
+}
+
 $(function () {
     $('#deviceCombine').val($('#ddlMachine').find('option:selected').data("devicename"));
     $('#deviceCombine').data("iddevice",$('#ddlMachine').find('option:selected').data("iddevice"));
     findSensorComdineDetailAll();
+   var idMachine = $('#ddlMachine').val();
+    sensorOfMachine = getSensorByMachineID(idMachine);
 });
 
 $('#ddlMachine').change(function () {
     $('#deviceCombine').val($('#ddlMachine').find('option:selected').data("devicename"));
     $('#deviceCombine').data("iddevice", $('#ddlMachine').find('option:selected').data("iddevice"));
+    var idMachine = $('#ddlMachine').val();
+    sensorOfMachine = getSensorByMachineID(idMachine);
 });
