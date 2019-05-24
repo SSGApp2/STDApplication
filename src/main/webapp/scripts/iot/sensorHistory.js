@@ -1,5 +1,9 @@
 var plotBands = [];
 var normalValue;
+
+//initial Date
+$('[data-provide="datepicker"]').datepicker().datepicker("setDate", DateUtil.currentDate());
+
 $(function () {
     AjaxUtil.get('/api/iotsensors/findByMachineCodeAndSensorCodeOth', {
         sensorCode: sensorCode
@@ -14,8 +18,8 @@ $('#selectDateType').change(function () {
     const type = $(this).val();
     $('.divTo').hide();
     $('#divfrom').hide();
+    $('#divWeek').hide();
     $('#divMonthfrom').hide();
-
 
     if (type == "Today") {
         $('#divfrom').show();
@@ -23,14 +27,11 @@ $('#selectDateType').change(function () {
         $('#dateFrom').datepicker('setDate', DateUtil.currentDate()); //setCurrentDate
         renderData();
     } else if (type == "Week") {
-        $('#divfrom').show();
-        $("#dateFrom").datepicker("show");
-        $(".datepicker-days tbody tr").hover(function () {
-            $(this).css("background-color", "#808080")
-        }).mouseout(function () {
-            $(this).css("background-color", "")
-        });
+        $("#dateWeek").val('');
+        $('#divWeek').show();
+        $("#dateWeek").datepicker("show");
     } else if (type == "Month") {
+        $("#dateWeek").val('');
         $('#divMonthfrom').show();
         $("#monthFrom").datepicker("show");
     }
@@ -42,34 +43,74 @@ $('#selectDateType').change(function () {
 });
 
 
-$('[data-provide="datepicker"]').datepicker().datepicker("setDate", new Date());
-$("#dateTo").on('changeDate', function (ev) {
+
+$("#dateFrom,#dateTo,#dateWeek").on('changeDate', function (ev) {
     renderData();
 });
+/*******************************************************************
+ *                  DATE WEEK CUSTOM EVENT
+ ********************************************************************/
+$('#divWeek').click(function () {
+    $("#dateWeek").datepicker("show");
+});
+$('#dateWeek').on('show', function (ev) {
+    hilightRowWeek();
+    setColorWeek();
+});
 
-$("#dateFrom").on('changeDate', function (ev) {
+$('#dateWeek').on('changeMonth', function (ev) {
+    setTimeout(function () {
+        hilightRowWeek();
+    },50);
+
+});
+function setColorWeek() {
+    $('.datepicker-days .next').click(function () {
+        setTimeout(function () {
+            hilightRowWeek();
+        },50);
+    });
+    $('.datepicker-days .prev').click(function () {
+        setTimeout(function () {
+            hilightRowWeek();
+        },50);
+    });
+}
+function hilightRowWeek() {
+    if($('#dateWeek').val()!=""){
+        $('.datepicker-days .active').parent().find('td').addClass('active');
+    }
+    $(".datepicker-days tbody tr").hover(function () {
+        $(this).css("background-color", "#808080")
+    }).mouseout(function () {
+        $(this).css("background-color", "")
+    });
+}
+
+$('#dateWeek').on('hide', function (ev) {
     const type = $('#selectDateType').val();
     var dateSelect = $(this).datepicker("getDate");
-    if (type == "Week") {
-        var firstDate = DateUtil.startDayOfWeek(dateSelect);
-        var lastDate = DateUtil.lastDayOfWeek(dateSelect);
-        setTimeout(function () {
-            $("#dateFrom").val(DateUtil.format(firstDate, 'DD/MM/YYYY', "TH") + " - " + DateUtil.format(lastDate, 'DD/MM/YYYY', "TH"));
-        }, 100);
-
-    }
-    renderData();
+    var firstDate = DateUtil.startDayOfWeek(dateSelect);
+    var lastDate = DateUtil.lastDayOfWeek(dateSelect);
+    $("#dateWeek").val(DateUtil.format(firstDate, 'DD/MM/YYYY', "TH") + " - " + DateUtil.format(lastDate, 'DD/MM/YYYY', "TH"));
 });
-
+/*******************************************************************
+ *                  Month CUSTOM EVENT
+ ********************************************************************/
 $('#monthFrom').datepicker({
     startView: 1,
-    minViewMode: 1
+    minViewMode: 1,
+    format: 'MM yyyy'
 }).on('changeMonth', function (ev) {
     $(this).datepicker('hide');
     setTimeout(function () {
         renderData();
     });
 });
+$('#divMonthfrom').click(function () {
+    $("#monthFrom").datepicker("show");
+});
+
 
 
 function renderData() {
@@ -161,8 +202,10 @@ function renderData() {
                         text: 'All'
                     }],
                 labelStyle: {
-                    display: 'none'
-                }
+                    // display: 'none'
+                },
+                // inputDateFormat: '%Y-%m-%d',
+                // inputEditDateFormat: '%Y-%m-%d'
             },
             exporting: {
                 enabled: false

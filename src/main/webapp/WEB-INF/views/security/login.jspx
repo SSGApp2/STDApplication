@@ -49,6 +49,8 @@
                                     style="background-color: #083761;width: 250px;margin-top: 10px;font-size: 20px">LOGIN
                             </button>
                         </div>
+                        <br></br>
+                        <div id="msg" class="bg-danger text-center text-danger" style="color: red;text-align: center"/>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" id="screen_width" name="screen_width" value=""/>
                         <input type="hidden" id="screen_height" name="screen_height" value=""/>
@@ -62,4 +64,7 @@
             </div>
         </div>
     </form>
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/login.js')}" var="login"/>
+    <script type="text/javascript" src="${login}"><!-- required for FF3 and Opera --></script>
+
 </div>

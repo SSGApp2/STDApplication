@@ -1,3 +1,6 @@
+//ref
+//http://jkunst.com/highcharts-themes-collection/
+
 Highcharts.theme = {
     "colors": ["#A9CF54", "#C23C2A", "#FFFFFF", "#979797", "#FBB829"],
     "chart": {
