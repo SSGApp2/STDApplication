@@ -3,7 +3,6 @@ var create_or_update = 0;
 var tempDeleteCombineDetail = [];
 
 $('#btnAddSensor').click(function () {
-    create_or_update = 0;
     var id = $('#ddlMachine').val();
             var seq = $('#divSensorAdd').find('.templateSensor').length + 1;
             if(seq < 7) {
@@ -155,6 +154,14 @@ function setRateCal(key,r1,r2) {
     $('#formRate_'+key).find('input.rate2').val(r2);
 }
 
+function removeSensorItemAll() {
+    $('#divSensorAdd').empty();
+    $('#divSensorAdd').hide();
+    $('#txtMessage').val("");
+  $('#ddlRepeatUnit').val(0);
+    $('#txtRepeat').val("");
+}
+
 function removeSensorItem(ele) {
     $('#divSensorAdd').hide();
     var key = ele.id.split('_')[1];
@@ -188,13 +195,20 @@ function removeSensorItem(ele) {
 
 $('#form_save_combine').submit(function(e) {
     e.preventDefault();
+    saveOrUpdate();
+});
+
+function saveOrUpdate(isUpdate) {
+    if(isUpdate != undefined && isUpdate != null && isUpdate != '') {
+        create_or_update = isUpdate;
+    }
     const deviceID = $('#inputDevices').data("iddevice");
     var iotSensorCombineDetail = [];
     var countID = 0;
     $('#divSensorAdd .templateSensor').each(function (k, v) {
         var idCombineDetail = $(v).data("combinedetail");
 
-       var data = {
+        var data = {
             id: (idCombineDetail != '')?idCombineDetail:0,
             iotSensor: {id:$(v).find('select.sensor').val()},
             valueType:  $(v).find('input.value-type[type="radio"]:checked').data("idtype"),
@@ -218,29 +232,44 @@ $('#form_save_combine').submit(function(e) {
         repeatAlert:$('#txtRepeat').val(),
         iotSensorCombineDetails: iotSensorCombineDetail
     };
-if(create_or_update == 0) {
-    AjaxUtil.post('/saveIotSensorCombine', JSON.stringify(data)).complete(function (xhr) {
-        // console.log(xhr);
-        findSensorComdineDetailAll();
-    });
+    if(create_or_update == 0) {
+        AjaxUtil.post('/saveIotSensorCombine', JSON.stringify(data)).complete(function (xhr) {
+            // console.log(xhr);
+            if(xhr.status == 200) {
+                findSensorComdineDetailAll();
+                MessageUtil.alert("Save successfully.");
+                setTimeout(function () {
+                    location.reload();
+                }, 1450);
+            }
+        });
     }else{
-    AjaxUtil.post('/updateSensorCombine?id='+ 103, JSON.stringify(data)).complete(function (xhr) {
-       if(xhr.status == 200){
-           console.log(xhr);
-           if(tempDeleteCombineDetail.length != 0){
-           deleteCombineDetail();
-           tempDeleteCombineDetail = [];
-           }
-       }
-    });
+        AjaxUtil.post('/updateSensorCombine?id='+ 103, JSON.stringify(data)).complete(function (xhr) {
+            if(xhr.status == 200){
+                console.log(xhr);
+                if(tempDeleteCombineDetail.length != 0){
+                    deleteCombineDetail();
+                    tempDeleteCombineDetail = [];
+                }else {
+                    MessageUtil.alert("Save successfully.");
+                    setTimeout(function () {
+                        location.reload();
+                    },1450);
+                }
+            }
+        });
     }
-});
+}
 
 function deleteCombineDetail() {
     var data = {dataid:tempDeleteCombineDetail};
     AjaxUtil.post('/deleteSensorCombineDetail', JSON.stringify(data)).complete(function (xhr) {
         if(xhr.status == 200){
-            console.log(xhr);
+            // console.log(xhr);
+            MessageUtil.alert("Save successfully.");
+            setTimeout(function () {
+                location.reload();
+            },1450);
         }
     });
 }
@@ -258,8 +287,10 @@ function findSensorComdineDetailAll() {
 function groupBy(data) {
     var groups = {};
     var myArray = data;
+    var machineid = [];
     for (var i = 0; i < myArray.length; i++) {
         var groupName = data[i].combineID;
+         machineid = data[i].machineID;
         if (!groups[groupName]) {
             groups[groupName] = [];
         }
@@ -267,7 +298,17 @@ function groupBy(data) {
     }
     myArray = [];
     for (var groupName in groups) {
-        myArray.push({combineID: groupName, sensorName: groups[groupName]});
+        myArray.push({combineID: groupName, sensorName: groups[groupName],machineID:0});
+    }
+
+
+    for(var j=0;j<myArray.length;j++){
+            for(var i=0;i<data.length;i++){
+                if(data[i].combineID == myArray[j].combineID){
+                  myArray[j].machineID = data[i].machineID;
+                  break;
+            }
+        }
     }
     // console.log(myArray);
     return myArray;
@@ -286,8 +327,8 @@ function setTableCombineDetail(data) {
            countCol++;
            tabletHtml += '<td>'+sensorGroupBy[i].sensorName[j]+'</td>';
            if(j==5){
-               tabletHtml += '<td><span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
-                   + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
+               tabletHtml += '<td><span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
+                   + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
                countCol=0;
            }
        }
@@ -295,8 +336,8 @@ function setTableCombineDetail(data) {
             for(var x=countCol; x < 6; x++){
                 tabletHtml += '<td></td>';
                 if(x==5){
-                    tabletHtml += '<td><span <span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
-                    + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
+                    tabletHtml += '<td><span <span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
+                    + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
                     countCol=0;
                 }
             }
@@ -326,7 +367,7 @@ function setTableCombineDetail(data) {
 function editCombineSetting(e) {
     create_or_update = 1;
     var idCombine = e.data("idcombine");
-    var idMachine = $('#ddlMachine').val();
+    var idMachine = e.data("idmachine");
     var data;
     AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+idMachine).complete(function (xhr) {
         if (xhr.status = 200) {
@@ -344,18 +385,20 @@ function editCombineSetting(e) {
 }
 
 function setForTemplateEdit(datadetail, datasensor) {
-
+    $('#btnNew').show();
+      removeSensorItemAll();
     if(datadetail != null && datadetail.length != 0) {
         $('#ddlMachine').val(datadetail[0].machineID);
         $('#txtRepeat').val(datadetail[0].repeatAlert);
         $('#ddlRepeatUnit').val(datadetail[0].repeatUnit);
         $('#txtMessage').val(datadetail[0].alertMessage);
-        for (var i = 0; i < datadetail.length; i++) {
-            // console.log(datadetail[i]);
-            createCriteriaTemplate(datasensor, 'EDIT', datadetail[i]);
-        }
-    }
 
+                for (var i = 0; i < datadetail.length; i++) {
+                    // console.log(datadetail[i]);
+                    createCriteriaTemplate(datasensor, 'EDIT', datadetail[i]);
+                }
+
+    }
 }
 
 $(function () {
@@ -371,4 +414,14 @@ $('#ddlMachine').change(function () {
     $('#deviceCombine').data("iddevice", $('#ddlMachine').find('option:selected').data("iddevice"));
     var idMachine = $('#ddlMachine').val();
     sensorOfMachine = getSensorByMachineID(idMachine);
+    removeSensorItemAll();
+    $('#btnNew').hide();
+    create_or_update = 0;
+});
+
+$('#btnNew').click(function () {
+    create_or_update = 0;
+    saveOrUpdate(0);
+    $('#btnNew').hide();
+    removeSensorItemAll();
 });

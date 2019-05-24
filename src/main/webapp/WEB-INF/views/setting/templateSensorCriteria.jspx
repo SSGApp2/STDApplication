@@ -29,11 +29,11 @@
 
 
     </style>
-    <div style="background-color: rgba(38,173,255,0.6);margin: 3px;border: 1px solid #1db1ff;border-radius: 3px;" class="col-sm-6 col-sm-offset-3 templateID">
+    <div style="background-color: rgba(38,173,255,0.6);margin: 3px;border: 1px solid #1db1ff;border-radius: 8px;padding: 5px 5px;" class="col-sm-6 col-sm-offset-3 templateID">
         <div class="panel panel-default templateSensor" id="TemplateSensorID" data-combinedetail="">
             <div class="panel-heading">
-                <h3 class="panel-title">seq</h3>
-                <span class="btn btn-danger btn-sm pull-right  btn-circle 	glyphicon glyphicon-minus" data-effect="fadeOut" id="btnDeleteCombine" onclick="removeSensorItem(this)">x <jsp:text/></span>
+                <span style="margin-left: 8px;font-size: 18px;" class="panel-title">seq</span>
+                <span title="Delete" style="margin: unset;max-height: 25px;max-width: 25px;font-size: 10px" class="btn btn-danger btn-sm pull-right  btn-circle 	glyphicon glyphicon-minus" data-effect="fadeOut" id="btnDeleteCombine" onclick="removeSensorItem(this)">x <jsp:text/></span>
                 <!--<span class="pull-right">X</span>-->
             </div>
             <div class="panel-body">

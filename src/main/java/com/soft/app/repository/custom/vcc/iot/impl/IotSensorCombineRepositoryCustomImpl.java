@@ -44,6 +44,7 @@ public class IotSensorCombineRepositoryCustomImpl implements IotSensorCombineRep
         projectionList.add(Projections.property("iots.id"), "sensorID");
         projectionList.add(Projections.property("iotscd.id"), "combineDetailID");
         projectionList.add(Projections.property("iotsc.id"),"combineID");
+        projectionList.add(Projections.property("iotm.id"),"machineID");
         criteria.setProjection(projectionList);
         criteria.addOrder(Order.asc("combineDetailID"));
         criteria.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP); //TOMAP
