@@ -20,6 +20,16 @@
         .highlight td {
             background-color: #ebfff6 !important;
         }
+        .noBdCollorTh {
+            border-top: unset !important;
+            border-bottom: unset !important;
+        }
+        #edit{
+            color: #ffc107;
+        }
+        #del {
+            color: pink;
+        }
     </style>
 
     <div class="container-fluid">
@@ -105,13 +115,13 @@
         <table class="table mb-0" id="table-id">
             <thead>
             <tr>
-                <th class="text-center">Sensor1</th>
-                <th class="text-center">Sensor2</th>
-                <th class="text-center">Sensor3</th>
-                <th class="text-center">Sensor4</th>
-                <th class="text-center">Sensor5</th>
-                <th class="text-center">Sensor6</th>
-                <th class="text-center">Edit</th>
+                <th class="text-center noBdCollorTh">Sensor1</th>
+                <th class="text-center noBdCollorTh">Sensor2</th>
+                <th class="text-center noBdCollorTh">Sensor3</th>
+                <th class="text-center noBdCollorTh">Sensor4</th>
+                <th class="text-center noBdCollorTh">Sensor5</th>
+                <th class="text-center noBdCollorTh">Sensor6</th>
+                <th class="text-center noBdCollorTh">Edit</th>
             </tr>
             </thead>
             <tbody id="dataGrid">
