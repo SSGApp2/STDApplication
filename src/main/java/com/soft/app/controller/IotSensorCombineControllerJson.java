@@ -1,5 +1,9 @@
 package com.soft.app.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.soft.app.entity.vcc.iot.IotSensorCombine;
 import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
 import com.soft.app.entity.vcc.iot.custom.IotSensorCombineCustom;
@@ -89,6 +93,21 @@ public class IotSensorCombineControllerJson {
             @RequestParam(value = "id") Long id
            ){
        return iotSensorCombineRepository.findById(id).map(row -> {
+
+           iotSensorCombine.getIotSensorCombineDetails().forEach(row1 -> {
+               if(row1.getId() == 0){
+                   iotSensorCombineDetailRepository.save(row1);
+               }else{
+                   IotSensorCombineDetail iotSensorCombineDetail
+                           = iotSensorCombineDetailRepository.findById(row1.getId()).get();
+                   iotSensorCombineDetail.setAmount(row1.getAmount());
+                   iotSensorCombineDetail.setDisplayType(row1.getDisplayType());
+                   iotSensorCombineDetail.setValueType(row1.getValueType());
+                   iotSensorCombineDetail.setIotSensor(iotSensorRepository.findById(row1.getIotSensor().getId()).get());
+                   iotSensorCombineDetailRepository.save(iotSensorCombineDetail);
+               }
+           });
+
            row.setAlertMessage(iotSensorCombine.getAlertMessage());
            row.setRepeatUnit(iotSensorCombine.getRepeatUnit());
            row.setRepeatAlert(iotSensorCombine.getRepeatAlert());
@@ -106,6 +125,12 @@ public class IotSensorCombineControllerJson {
     @PostMapping("deleteSensorCombineDetail")
     @Transactional
     public void deleteSensorCombineDetail(@RequestBody String dataid){
-        String id = dataid;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject objectFromString = jsonParser.parse(dataid).getAsJsonObject();
+       JsonArray jsonElements = objectFromString.getAsJsonArray("dataid");
+       for (int i = 0; i < jsonElements.size(); i++){
+            iotSensorCombineDetailRepository.deleteById(Long.parseLong(jsonElements.get(i).toString()));
+       }
     }
 }

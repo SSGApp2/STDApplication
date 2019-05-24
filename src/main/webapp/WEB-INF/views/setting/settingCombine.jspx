@@ -92,7 +92,7 @@
                 <!--บันทึก-->
                 <div class="form-group offset-sm-5">
                     <div class="col-sm-12" style="margin-top: 10px">
-                        <button type="button" style="display: none" id="btnNew" class="btn btn-primary">New</button>
+                        <button type="button" style="display: none;margin: 2px" id="btnNew" class="btn btn-primary">New</button>
                         <button type="submit" id="btnSaveCombine" class="btn btn-success">Save</button>
                     </div>
                 </div>
