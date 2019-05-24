@@ -96,6 +96,8 @@ public class IotSensorCombineControllerJson {
 
            iotSensorCombine.getIotSensorCombineDetails().forEach(row1 -> {
                if(row1.getId() == 0){
+                   row1.setIotSensor(iotSensorRepository.findById(row1.getIotSensor().getId()).get());
+                    row1.setIotSensorCombine(iotSensorCombineRepository.findById(id).get());
                    iotSensorCombineDetailRepository.save(row1);
                }else{
                    IotSensorCombineDetail iotSensorCombineDetail
