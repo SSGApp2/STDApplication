@@ -3,6 +3,7 @@ var update_create_status = 0;
 var devicceOld = 0;
 $('#btnAddMachine').click(function () {
     update_create_status = 0;
+    $('#iotmachinemodel').modal({backdrop: 'static', keyboard: false});
     $('#iotmachinemodel').modal('show');
     $('#titlemodalMachine').text('Add Machine');
     $('#machineName').val("");
@@ -65,6 +66,7 @@ $('.btnEditMachine').click(function () {
     var description = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(2)').text();
     var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
     devicceOld = deviceID;
+    $('#iotmachinemodel').modal({backdrop: 'static', keyboard: false});
     $('#iotmachinemodel').modal('show');
     $('#deviceName').val(deviceID);
     $('#titlemodalMachine').text('Edit Machine');

@@ -1,6 +1,7 @@
 var sensorOfMachine;
 var create_or_update = 0;
 var tempDeleteCombineDetail = [];
+var idCombineEdit = 0;
 
 $('#btnAddSensor').click(function () {
     var id = $('#ddlMachine').val();
@@ -244,7 +245,7 @@ function saveOrUpdate(isUpdate) {
             }
         });
     }else{
-        AjaxUtil.post('/updateSensorCombine?id='+ 103, JSON.stringify(data)).complete(function (xhr) {
+        AjaxUtil.post('/updateSensorCombine?id='+ idCombineEdit, JSON.stringify(data)).complete(function (xhr) {
             if(xhr.status == 200){
                 console.log(xhr);
                 if(tempDeleteCombineDetail.length != 0){
@@ -367,6 +368,7 @@ function setTableCombineDetail(data) {
 function editCombineSetting(e) {
     create_or_update = 1;
     var idCombine = e.data("idcombine");
+    idCombineEdit = idCombine
     var idMachine = e.data("idmachine");
     var data;
     AjaxUtil.get('/api/iotsensors/findIotSensorByMachineID?id='+idMachine).complete(function (xhr) {
