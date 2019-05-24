@@ -14,9 +14,8 @@
         a {
             color: white;
         }
-
-        .fa-gear:before, .fa-cog:before, .fa-battery-4:before, .fa-battery:before, .fa-battery-full:before{
-            color: white;
+        .clWhite {
+            color: white !important;
         }
     </style>
     <div class="container-fluid">
@@ -57,10 +56,10 @@
                                        href="/dashboard/main/${iotMachines.id}">${iotMachines.macName}</a>
                                 </div>
                                 <div class="col-sm-3 center">
-                                    <span class="fa fa-battery-full logo text-success"></span>
+                                    <span class="fa fa-battery-full logo text-success clWhite"></span>
                                 </div>
                                 <div class="col-sm-3 center">
-                                    <span class="fa fa-cog logo text-success"></span>
+                                    <span class="fa fa-cog logo text-success clWhite"></span>
                                 </div>
                             </div>
                         </div>

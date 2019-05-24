@@ -1686,6 +1686,7 @@ pre code {
 .table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid #dee2e6;
+  background: #073761;
 }
 
 .table tbody + tbody {
@@ -2554,8 +2555,10 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #FFF;
-  background-color: #009688;
-  border-color: #009688;
+  /*background-color: #009688;*/
+  /*border-color: #009688;*/
+  background-color: #28a74599;
+  border-color: transparent;
 }
 
 .btn-primary:hover {
@@ -2734,8 +2737,10 @@ fieldset:disabled a.btn {
 
 .btn-danger {
   color: #FFF;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  /*background-color: #dc3545;*/
+  /*border-color: #dc3545;*/
+  background-color: #dc3545b8;
+  border-color : transparent;
 }
 
 .btn-danger:hover {
@@ -5744,7 +5749,7 @@ button.close {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 0px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
@@ -5765,6 +5770,8 @@ button.close {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   padding: 1rem;
+  background: #073761;
+  border: 2px solid rgba(29, 127, 193);
 }
 
 .modal-footer {
@@ -5778,7 +5785,7 @@ button.close {
       -ms-flex-pack: end;
           justify-content: flex-end;
   padding: 1rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 0px solid #e9ecef;
 }
 
 .modal-footer > :not(:first-child) {

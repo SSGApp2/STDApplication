@@ -328,8 +328,8 @@ function setTableCombineDetail(data) {
            countCol++;
            tabletHtml += '<td>'+sensorGroupBy[i].sensorName[j]+'</td>';
            if(j==5){
-               tabletHtml += '<td><span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
-                   + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
+               tabletHtml += '<td><span style="margin: 2px;" class="badge waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit"><u id="edit">Edit</u></span>'
+                   + '<span <span style="margin: 2px;" class="badge waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete"><u id="del">Delete</u></span></td>';
                countCol=0;
            }
        }
@@ -337,8 +337,8 @@ function setTableCombineDetail(data) {
             for(var x=countCol; x < 6; x++){
                 tabletHtml += '<td></td>';
                 if(x==5){
-                    tabletHtml += '<td><span <span style="margin: 2px;" class="badge badge-warning waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit">Edit</span>'
-                    + '<span <span style="margin: 2px;" class="badge badge-danger waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete">Delete</span></td>';
+                    tabletHtml += '<td><span <span style="margin: 2px;" class="badge waves-effect btnEditCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Edit"><u id="edit">Edit</u></span>'
+                    + '<span <span style="margin: 2px;" class="badge waves-effect btnDeleteCombine" data-idmachine="'+sensorGroupBy[i].machineID+'" data-idcombine="'+sensorGroupBy[i].combineID+'" title="Delete"><u id="del">Delete</u></span></td>';
                     countCol=0;
                 }
             }
