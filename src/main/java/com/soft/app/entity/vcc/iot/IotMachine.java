@@ -29,8 +29,7 @@ public class IotMachine extends BaseEntity{
 
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToOne
     private IotDevice iotDevice;
 
 

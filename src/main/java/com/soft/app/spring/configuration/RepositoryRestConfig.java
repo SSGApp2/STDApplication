@@ -1,6 +1,8 @@
 package com.soft.app.spring.configuration;
 
 import com.soft.app.entity.base.BaseEntity;
+import com.soft.app.entity.vcc.iot.IotFootprint;
+import com.soft.app.entity.vcc.iot.IotFootprintMachine;
 import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.entity.vcc.iot.IotSensor;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,8 @@ public class RepositoryRestConfig extends RepositoryRestConfigurerAdapter {
         config.setReturnBodyOnCreate(Boolean.TRUE);
         config.setReturnBodyOnUpdate(Boolean.TRUE);
         config.exposeIdsFor(BaseEntity.class);
+        config.exposeIdsFor(IotFootprintMachine.class);
+        config.exposeIdsFor(IotFootprint.class);
         config.exposeIdsFor(IotSensor.class);
         config.exposeIdsFor(IotMachine.class);
         config.useHalAsDefaultJsonMediaType(false);

@@ -2,18 +2,8 @@ var intervalFetchData;
 const _TIME_FETCH_DATA = 1 * 500; //s * ms
 var MainSensorCurrent = {};
 
-$(document).on({
-    ajaxStart: function () {
-        $('.dv-background').hide();
-    },
-    ajaxStop: function () {
-        $('.dv-background').hide();
-    }
-});
-
-
 $(function () {
-    socketSensor.setDeviceCode("XDK001");
+    socketSensor.setDeviceCode(DEVICE_CODE);
     intervalFetchData = setInterval(function () {
         MainSensorCurrent = socketSensor.setCurrentData();
         $('.dpreal').each(function () {

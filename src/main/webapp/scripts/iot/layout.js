@@ -1,27 +1,11 @@
-
+var iotFootprint=3;
 var tooltip = document.getElementById("tooltip");
+const position_key = "position";
+const machine_key = "machine-data";
 
 $(window).on('load', function (e) {
-    blueprintSVG = $('#blueprint')[0].getSVGDocument();
 
-    $(blueprintSVG).find("[id^='XDK']").click(function(e){
-        // DEVICE_NAME = this.id;
-        // window.location.href = '/dashboard/device/' + DEVICE_NAME;
-        // window.location.href = '/dashboard/device';
-
-    });
-
-    $(blueprintSVG).find("[id^='XDK']").mousemove(function(evt){
-        var obj = this;
-        showTooltip(evt, obj.id);
-    });
-
-
-
-    // $(blueprintSVG).find("[id^='XDK']").mouseout(function(){
-    // 	var obj = this;
-    // 	hideTooltip();
-    // });
+    renderByFootprintId(iotFootprint);
 
 });
 
@@ -43,10 +27,46 @@ function showTooltip(evt, deviceName) {
 }
 
 function linkDevice(ele) {
-    window.location.href = '/dashboard/device';
+    var data=$(ele).data(machine_key);
+    console.log(data);
+    window.location.href = '/dashboard/device/'+data.id;
 }
 
 function hideTooltip() {
     console.log('Hide');
     tooltip.style.display = "none";
+}
+
+
+function renderByFootprintId(id) {
+    AjaxUtil.get('/api/iotfootprints/findByIotFootprint/'+id).success(function (data) {
+
+        $.each(data, function (k, v) {
+            $('#carouselExampleFade').append(' <div onclick="linkDevice(this)" class="ui-widget-content draggable inZone">' +
+                ' <p style="margin: 0px">' + v.iotMachine.iotDevice.deviceName + '</p>' +
+                ' <p>' + v.iotMachine.macName + '</p>' +
+                ' </div>');
+            var element = $('#carouselExampleFade').find('.draggable').last();
+            element.data(machine_key, v.iotMachine);
+            element.data(position_key,  {
+                x: v.posX,
+                y: v.posY
+            });
+            element.draggable({revert: 'invalid'});
+            coordinates(element, v.posX, v.posY);
+            element.draggable( "disable" )
+        });
+    });
+}
+
+var coordinates = function (element, per_x, per_y) {
+
+    const width = $('.dropzone').width() / 100 * parseFloat(per_x);
+    const height = $('.dropzone').height() / 100 * parseFloat(per_y);
+    console.log(width,height)
+    element.position({
+        my: "left+" + width + " top+" + height,
+        at: "left top",
+        of: ".dropzone"
+    });
 }

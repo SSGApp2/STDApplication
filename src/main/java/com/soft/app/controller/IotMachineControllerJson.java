@@ -1,20 +1,20 @@
 package com.soft.app.controller;
 
+import com.jfilter.filter.FieldFilterSetting;
+import com.jfilter.filter.FilterBehaviour;
 import com.soft.app.entity.vcc.iot.IotDevice;
 import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.entity.vcc.iot.IotSensor;
+import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.vcc.iot.IotDeviceRepository;
 import com.soft.app.repository.vcc.iot.IotMachineRepository;
 import com.soft.app.repository.vcc.iot.IotSensorRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.soft.app.entity.vcc.iot.IotMachine;
-import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +47,11 @@ public class IotMachineControllerJson {
         iotMachine.setLineToken(iotm.getLineToken());
         iotMachine.setDescription(iotm.getDescription());
 //        iotMachine.setMacCode(iotm.getMacCode());
-        return  iotMachineRepository.save(iotMachine);
+        return iotMachineRepository.save(iotMachine);
     }
 
-    @PutMapping(value="/{id}")
-    public ResponseEntity<IotMachine> updateIotMachine(@PathVariable("id") long id,@RequestBody IotMachine iotm) {
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<IotMachine> updateIotMachine(@PathVariable("id") long id, @RequestBody IotMachine iotm) {
         IotMachine iotMachine = iotMachineRepository.findById(id).get();
         Long idDeviceOld = iotMachine.getIotDevice().getId();
         Optional<IotDevice> iotDeviceOld = iotDeviceRepository.findById(idDeviceOld);
@@ -76,30 +76,34 @@ public class IotMachineControllerJson {
 
         }).orElse(ResponseEntity.notFound().build());
 
-    return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(path ={"/{id}"})
+    @DeleteMapping(path = {"/{id}"})
     public ResponseEntity<?> deleteIotMachine(@PathVariable("id") long id) {
         return iotMachineRepository.findById(id)
                 .map(record -> {
-                   IotDevice iotDevice = iotDeviceRepository.findById(record.getIotDevice().getId()).get();
-                   iotDevice.setIsUsed("N");
-                   iotDeviceRepository.save(iotDevice);
+                    IotDevice iotDevice = iotDeviceRepository.findById(record.getIotDevice().getId()).get();
+                    iotDevice.setIsUsed("N");
+                    iotDeviceRepository.save(iotDevice);
 
                     iotMachineRepository.deleteById(id);
-                    iotSensorRepository.findByIotMachineId(id).forEach(row ->{
+                    iotSensorRepository.findByIotMachineId(id).forEach(row -> {
                         iotSensorRepository.deleteById(row.getId());
                     });
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("findByNotInFootprintOuth")
+    @FieldFilterSetting(className = IotMachine.class, fields = {"macName", "id", "deviceName", "iotDevice"}, behaviour = FilterBehaviour.KEEP_FIELDS)
+    @FieldFilterSetting(className = IotDevice.class, fields = {"deviceName"}, behaviour = FilterBehaviour.KEEP_FIELDS)
+    @RequestMapping(value = "findByNotInFootprintOuth", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<IotMachine> findByNotInFootprintOuth() {
         return iotMachineRepositoryCustom.findByNotInFootprintOuth();
-
     }
+
+
 
 }
 

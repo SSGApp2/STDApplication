@@ -46,6 +46,9 @@
             margin-bottom: 20px;
         }
     </style>
+    <script>
+        const DEVICE_CODE='${iotMachine.iotDevice.deviceCode}';
+    </script>
 
     <div class="container-fluid">
         <div class="row bg-frame">
@@ -68,9 +71,9 @@
             </div>
             <div class="col-lg-8">
                 <div class="card-box">
-                    <h2 class="header-title m-t-0 " >XDK001</h2>
+                    <h2 class="header-title m-t-0 " >${iotMachine.iotDevice.deviceName}</h2>
                     <br></br>
-                    <h2 class="header-title m-t-0 " >Machine001</h2>
+                    <h2 class="header-title m-t-0 " >${iotMachine.macName}</h2>
                     <br></br>
                     <!--<img class="center img-responsive" src="/resources/images/device3.png"/>-->
                     <img class="center img-responsive" style="width: 500px" src="/resources/images/cpu.png"/>
@@ -95,16 +98,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row bg-frame">-->
-            <!--<div class="col-lg-12">-->
-                <!--<div class="card-box">-->
-                    <!--<h2 class="header-title m-t-0">Latest Projects</h2>-->
-                    <!--<p class="text-muted m-b-25 font-13">-->
-                        <!--Your awesome text goes here.-->
-                    <!--</p>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"><!-- required for FF3 and Opera --></script>

@@ -1,6 +1,7 @@
 package com.soft.app.controller;
 
 import com.soft.app.entity.vcc.iot.IotMachine;
+import com.soft.app.entity.vcc.iot.IotSensor;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
 import com.soft.app.util.BeanUtils;
@@ -38,15 +39,23 @@ public class DashboardController {
     }
 
 
-    @GetMapping("device")
-    private String device(ModelMap model) {
-        model.addAttribute("iotMachine", iotMachineRepositoryCustom.findByOuth());
+    @GetMapping("device/{id}")
+    private String device(ModelMap model, @PathVariable(value = "id") Long id) {
+        IotMachine iotMachine = iotMachineRepositoryCustom.findByIdOuth(id);
+        if (BeanUtils.isNull(iotMachine)) {
+            return "errorPage/error404";
+        }
+        model.addAttribute("iotMachine", iotMachine);
         return "dashboard/device";
     }
 
     @GetMapping("sensorHistory/{id}")
     private String sensorHistory(ModelMap model, @PathVariable(value = "id") Long id) {
-        model.addAttribute("IotSensor", iotSensorRepositoryCustom.findByIdOth(id));
+        IotSensor iotSensor = iotSensorRepositoryCustom.findByIdOth(id);
+        if (BeanUtils.isNull(iotSensor)) {
+            return "errorPage/error404";
+        }
+        model.addAttribute("IotSensor", iotSensor);
         return "dashboard/sensorHistory";
     }
 

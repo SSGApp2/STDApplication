@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,8 +24,8 @@ public class IotFootprint extends BaseEntity {
     private String picturePath;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "iotFootprint")
-    private Set<IotFootprintMachine> iotFootPrintMachines = new HashSet<IotFootprintMachine>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "iotFootprint")
+    private List<IotFootprintMachine> iotFootPrintMachines;
 
     private String ouCode;
 }

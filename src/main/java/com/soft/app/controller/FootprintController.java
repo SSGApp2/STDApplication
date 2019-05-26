@@ -14,9 +14,6 @@ public class FootprintController {
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String home(ModelMap model) {
-//        model.addAttribute("iotFootprints", );
-//        model.addAttribute("iotMachines", );
-        //FIRST PAGE
-        return "footprint/create";
+        return "footprints/create";
     }
 }

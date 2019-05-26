@@ -50,6 +50,8 @@
         </dependency>
 
 
+
+
         <!-- Swagger UI-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -68,6 +70,13 @@
             <version>2.6.1</version>
         </dependency>
 
+        <!--Spring Web Service response filtering-->
+        <dependency>
+            <groupId>com.github.rkonovalov</groupId>
+            <artifactId>json-ignore</artifactId>
+            <version>1.0.14</version>
+        </dependency>
+
         <!--Database-->
         <!--H2-->
         <dependency>
@@ -83,8 +92,8 @@
         </dependency>
         <!--MongoDB-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
         <!--</dependency>-->
 
         <!--AOP-->
@@ -102,8 +111,8 @@
 
         <!--Web Socket-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-websocket</artifactId>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-websocket</artifactId>-->
         <!--</dependency>-->
 
         <!--Spring boot admin client-->
@@ -181,6 +190,11 @@
             <version>2.8.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
 
     </dependencies>
 
