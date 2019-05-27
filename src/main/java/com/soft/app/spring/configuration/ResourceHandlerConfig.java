@@ -58,6 +58,8 @@ public class ResourceHandlerConfig extends WebMvcConfigurerAdapter {
         configurer.favorPathExtension(true).
                 ignoreAcceptHeader(true).
                 useJaf(false).mediaType("json", MediaType.APPLICATION_JSON);
+
+        configurer.defaultContentType(MediaType.APPLICATION_JSON);
     }
 
     @Bean

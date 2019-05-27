@@ -32,14 +32,15 @@ public abstract class AbstractEngineService {
         }
     }
 
-    public ResponseEntity<String> postWithJson(String urlParam, String json) {
+    public String postWithJson(String urlParam, String json) {
         String url = this.EngineServer + urlParam;
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             headers.add("Content-Type", "application/json; charset=utf-8");
             HttpEntity<String> entity = new HttpEntity<String>(json, headers);
-            return restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+            ResponseEntity<String> data= restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+            return data.getBody();
         } catch (Exception e) {
             LOGGER.error("error : {}", e.getMessage(), e);
             throw new RuntimeException(e);

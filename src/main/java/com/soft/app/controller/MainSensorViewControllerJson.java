@@ -31,7 +31,7 @@ public class MainSensorViewControllerJson {
     }
 
     @GetMapping("/findByCriteria")
-    public ResponseEntity<String> findByCriteria(
+    public String findByCriteria(
             @RequestParam(value = "deviceCode") String deviceCode,
             @RequestParam(value = "sensorCode") String sensorCode,
             @RequestParam(value = "dateFrom", required = false) String dateFrom,

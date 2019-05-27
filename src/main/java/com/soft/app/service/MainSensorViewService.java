@@ -14,7 +14,7 @@ public class MainSensorViewService extends AbstractEngineService {
 
 
 
-    public ResponseEntity<String> findByCriteria(String json) {
+    public String findByCriteria(String json) {
         this.EngineServer = ServerConstant.VCCJobEngine+"/api";
         return postWithJson("/mainsensorviews/findByCriteria",json);
     }

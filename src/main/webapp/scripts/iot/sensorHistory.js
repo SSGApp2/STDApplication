@@ -144,6 +144,7 @@ function renderData() {
     }
     console.log(data);
     AjaxUtil.get('/api/mainsensorviews/findByCriteria', data).success(function (data) {
+        data=JSON.parse(data);
         console.log(data.length);
         // Create a timer
         var start = +new Date();
@@ -173,7 +174,7 @@ function renderData() {
                 enabled: false
             },
             rangeSelector: {
-                enabled: true,
+                enabled: data.length>0,
                 selected: 5,
                 buttons: [{
                     type: 'minute',
