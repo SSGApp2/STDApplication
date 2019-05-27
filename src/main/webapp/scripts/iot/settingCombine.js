@@ -277,8 +277,8 @@ function deleteCombineDetail() {
     });
 }
 
-function findSensorComdineDetailAll() {
-    AjaxUtil.get('/sensorcombinedetailall').complete(function (xhr) {
+function findSensorComdineDetailByMachineId(id) {
+    AjaxUtil.get('/sensorcombinedetailbymachineid?id='+id).complete(function (xhr) {
         // console.log(JSON.parse(xhr.responseText));
         var data = JSON.parse(xhr.responseText);
         if(data != null) {
@@ -409,9 +409,9 @@ function setForTemplateEdit(datadetail, datasensor) {
 $(function () {
     $('#deviceCombine').val($('#ddlMachine').find('option:selected').data("devicename"));
     $('#deviceCombine').data("iddevice",$('#ddlMachine').find('option:selected').data("iddevice"));
-    findSensorComdineDetailAll();
    var idMachine = $('#ddlMachine').val();
     sensorOfMachine = getSensorByMachineID(idMachine);
+    findSensorComdineDetailByMachineId(idMachine);
 });
 
 $('#ddlMachine').change(function () {
@@ -422,6 +422,7 @@ $('#ddlMachine').change(function () {
     removeSensorItemAll();
     $('#btnNew').hide();
     create_or_update = 0;
+    findSensorComdineDetailByMachineId(idMachine);
 });
 
 $('#btnNew').click(function () {
