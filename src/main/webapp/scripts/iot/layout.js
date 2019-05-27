@@ -60,13 +60,16 @@ function renderByFootprintId(id) {
 }
 
 var coordinates = function (element, per_x, per_y) {
-
-    const width = $('.dropzone').width() / 100 * parseFloat(per_x);
-    const height = $('.dropzone').height() / 100 * parseFloat(per_y);
+    var  width = parseFloat(per_x);
+    var height = parseFloat(per_y);
+    if(width<0)width=0;
+    if(height<0)height=0;
     console.log(width,height)
     element.position({
-        my: "left+" + width + " top+" + height,
-        at: "left top",
-        of: ".dropzone"
+        of: ".dropzone",
+        my: "left top",
+        at: "left+"+width+"%"+" top+"+height+"%",
+        collision:"none none"
+
     });
 }

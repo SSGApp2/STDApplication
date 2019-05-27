@@ -76,25 +76,20 @@
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
                     </ol>
-                    <div class="carousel-inner " role="listbox">
+                    <div id="carousel-list" class="carousel-inner" role="listbox">
 
 
                         <div class="carousel-item active">
-                            <img class="dropzone img-responsive"
+                            <img  class="dropzone img-responsive"
                                  src="/resources/images/floorplan/exampleFloorplan.jpg"
                                  alt="First slide">
-                            <%--<div class="carousel-caption d-none d-md-block">--%>
-                                <%--<h3 class="text-white">First slide label</h3>--%>
-                                <%--<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>--%>
-                            <%--</div>--%>
                         </div>
-
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselExampleFade"  role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#carouselExampleFade"   role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -125,7 +120,8 @@
         <spring:url value="${urls.getForLookupPath('/resources/styles/iot/plotDevice.css')}" var="plotdevice_css"/>
         <link rel="stylesheet" type="text/css" href="${plotdevice_css}"/>
 
-
+        <spring:url value="${urls.getForLookupPath('/resources/scripts/util/CommonMessage.js')}" var="common_message"/>
+        <script src="${common_message}" type="text/javascript"><!-- required for FF3 and Opera --></script>
         <%--Script--%>
         <%--<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"><!-- required for FF3 and Opera --></script>--%>
         <%--<script src="https://c4d6f7d727e094887e93-4ea74b676357550bd514a6a5b344c625.ssl.cf2.rackcdn.com/interact-1.1.1.min.js"><!-- required for FF3 and Opera --></script>--%>
@@ -134,8 +130,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"><!-- required for FF3 and Opera --></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"><!-- required for FF3 and Opera --></script>
 
-        <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create.js')}"
-                    var="footprint_create"/>
+        <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create.js')}" var="footprint_create"/>
         <script src="${footprint_create}" type="text/javascript"><!-- required for FF3 and Opera --></script>
     </div>
 </div>

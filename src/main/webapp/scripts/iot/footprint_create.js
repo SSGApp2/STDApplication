@@ -1,6 +1,6 @@
 const position_key = "position";
 const machine_key = "machine-data";
-var iotFootprint=3;
+var iotFootprint = 3;
 $(document).on({
     ajaxStart: function () {
         $('.dv-background').show();
@@ -26,8 +26,14 @@ $(function () {
 
             const targetW = event.target.clientWidth;
             const targetH = event.target.clientHeight;
+
+
             var x = (100 * parseFloat(leftPosition / parseFloat(targetW)));
             var y = (100 * parseFloat(topPosition / parseFloat(targetH)));
+
+            if (x < 0) x = 0;
+            if (y < 0) y = 0;
+
             console.log("X", x);
             console.log("Y", y);
             var position = {
@@ -39,22 +45,35 @@ $(function () {
         }
     });
 });
-
+$('#carouselExampleFade').bind('slid.bs.carousel', function (e) {
+    console.log('after');
+});
 function renderFootprintList() {
-    var $table=$('#tbFootprint');
+    var $table = $('#tbFootprint');
+    var $carousel = $('#carousel-list')
+
+
     $table.empty();
     AjaxUtil.get('/api/iotfootprints/findByOuth').success(function (data) {
-        $.each(data,function (k,v) {
+        $.each(data, function (k, v) {
             $table.append('<tr>' +
-                '<td>'+v.name+'</td>' +
+                '<td>' + v.name + '</td>' +
                 '</tr>');
             $table.find('td:eq(0)').addClass('active');
-        })
+
+
+            $carousel.append(' <div class="carousel-item"> ' +
+                '<img  class="dropzone img-responsive"  src="/resources/images/floorplan/exampleFloorplan.jpg" >' +
+                ' </div>');
+            $carousel.find('.carousel-item').last().data('data-item',v);
+        });
+
+
     });
 }
 
 function renderByFootprintId(id) {
-    AjaxUtil.get('/api/iotfootprints/findByIotFootprint/'+id).success(function (data) {
+    AjaxUtil.get('/api/iotfootprints/findByIotFootprint/' + id).success(function (data) {
 
         $.each(data, function (k, v) {
             $('#divDraggable').append(' <div class="ui-widget-content draggable inZone">' +
@@ -64,7 +83,7 @@ function renderByFootprintId(id) {
                 ' </div>');
             var element = $('#divDraggable').find('.draggable').last();
             element.data(machine_key, v.iotMachine);
-            element.data(position_key,  {
+            element.data(position_key, {
                 x: v.posX,
                 y: v.posY
             });
@@ -90,14 +109,18 @@ function renderEmptyMachine() {
 }
 
 var coordinates = function (element, per_x, per_y) {
+    var width = parseFloat(per_x);
+    var height = parseFloat(per_y);
+    if (width < 0) width = 0;
+    if (height < 0) height = 0;
 
-    const width = $('.dropzone').width() / 100 * parseFloat(per_x);
-    const height = $('.dropzone').height() / 100 * parseFloat(per_y);
-    console.log(width,height)
+    console.log(width, height)
     element.position({
-        my: "left+" + width + " top+" + height,
-        at: "left top",
-        of: ".dropzone"
+        of: ".dropzone",
+        my: "left top",
+        at: "left+" + width + "%" + " top+" + height + "%",
+        collision: "none none"
+
     });
 }
 
@@ -106,7 +129,7 @@ function revert(ele) {
     const draggable = $(ele).closest('.draggable');
 
     draggable.animate({
-        "left":0,
+        "left": 0,
         "top": 0
     });
     draggable.removeClass('inZone');
@@ -132,10 +155,11 @@ $('#btnSave').click(function () {
         picturePath: "default.jpg",
         name: "template",
         machine: machine,
-        footPrint:iotFootprint
+        footPrint: iotFootprint
         // ouCode:session.ouCode
     }
     AjaxUtil.post('/api/iotfootprints', JSON.stringify(data)).success(function (data) {
+        MessageUtil.alert('Save successfully.');
         console.log(data);
     });
 });
@@ -145,3 +169,12 @@ $('#btnRevert').click(function () {
     renderEmptyMachine();
     renderByFootprintId(iotFootprint);
 });
+
+
+
+//
+// function changeItem(e) {
+//     e.preventDefault();
+//     const data=$('.carousel-item.active').data('data-item');
+//     console.log(data);
+// }

@@ -120,7 +120,7 @@ function renderData() {
         dateFrom = DateUtil.format($("#dateFrom").datepicker("getDate"), 'DD/MM/YYYY');
         dateTo = dateFrom;
     } else if (type == "Week") {
-        var dateSelect = $("#dateFrom").datepicker("getDate");
+        var dateSelect = $("#dateWeek").datepicker("getDate");
         var firstDate = DateUtil.startDayOfWeek(dateSelect);
         var lastDate = DateUtil.lastDayOfWeek(dateSelect);
         dateFrom = DateUtil.format(firstDate, 'DD/MM/YYYY');
