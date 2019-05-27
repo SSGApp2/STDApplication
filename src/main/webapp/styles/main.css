@@ -1687,6 +1687,7 @@ pre code {
   vertical-align: bottom;
   border-bottom: 2px solid #dee2e6;
   background: #073761;
+  color: aquamarine;
 }
 
 .table tbody + tbody {
