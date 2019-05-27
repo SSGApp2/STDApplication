@@ -86,12 +86,25 @@
                     </div>
                     <div class="col-sm-2">
                         <select id="ddlRepeatUnit" class="form-control" validate="true">
-                            <option value="0">H</option>
-                            <option value="1">M</option>
-                            <option value="2">S</option>
+                            <option value="H">H</option>
+                            <option value="M">M</option>
+                            <option value="S">S</option>
                         </select>
                     </div>
                 </div>
+                </div>
+
+                <div class="form-group offset-sm-4">
+
+                    <label class="col-sm-5 control-label required">Alert Type<span style="color: red">*</span></label>
+                    <div class="row" style="margin-left: 2px;">
+                        <div class="col-sm-5 ">
+                            <select id="ddlalertType" class="form-control" validate="true">
+                                <option value="W">Warning</option>
+                                <option value="D">Danger</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group offset-sm-4">

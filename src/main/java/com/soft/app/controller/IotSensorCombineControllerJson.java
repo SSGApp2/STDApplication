@@ -66,6 +66,7 @@ public class IotSensorCombineControllerJson {
         iotSensorCombine1.setAlertMessage(iotSensorCombine.getAlertMessage());
         iotSensorCombine1.setRepeatAlert(iotSensorCombine.getRepeatAlert());
         iotSensorCombine1.setRepeatUnit(iotSensorCombine.getRepeatUnit());
+        iotSensorCombine1.setAlertType(iotSensorCombine.getAlertType());
         iotSensorCombineRepository.save(iotSensorCombine1);
 
         List<IotSensorCombineDetail> iotSensorCombineDetails = iotSensorCombine.getIotSensorCombineDetails();
@@ -113,6 +114,7 @@ public class IotSensorCombineControllerJson {
            row.setAlertMessage(iotSensorCombine.getAlertMessage());
            row.setRepeatUnit(iotSensorCombine.getRepeatUnit());
            row.setRepeatAlert(iotSensorCombine.getRepeatAlert());
+           row.setAlertType(iotSensorCombine.getAlertType());
            iotSensorCombineRepository.save(row);
             return ResponseEntity.ok().build();
         }).orElse(ResponseEntity.notFound().build());

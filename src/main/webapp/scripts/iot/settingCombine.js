@@ -159,8 +159,9 @@ function removeSensorItemAll() {
     $('#divSensorAdd').empty();
     $('#divSensorAdd').hide();
     $('#txtMessage').val("");
-  $('#ddlRepeatUnit').val(0);
+  $('#ddlRepeatUnit').val("H");
     $('#txtRepeat').val("");
+    $('#ddlalertType').val("W");
 }
 
 function removeSensorItem(ele) {
@@ -231,6 +232,7 @@ function saveOrUpdate(isUpdate) {
         alertMessage: $('#txtMessage').val(),
         repeatUnit:$('#ddlRepeatUnit').val(),
         repeatAlert:$('#txtRepeat').val(),
+        alertType:$('#ddlalertType').val(),
         iotSensorCombineDetails: iotSensorCombineDetail
     };
     if(create_or_update == 0) {
@@ -394,6 +396,7 @@ function setForTemplateEdit(datadetail, datasensor) {
         $('#txtRepeat').val(datadetail[0].repeatAlert);
         $('#ddlRepeatUnit').val(datadetail[0].repeatUnit);
         $('#txtMessage').val(datadetail[0].alertMessage);
+        $('#ddlalertType').val(datadetail[0].alertType);
 
                 for (var i = 0; i < datadetail.length; i++) {
                     // console.log(datadetail[i]);

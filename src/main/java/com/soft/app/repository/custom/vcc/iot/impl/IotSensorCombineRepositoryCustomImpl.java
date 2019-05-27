@@ -71,6 +71,7 @@ public class IotSensorCombineRepositoryCustomImpl implements IotSensorCombineRep
         projectionList.add(Projections.property("iotsc.repeatAlert"),"repeatAlert");
         projectionList.add(Projections.property("iotsc.repeatUnit"),"repeatUnit");
         projectionList.add(Projections.property("iotsc.alertMessage"),"alertMessage");
+        projectionList.add(Projections.property("iotsc.alertType"),"alertType");
         projectionList.add(Projections.property("iots.id"),"sensorID");
         projectionList.add(Projections.property("iots.normalValue"),"normalValue");
         criteria.setProjection(projectionList);
