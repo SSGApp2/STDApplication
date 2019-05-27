@@ -48,9 +48,9 @@ public class IotSensorCombineControllerJson {
     @Autowired
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
 
-    @GetMapping("sensorcombinedetailall")
-    public  List<Map> sensorCombineDetailAll(){
-        return iotSensorCombineRepositoryCustom.findDetailAllByOuth();
+    @GetMapping("sensorcombinedetailbymachineid")
+    public  List<Map> sensorCombineDetailByMachineId(@RequestParam(value = "id") Long id){
+        return iotSensorCombineRepositoryCustom.findDetailAllByMachineOuth(id);
     }
 
 

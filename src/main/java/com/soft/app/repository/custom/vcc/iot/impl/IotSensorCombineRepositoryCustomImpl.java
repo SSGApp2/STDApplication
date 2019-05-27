@@ -31,13 +31,14 @@ public class IotSensorCombineRepositoryCustomImpl implements IotSensorCombineRep
     AuthorizeUtil authorizeUtil;
 
     @Override
-    public List<Map> findDetailAllByOuth(){
+    public List<Map> findDetailAllByMachineOuth(Long id){
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensorCombine.class,"iotsc")
                 .createAlias("iotSensorCombineDetails","iotscd")
                 .createAlias("iotscd.iotSensor","iots")
                 .createAlias("iots.iotMachine", "iotm");
 
         criteria.add(Restrictions.eq("iotm.ouCode", authorizeUtil.getOuCode()));
+        criteria.add(Restrictions.eq("iotm.id", id));
 
         ProjectionList projectionList = Projections.projectionList();
         projectionList.add(Projections.property("iots.sensorName"), "sensorName");
