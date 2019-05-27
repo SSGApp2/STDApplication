@@ -5,9 +5,11 @@
     .validatr-message{top:unset !important;left: unset !important;}
     #edit{
         color: #ffc107;
+        font-size: 0.95rem;
     }
     #del {
         color: pink;
+        font-size: 0.95rem;
     }
     .noBdCollorTh {
         border-top: unset !important;
