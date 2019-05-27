@@ -43,7 +43,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label style="margin-right: 5px;margin-left: 5px">Date</label>
-                                            <div id="divWeek" class="col-sm-4"  style="display: none">
+                                            <div id="divWeek" class="col-sm-5"  style="display: none">
                                                 <input id="dateWeek" class="form-control" disabled="true" type="text"
                                                        data-provide="datepicker" data-date-language="th-th"/>
                                             </div>
