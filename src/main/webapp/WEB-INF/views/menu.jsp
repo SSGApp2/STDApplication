@@ -30,19 +30,23 @@ To change this template use File | Settings | File Templates.
                 <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/warning" href="#"><i
                         class="icon fa fa-circle-o"></i> Warning</a>
                 </li>
-                <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/combine" href="#"><i class="icon fa fa-circle-o"></i> Combine</a></li>
+                <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/settings/combine" href="#"><i
+                        class="icon fa fa-circle-o"></i> Combine</a></li>
+
+                <li><a class="treeview-item" onclick="openLinkUrl(this)" link="/footprints/create" href="#"><i
+                        class="icon fa fa-circle-o"></i> Foot Print</a></li>
             </ul>
         </li>
 
         <%--<li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i--%>
-                <%--class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i--%>
-                <%--class="treeview-indicator fa fa-angle-right"></i></a>--%>
-            <%--<ul class="treeview-menu">--%>
-                <%--<li><a class="treeview-item active" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank--%>
-                    <%--Page</a></li>--%>
-                <%--<li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a>--%>
-                <%--</li>--%>
-            <%--</ul>--%>
+        <%--class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Pages</span><i--%>
+        <%--class="treeview-indicator fa fa-angle-right"></i></a>--%>
+        <%--<ul class="treeview-menu">--%>
+        <%--<li><a class="treeview-item active" href="blank-page.html"><i class="icon fa fa-circle-o"></i> Blank--%>
+        <%--Page</a></li>--%>
+        <%--<li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i> Login Page</a>--%>
+        <%--</li>--%>
+        <%--</ul>--%>
         <%--</li>--%>
     </ul>
 
@@ -52,6 +56,7 @@ To change this template use File | Settings | File Templates.
         $(function () {
             generateMenuHistory();
         });
+
         function generateMenuHistory() {
             $('.treeview-item').removeClass('active');
             if (checkCookie() != null) {

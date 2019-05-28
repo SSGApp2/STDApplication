@@ -21,7 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 public class IotFootprint extends BaseEntity {
-    private String picturePath;
+    private String picName;
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "iotFootprint")

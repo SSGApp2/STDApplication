@@ -12,8 +12,11 @@ import com.soft.app.service.iot.IotFootprintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/iotfootprints")
@@ -26,6 +29,7 @@ public class IotFootprintControllerJson {
     @Autowired
     private IotFootprintMachineRepositoryCustom iotFootprintMachineRepositoryCustom;
 
+
     @FieldFilterSetting(className = IotFootprint.class, fields = {"iotFootPrintMachines"})
     @RequestMapping(value = "findByOuth", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<IotFootprint> findByOuth() {
@@ -33,8 +37,11 @@ public class IotFootprintControllerJson {
     }
 
     @PostMapping()
-    public void create(@RequestBody String json) {
-        iotFootprintService.createOrUpdate(json);
+    public Map create(MultipartHttpServletRequest multipartHttpServletRequest) {
+        IotFootprint iotFootprint = iotFootprintService.createOrUpdate(multipartHttpServletRequest);
+        Map result = new HashMap();
+        result.put("id", iotFootprint.getId());
+        return result;
     }
 
 

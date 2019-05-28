@@ -1,5 +1,10 @@
 package com.soft.app.service.iot;
 
+import com.soft.app.entity.vcc.iot.IotFootprint;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.IOException;
+
 public interface IotFootprintService {
-    public void createOrUpdate(String json);
+    public IotFootprint createOrUpdate(MultipartHttpServletRequest multipartHttpServletRequest);
 }

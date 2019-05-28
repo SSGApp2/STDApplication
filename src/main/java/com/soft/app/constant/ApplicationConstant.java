@@ -8,4 +8,5 @@ public class ApplicationConstant {
     //    public static final String APPLICATION_VERSION = "v.1.0.20180612";
     public static final String APPLICATION_VERSION = "v." + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 
+    public static String FLOOR_PRINT="FP";
 }

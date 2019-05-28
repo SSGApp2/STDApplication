@@ -38,7 +38,7 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
     public List<IotMachine> findByNotInFootprintOuth() {
         String ouCode=authorizeUtil.getOuCode();
         Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotMachine.class);
-
+        criteria.createAlias("iotDevice","IotDevice");
 //      Find Id in used
         DetachedCriteria de = DetachedCriteria.forClass(IotFootprintMachine.class);
         de.createAlias("iotMachine","IotMachine");
@@ -48,8 +48,8 @@ public class IotMachineRepositoryCustomImpl implements IotMachineRepositoryCusto
         de.setProjection(pro);
         Criterion c1 = Subqueries.propertyNotIn("id", de);
         criteria.add(c1);
-
         criteria.add(Restrictions.eq("ouCode",ouCode));
+        criteria.addOrder(Order.asc("IotDevice.deviceName"));
         return criteria.list();
 
     }

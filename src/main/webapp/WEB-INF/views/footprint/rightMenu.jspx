@@ -1,0 +1,87 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" id="footer" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+
+    <style>
+        .fixed-plugin {
+            position: fixed;
+            top: 115px;
+            right: 0;
+            width: 64px;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1031;
+            border-radius: 8px 0 0 8px;
+            text-align: center;
+        }
+
+        .fixed-plugin .fa {
+            color: #FFFFFF;
+            padding: 10px;
+            border-radius: 0 0 6px 6px;
+            width: auto;
+            color: #1d2124;
+        }
+
+        .fa-blank {
+            visibility: hidden !important;
+        }
+        .fixed-plugin button{
+            background-color: transparent;
+            border-color: transparent;
+        }
+        .fixed-plugin button:focus {
+            outline: none;
+        }
+
+    </style>
+
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <button id="btnSave">
+                <i class="fa fa-save fa-2x">
+                    <jsp:text/>
+                </i>
+            </button>
+            <button id="btnRevert">
+                <i class="fa fa-undo fa-2x">
+                    <jsp:text/>
+                </i>
+            </button>
+            <button style="cursor: auto">
+                <i class="fa fa-undo fa-blank fa-2x">
+                    <jsp:text/>
+                </i>
+            </button>
+            <button id="btnDelete">
+                <i class="fa fa-trash fa-2x">
+                    <jsp:text/>
+                </i>
+            </button>
+
+        </div>
+    </div>
+
+    <script>
+        function rightEnable(state) {
+            $('.fixed-plugin button').removeAttr('disabled');
+            $('.fixed-plugin .fa-save').css('color', 'green');
+            if(state!=3){
+                $('.fixed-plugin .fa-trash').css('color', 'red');
+            }else{
+                $('.fixed-plugin .fa-trash').css('color', '');
+                $('.fixed-plugin .fa-trash').closest('button').attr('disabled',true);
+            }
+            $('.fixed-plugin .fa-undo').css('color', 'white');
+            $('.fixed-plugin .fa').not('.fa-blank').css('cursor','pointer');
+
+        }
+        function rightDisabled() {
+            $('.fixed-plugin .fa').css('color','');
+            $('.fixed-plugin .fa').not('.fa-blank').css('cursor','');
+            $('.fixed-plugin button').attr('disabled',true);
+        }
+    </script>
+</div>

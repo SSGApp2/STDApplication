@@ -1,12 +1,31 @@
 
-
-.draggable,#draggable {
-    width: 100px;
+#divDraggable{
     height: 100px;
-    padding: 0.5em;
+    background-color: white;
+    margin-bottom: 10px;
+}
+.draggable,#draggable {
+    width: 80px;
+    height: 80px;
+    /*padding: 0.5em;*/
     float: left;
     margin: 0px 10px 10px 0px;
-    background-color: red;
+    background-color: transparent;
+    padding: 0px;
+    color: black;
+    cursor: pointer;
+}
+.draggable img{
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+.draggable p{
+   text-align: center;
+    display: flow-root;
+}
+.draggable .desc{
+    display: none;
 }
 
 #droppable {
@@ -30,7 +49,7 @@
 
 .carousel-inner img {
     margin: auto;
-    width: 80%;
+    width: 90%;
 }
 
 

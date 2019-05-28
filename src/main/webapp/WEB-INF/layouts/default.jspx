@@ -93,7 +93,12 @@
         ouCode: "${ouCode}",
         timeout: parseInt("${pageContext.session.maxInactiveInterval}"),
     };
+    const MODULE={
+        FLOOR_PLAN:"FP"
+    }
+
     var ServerConstant=JSON.parse('${ServerConstant}');
+
 </script>
 
 <tiles:insertAttribute name="header" ignore="true"/>
@@ -130,6 +135,7 @@
             $('.app').toggleClass('sidenav-toggled');
         }
     });
+
 </script>
 
 </body>

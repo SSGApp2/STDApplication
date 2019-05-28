@@ -1,5 +1,6 @@
 package com.soft.app.controller;
 
+import com.soft.app.repository.custom.vcc.iot.IotFootprintRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.spring.security.AuthorizeUtil;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +17,9 @@ public class WebController {
     private static final Logger LOGGER = LogManager.getLogger(WebController.class);
 
     @Autowired
-    AuthorizeUtil authorizeUtil;
+    private AuthorizeUtil authorizeUtil;
+    @Autowired
+    private IotFootprintRepositoryCustom iotFootprintRepositoryCustom;
 
     @Autowired
     private IotMachineRepositoryCustom iotMachineRepositoryCustom;
@@ -28,7 +31,7 @@ public class WebController {
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-//        model.addAttribute("iotFootprints", );
+        model.addAttribute("iotFootprints",iotFootprintRepositoryCustom.findByOuth());
         model.addAttribute("iotMachines", iotMachineRepositoryCustom.findByOuth());
         //FIRST PAGE
         return "dashboard/index";

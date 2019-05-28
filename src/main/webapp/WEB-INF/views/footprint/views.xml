@@ -6,6 +6,7 @@
 <tiles-definitions>
 
     <definition name="footprints/create" extends="default">
+        <put-attribute name="rightMenu" value="/WEB-INF/views/footprint/rightMenu.jspx"/>
         <put-attribute name="body" value="/WEB-INF/views/footprint/createFootprint.jsp" />
     </definition>
 

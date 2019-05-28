@@ -8,23 +8,33 @@
 
     <style>
         #tooltip {
-            background: cornsilk;
+            background: #1b1e21;
             border: 1px solid black;
             border-radius: 5px;
             padding: 5px;
+            z-index: 1000;
         }
 
         a {
             color: white;
         }
+
         .clWhite {
             color: white !important;
         }
-        .carousel-item{
+
+        .carousel-item {
             text-align: center;
             margin: auto;
         }
+        .carousel-inner img{
+            width: 100%;
+        }
+        .text-success{
+            color: white !important;
+        }
     </style>
+
     <div class="container-fluid">
         <!-- Page-Title -->
         <!--<div class="row">-->
@@ -43,20 +53,23 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="card-box">
-                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-interval="false"
-                         data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
-                        </ol>
-                        <div class="carousel-inner " role="listbox">
-
-
-                            <div class="carousel-item active">
-                                <img class="dropzone img-responsive"
-                                     src="/resources/images/floorplan/exampleFloorplan.jpg"
-                                     alt="First slide"/>
-                            </div>
-
+                    <div id="carouselExampleFade" class="carousel slide" data-interval="false">
+                        <!--<ol class="carousel-indicators">-->
+                        <!--<li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>-->
+                        <!--</ol>-->
+                        <div class="carousel-inner  " role="listbox">
+                            <c:forEach items="${iotFootprints}" var="iotFootprints" varStatus="loop">
+                                <div class="carousel-item" data-id="${iotFootprints.id}">
+                                    <c:choose>
+                                        <c:when test="${empty iotFootprints.picName}">
+                                            <img class="dropzone img-responsive" src="/resources/images/floorplan/exampleFloorplan.jpg"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="dropzone img-responsive" src="/api/common/image?module=FP&amp;fileName=${iotFootprints.picName}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </c:forEach>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -97,7 +110,6 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"><!-- required for FF3 and Opera --></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"><!-- required for FF3 and Opera --></script>
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/layout.js')}" var="layout"/>
     <script src="${layout}" type="text/javascript"><!-- required for FF3 and Opera --></script>

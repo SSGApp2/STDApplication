@@ -26,15 +26,18 @@ var pattern = {
  * @param bAsync        (boolean)   asynchronous type
  * @param eBackdrop     (element)   put backdrop (loader) over
  */
-
-$(document).on({
-    ajaxStart: function () {
-        $('.dv-background').show();
-    },
-    ajaxStop: function () {
-        $('.dv-background').hide();
-    }
+$(function () {
+    $(document).on({
+        ajaxStart: function () {
+            $('.dv-background').show();
+        },
+        ajaxStop: function () {
+            $('.dv-background').hide();
+        }
+    });
 });
+
+
 
 AjaxUtil.post = function (strUrl, jsonData, bAsync, eBackdrop) {
 
@@ -45,6 +48,24 @@ AjaxUtil.post = function (strUrl, jsonData, bAsync, eBackdrop) {
         async: bAsync
     };
 
+    var settings = $.extend({}, pattern, options);
+    return $.ajax(settings);
+};
+
+AjaxUtil.postWithFile = function (strUrl, jsonData, bAsync, eBackdrop) {
+
+    var options = {
+        type: "POST",
+        url: session['context'] + strUrl,
+        data: jsonData,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        async: bAsync,
+        error: function (xhr) {
+            console.log(xhr);
+        }
+    };
     var settings = $.extend({}, pattern, options);
     return $.ajax(settings);
 };
