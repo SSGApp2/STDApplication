@@ -239,7 +239,8 @@ function saveOrUpdate(isUpdate) {
         AjaxUtil.post('/saveIotSensorCombine', JSON.stringify(data)).complete(function (xhr) {
             // console.log(xhr);
             if(xhr.status == 200) {
-                findSensorComdineDetailAll();
+                var idMachine = $('#ddlMachine').val();
+                findSensorComdineDetailByMachineId(idMachine);
                 MessageUtil.alert("Save successfully.");
                 setTimeout(function () {
                     location.reload();
