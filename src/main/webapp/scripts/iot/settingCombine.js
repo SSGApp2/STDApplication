@@ -207,8 +207,16 @@ function saveOrUpdate(isUpdate) {
     const deviceID = $('#inputDevices').data("iddevice");
     var iotSensorCombineDetail = [];
     var countID = 0;
-    $('#divSensorAdd .templateSensor').each(function (k, v) {
+    var $NoSensorDDL;
+    var checkNoSensor = false;
+     $('#divSensorAdd .templateSensor').each(function (k, v) {
         var idCombineDetail = $(v).data("combinedetail");
+
+        if($(v).find('select.sensor').val() == null || $(v).find('select.sensor').val() == ''){
+            $NoSensorDDL = $(v).find('select.sensor');
+            checkNoSensor = true;
+            return true;
+        }
 
         var data = {
             id: (idCombineDetail != '')?idCombineDetail:0,
@@ -222,6 +230,12 @@ function saveOrUpdate(isUpdate) {
         // console.log(v)
         countID++;
     });
+     
+     if(checkNoSensor){
+         $NoSensorDDL.focus();
+         MessageUtil.alertWarning("Please add sensor");
+         return false;
+     }
 
     if (iotSensorCombineDetail.length == 0) {
         MessageUtil.alertWarning("Please add sensor");
@@ -242,24 +256,20 @@ function saveOrUpdate(isUpdate) {
                 var idMachine = $('#ddlMachine').val();
                 findSensorComdineDetailByMachineId(idMachine);
                 MessageUtil.alert("Save successfully.");
-                setTimeout(function () {
-                    location.reload();
-                }, 1450);
             }
         });
     }else{
         AjaxUtil.post('/updateSensorCombine?id='+ idCombineEdit, JSON.stringify(data)).complete(function (xhr) {
             if(xhr.status == 200){
-                console.log(xhr);
+                // console.log(xhr);
                 if(tempDeleteCombineDetail.length != 0){
                     deleteCombineDetail();
                     tempDeleteCombineDetail = [];
                 }else {
                     MessageUtil.alert("Save successfully.");
-                    setTimeout(function () {
-                        location.reload();
-                    },1450);
                 }
+                removeSensorItemAll();
+                $('#btnNew').hide();
             }
         });
     }
@@ -270,10 +280,9 @@ function deleteCombineDetail() {
     AjaxUtil.post('/deleteSensorCombineDetail', JSON.stringify(data)).complete(function (xhr) {
         if(xhr.status == 200){
             // console.log(xhr);
+            var idMachine = $('#ddlMachine').val();
+            findSensorComdineDetailByMachineId(idMachine);
             MessageUtil.alert("Save successfully.");
-            setTimeout(function () {
-                location.reload();
-            },1450);
         }
     });
 }
@@ -361,7 +370,9 @@ function setTableCombineDetail(data) {
        AjaxUtil.post('/deletesettingcombine?id='+idCombine).complete(function (xhr) {
            //console.log(xhr);
            if(xhr.status == 200) {
-               location.reload();
+               var idMachine = $('#ddlMachine').val();
+               findSensorComdineDetailByMachineId(idMachine);
+              // location.reload();
            }
        });
    });
@@ -431,4 +442,12 @@ $('#btnNew').click(function () {
     saveOrUpdate(0);
     $('#btnNew').hide();
     removeSensorItemAll();
+});
+
+$('.app-sidebar__toggle').click(function () {
+    if($( "body" ).hasClass("sidenav-toggled")){
+        $( "body" ).removeClass('sidenav-toggled');
+    }else {
+        $( "body" ).addClass('sidenav-toggled');
+    }
 });
