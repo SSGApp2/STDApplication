@@ -8,6 +8,7 @@ import com.soft.app.repository.ParameterHeaderRepository;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineDetailRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineRepositoryCustom;
+import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
 import com.soft.app.repository.vcc.iot.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,6 +52,9 @@ public class IotMachineControllerJson {
 
     @Autowired
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
+
+    @Autowired
+    IotSensorRepositoryCustom iotSensorRepositoryCustom;
 
     @PostMapping("/createIotMachine")
     @Transactional
@@ -116,11 +120,6 @@ public class IotMachineControllerJson {
                     iotDevice.setIsUsed("N");
                     iotDeviceRepository.save(iotDevice);
 
-                    List<IotSensor> iotSensor = iotSensorRepository.findByIotMachineId(id);
-                    iotSensor.forEach(row -> {
-                        iotSensorRepository.delete(row);
-                    });
-
                     List<IotSensorCombine> iotSensorCombines = iotSensorCombineRepositoryCustom.findByMachineId(id);
 
                     iotSensorCombines.forEach(row -> {
@@ -131,10 +130,12 @@ public class IotMachineControllerJson {
                         iotSensorCombineRepository.delete(row);
                     });
 
-                    iotMachineRepository.deleteById(id);
-                    iotSensorRepository.findByIotMachineId(id).forEach(row -> {
-                        iotSensorRepository.deleteById(row.getId());
+                    List<IotSensor> iotSensor = iotSensorRepositoryCustom.findByMachineIdOth(id);
+                    iotSensor.forEach(row -> {
+                        iotSensorRepository.delete(row);
                     });
+                    iotMachineRepository.delete(record);
+
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }

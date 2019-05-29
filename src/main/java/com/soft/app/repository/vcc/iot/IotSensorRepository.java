@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IotSensorRepository extends JpaRepository<IotSensor, Long> {
-    List<IotSensor> findByIotMachineId(Long id);
+
 }

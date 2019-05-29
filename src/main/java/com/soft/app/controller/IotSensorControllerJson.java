@@ -43,7 +43,7 @@ public class IotSensorControllerJson {
                 iotMachineRepository.save(iotMachine);
             }
         }
-        return iotSensorRepository.findByIotMachineId(id);
+        return iotSensorRepositoryCustom.findByMachineIdOth(id);
 
 
     }
