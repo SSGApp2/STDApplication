@@ -5,6 +5,7 @@ import com.jfilter.filter.FilterBehaviour;
 import com.soft.app.entity.app.ParameterHeader;
 import com.soft.app.entity.vcc.iot.*;
 import com.soft.app.repository.ParameterHeaderRepository;
+import com.soft.app.repository.custom.IotFootprintMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineDetailRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineRepositoryCustom;
@@ -55,6 +56,12 @@ public class IotMachineControllerJson {
 
     @Autowired
     IotSensorRepositoryCustom iotSensorRepositoryCustom;
+
+    @Autowired
+    IotFootprintMachineRepository iotFootprintMachineRepository;
+
+    @Autowired
+    IotFootprintMachineRepositoryCustom iotFootprintMachineRepositoryCustom;
 
     @PostMapping("/createIotMachine")
     @Transactional
@@ -119,6 +126,10 @@ public class IotMachineControllerJson {
                     IotDevice iotDevice = iotDeviceRepository.findById(record.getIotDevice().getId()).get();
                     iotDevice.setIsUsed("N");
                     iotDeviceRepository.save(iotDevice);
+
+                    iotFootprintMachineRepositoryCustom.findByMachineId(id).forEach(row -> {
+                        iotFootprintMachineRepository.delete(row);
+                    });
 
                     List<IotSensorCombine> iotSensorCombines = iotSensorCombineRepositoryCustom.findByMachineId(id);
 
