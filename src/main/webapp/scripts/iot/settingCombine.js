@@ -208,13 +208,21 @@ function saveOrUpdate(isUpdate) {
     var iotSensorCombineDetail = [];
     var countID = 0;
     var $NoSensorDDL;
+    var $NoAmountInput;
     var checkNoSensor = false;
+    var checkNoAmount = false;
      $('#divSensorAdd .templateSensor').each(function (k, v) {
         var idCombineDetail = $(v).data("combinedetail");
 
         if($(v).find('select.sensor').val() == null || $(v).find('select.sensor').val() == ''){
             $NoSensorDDL = $(v).find('select.sensor');
             checkNoSensor = true;
+            return true;
+        }
+
+        if($(v).find('input.rate').val() == ''){
+            $NoAmountInput = $(v).find('input.rate');
+            checkNoAmount = true;
             return true;
         }
 
@@ -234,6 +242,10 @@ function saveOrUpdate(isUpdate) {
      if(checkNoSensor){
          $NoSensorDDL.focus();
          MessageUtil.alertWarning("Please add sensor");
+         return false;
+     }else if(checkNoAmount){
+         $NoAmountInput.focus();
+         MessageUtil.alertWarning("Please add Amount");
          return false;
      }
 
