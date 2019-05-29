@@ -61,9 +61,9 @@ $('.btnEditMachine').click(function () {
     update_create_status = 1;
     var idMachine = $(this).data("idmachine");
     var machineName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(0)').text();
-    var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
+    // var deviceName = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
     // var lineToken = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(2)').text();
-    var description = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(2)').text();
+    var description = $('.row-machine[data-idmachine='+idMachine+']').find('td:eq(1)').text();
     var deviceID = $('.row-machine[data-idmachine='+idMachine+']').data("iddevice");
     devicceOld = deviceID;
     $('#iotmachinemodel').modal({backdrop: 'static', keyboard: false});
