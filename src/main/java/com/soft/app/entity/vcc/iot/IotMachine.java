@@ -36,6 +36,9 @@ public class IotMachine extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "iotMachine")
     private List<IotSensor> iotSensor;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "iotMachine")
+    private List<IotSensorCombine> iotSensorCombines;
+
     public void addIotSensor(IotSensor iotSensor){
         iotSensor.setIotMachine(this);
         this.iotSensor.add(iotSensor);

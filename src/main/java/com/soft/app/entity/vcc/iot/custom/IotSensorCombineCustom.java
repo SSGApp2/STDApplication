@@ -12,5 +12,6 @@ public class IotSensorCombineCustom {
     private Integer repeatAlert;
     private String repeatUnit;
     private String alertMessage;
+    private Long iotMachineId;
     private List<IotSensorCombineDetail> iotSensorCombineDetails;
 }

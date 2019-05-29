@@ -116,7 +116,9 @@ To change this template use File | Settings | File Templates.
 
         function logout() {
             window.location.href = "/logout";
-            window.location.href = "/login";
+            setTimeout(function () {
+                window.location.href = "/login";
+            },500);
         }
 
         function changeOu(ouCode) {

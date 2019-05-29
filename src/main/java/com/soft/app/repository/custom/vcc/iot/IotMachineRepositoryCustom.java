@@ -12,4 +12,6 @@ public interface IotMachineRepositoryCustom {
 
     IotMachine findByIdOuth(Long id);
 
+    IotMachine findByDeviceId(Long id);
+
 }

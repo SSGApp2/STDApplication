@@ -81,4 +81,12 @@ public class IotSensorCombineRepositoryCustomImpl implements IotSensorCombineRep
 
         return criteria.list();
     }
+
+    @Override
+    public  List<IotSensorCombine> findByMachineId(Long id){
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotSensorCombine.class,"iotsc")
+                .createAlias("iotMachine", "iotm");
+        criteria.add(Restrictions.eq("iotm.id", id));
+        return criteria.list();
+    }
 }

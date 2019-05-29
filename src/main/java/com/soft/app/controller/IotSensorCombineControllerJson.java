@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.soft.app.entity.vcc.iot.IotMachine;
 import com.soft.app.entity.vcc.iot.IotSensorCombine;
 import com.soft.app.entity.vcc.iot.IotSensorCombineDetail;
 import com.soft.app.entity.vcc.iot.custom.IotSensorCombineCustom;
@@ -11,10 +12,7 @@ import com.soft.app.repository.custom.vcc.iot.IotDeviceRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineDetailRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorCombineRepositoryCustom;
 import com.soft.app.repository.custom.vcc.iot.IotSensorRepositoryCustom;
-import com.soft.app.repository.vcc.iot.IotDeviceRepository;
-import com.soft.app.repository.vcc.iot.IotSensorCombineDetailRepository;
-import com.soft.app.repository.vcc.iot.IotSensorCombineRepository;
-import com.soft.app.repository.vcc.iot.IotSensorRepository;
+import com.soft.app.repository.vcc.iot.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +46,9 @@ public class IotSensorCombineControllerJson {
     @Autowired
     IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
 
+    @Autowired
+    IotMachineRepository iotMachineRepository;
+
     @GetMapping("sensorcombinedetailbymachineid")
     public  List<Map> sensorCombineDetailByMachineId(@RequestParam(value = "id") Long id){
         return iotSensorCombineRepositoryCustom.findDetailAllByMachineOuth(id);
@@ -61,12 +62,14 @@ public class IotSensorCombineControllerJson {
     @PostMapping("saveIotSensorCombine")
     @Transactional
     public ResponseEntity<List<IotSensorCombine>> saveIotSensorCombine(@RequestBody IotSensorCombineCustom iotSensorCombine){
-
+        IotMachine iotMachine = iotMachineRepository.findById(iotSensorCombine.getIotMachineId()).get();
         IotSensorCombine iotSensorCombine1 = new IotSensorCombine();
         iotSensorCombine1.setAlertMessage(iotSensorCombine.getAlertMessage());
         iotSensorCombine1.setRepeatAlert(iotSensorCombine.getRepeatAlert());
         iotSensorCombine1.setRepeatUnit(iotSensorCombine.getRepeatUnit());
         iotSensorCombine1.setAlertType(iotSensorCombine.getAlertType());
+        iotSensorCombine1.setIsActive("Y");
+        iotSensorCombine1.setIotMachine(iotMachine);
         iotSensorCombineRepository.save(iotSensorCombine1);
 
         List<IotSensorCombineDetail> iotSensorCombineDetails = iotSensorCombine.getIotSensorCombineDetails();

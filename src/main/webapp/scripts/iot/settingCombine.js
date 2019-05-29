@@ -247,6 +247,7 @@ function saveOrUpdate(isUpdate) {
         repeatUnit:$('#ddlRepeatUnit').val(),
         repeatAlert:$('#txtRepeat').val(),
         alertType:$('#ddlalertType').val(),
+        iotMachineId:$('#ddlMachine').val(),
         iotSensorCombineDetails: iotSensorCombineDetail
     };
     if(create_or_update == 0) {
