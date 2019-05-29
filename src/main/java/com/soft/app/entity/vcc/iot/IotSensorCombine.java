@@ -1,5 +1,6 @@
 package com.soft.app.entity.vcc.iot;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.soft.app.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +25,11 @@ public class IotSensorCombine extends BaseEntity {
     private Integer repeatAlert;
     private String repeatUnit;
     private String alertMessage;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "iotMachine")
+    IotMachine iotMachine;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "iotSensorCombine")
     private List<IotSensorCombineDetail> iotSensorCombineDetails;

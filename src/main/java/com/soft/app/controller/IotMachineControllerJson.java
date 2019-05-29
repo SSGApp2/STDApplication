@@ -2,18 +2,19 @@ package com.soft.app.controller;
 
 import com.jfilter.filter.FieldFilterSetting;
 import com.jfilter.filter.FilterBehaviour;
-import com.soft.app.entity.vcc.iot.IotDevice;
-import com.soft.app.entity.vcc.iot.IotMachine;
-import com.soft.app.entity.vcc.iot.IotSensor;
+import com.soft.app.entity.app.ParameterHeader;
+import com.soft.app.entity.vcc.iot.*;
+import com.soft.app.repository.ParameterHeaderRepository;
 import com.soft.app.repository.custom.vcc.iot.IotMachineRepositoryCustom;
-import com.soft.app.repository.vcc.iot.IotDeviceRepository;
-import com.soft.app.repository.vcc.iot.IotMachineRepository;
-import com.soft.app.repository.vcc.iot.IotSensorRepository;
+import com.soft.app.repository.custom.vcc.iot.IotSensorCombineDetailRepositoryCustom;
+import com.soft.app.repository.custom.vcc.iot.IotSensorCombineRepositoryCustom;
+import com.soft.app.repository.vcc.iot.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +37,25 @@ public class IotMachineControllerJson {
     @Autowired
     IotSensorRepository iotSensorRepository;
 
+    @Autowired
+    ParameterHeaderRepository parameterHeaderRepository;
+
+    @Autowired
+    IotSensorCombineRepository iotSensorCombineRepository;
+
+    @Autowired
+    IotSensorCombineDetailRepository iotSensorCombineDetailRepository;
+
+    @Autowired
+    IotSensorCombineDetailRepositoryCustom iotSensorCombineDetailRepositoryCustom;
+
+    @Autowired
+    IotSensorCombineRepositoryCustom iotSensorCombineRepositoryCustom;
+
     @PostMapping("/createIotMachine")
-    public IotMachine createIotMachine(@RequestBody IotMachine iotm) {
+    @Transactional
+    public void createIotMachine(@RequestBody IotMachine iotm) {
+
         IotDevice iotDevice = iotDeviceRepository.findById(iotm.getId()).get();
         iotDevice.setIsUsed("Y");
         iotDeviceRepository.save(iotDevice);
@@ -46,8 +64,18 @@ public class IotMachineControllerJson {
         iotMachine.setMacName(iotm.getMacName());
         iotMachine.setLineToken(iotm.getLineToken());
         iotMachine.setDescription(iotm.getDescription());
+        iotMachineRepository.save(iotMachine);
 //        iotMachine.setMacCode(iotm.getMacCode());
-        return iotMachineRepository.save(iotMachine);
+        IotMachine iotMachine1 = iotMachineRepositoryCustom.findByDeviceId(iotm.getId());
+        ParameterHeader parameterHeader = parameterHeaderRepository.findByCode("60");
+        parameterHeader.getParameterDetails().forEach(row -> {
+            IotSensor iotSensor = new IotSensor();
+            iotSensor.setIotMachine(iotMachine1);
+            iotSensor.setSensorCode(row.getParameterValue1());
+            iotSensor.setSensorName(row.getParameterValue2());
+            iotSensorRepository.save(iotSensor);
+        });
+
     }
 
     @PutMapping(value = "/{id}")
@@ -80,12 +108,28 @@ public class IotMachineControllerJson {
     }
 
     @DeleteMapping(path = {"/{id}"})
+    @Transactional
     public ResponseEntity<?> deleteIotMachine(@PathVariable("id") long id) {
         return iotMachineRepository.findById(id)
                 .map(record -> {
                     IotDevice iotDevice = iotDeviceRepository.findById(record.getIotDevice().getId()).get();
                     iotDevice.setIsUsed("N");
                     iotDeviceRepository.save(iotDevice);
+
+                    List<IotSensor> iotSensor = iotSensorRepository.findByIotMachineId(id);
+                    iotSensor.forEach(row -> {
+                        iotSensorRepository.delete(row);
+                    });
+
+                    List<IotSensorCombine> iotSensorCombines = iotSensorCombineRepositoryCustom.findByMachineId(id);
+
+                    iotSensorCombines.forEach(row -> {
+                        List<IotSensorCombineDetail> iotSensorCombineDetails = iotSensorCombineDetailRepositoryCustom.findBySensorCombineID(row.getId());
+                        iotSensorCombineDetails.forEach(row1 -> {
+                            iotSensorCombineDetailRepository.delete(row1);
+                        });
+                        iotSensorCombineRepository.delete(row);
+                    });
 
                     iotMachineRepository.deleteById(id);
                     iotSensorRepository.findByIotMachineId(id).forEach(row -> {
@@ -102,7 +146,6 @@ public class IotMachineControllerJson {
     public List<IotMachine> findByNotInFootprintOuth() {
         return iotMachineRepositoryCustom.findByNotInFootprintOuth();
     }
-
 
 
 }

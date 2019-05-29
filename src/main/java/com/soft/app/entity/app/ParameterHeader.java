@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,5 +22,5 @@ public class ParameterHeader extends BaseEntity{
     private String parameterDescription;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parameterHeader")
-    private Set<ParameterDetail> parameterDetails = new HashSet<ParameterDetail>();
+    private List<ParameterDetail> parameterDetails;
 }
