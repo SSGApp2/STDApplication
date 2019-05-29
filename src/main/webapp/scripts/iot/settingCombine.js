@@ -451,8 +451,6 @@ $('#ddlMachine').change(function () {
 });
 
 $('#btnNew').click(function () {
-    create_or_update = 0;
-    saveOrUpdate(0);
     $('#btnNew').hide();
     removeSensorItemAll();
 });
