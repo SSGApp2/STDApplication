@@ -38,4 +38,12 @@ public class IotFootprintMachineRepositoryCustomImpl implements IotFootprintMach
         criteria.add(Restrictions.eq("IotFootprint.id", id));
         return criteria.list();
     }
+
+    @Override
+    public  List<IotFootprintMachine> findByMachineId(Long id){
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(IotFootprintMachine.class);
+        criteria.createAlias("iotMachine", "IotMachine");
+        criteria.add(Restrictions.eq("IotMachine.id", id));
+        return criteria.list();
+    }
 }
