@@ -1,4 +1,3 @@
-
 /***********************************************************************
  *             CRUD Button Event
  *
@@ -11,14 +10,17 @@ $('#btnNew').click(function () {
     updateDropZone();
     footprint.renderEmptyMachine();
     IOT_FOOTPRINT = {};
-    iotFootprint=null;
+    iotFootprint = null;
+    $fileNameField.text('');
+    $("#imgInp").val('');
     rightEnable(3);
+
 });
 
 $(function () {
     $('#btnSave').click(function () {
-        var name= $('#txtFpName').val().trim();
-        if(name==""){
+        var name = $('#txtFpName').val().trim();
+        if (name == "") {
             $('#save_form').submit();
             return false;
         }
@@ -33,7 +35,7 @@ $(function () {
             }
             machine.push(dataMachine);
         });
-        if(machine.length==0){
+        if (machine.length == 0) {
             MessageUtil.alertWarning('Please Select Device');
             return false;
         }
@@ -44,11 +46,15 @@ $(function () {
             // ouCode:session.ouCode
         }
         var formData = new FormData();
-        formData.append("file", imgInp.files[0]);
+        if ($fileNameField.text() == "") {
+            formData.append("file", null);
+        } else {
+            formData.append("file", imgInp.files[0]);
+        }
         formData.append("json", JSON.stringify(data));
         AjaxUtil.postWithFile('/api/iotfootprints', formData).complete(function (xhr) {
             if (xhr.status == 200) {
-                var data=xhr.responseJSON;
+                var data = xhr.responseJSON;
                 footprint.renderFootprintList(data.id);
                 MessageUtil.alert('Save successfully.');
             }
@@ -58,18 +64,18 @@ $(function () {
     $('#btnRevert').click(function () {
         revertAllEmpty();
         $('.dgOriginal').each(function () {
-            $(this).find('button').show();
+            $(this).find('button').hide();
             $(this).addClass('inZone');
-            var element=$(this);
-            var posDefault=element.data(position_key+"_DEFAULT");//get def pos
-            element.data(position_key,posDefault);
+            var element = $(this);
+            var posDefault = element.data(position_key + "_DEFAULT");//get def pos
+            element.data(position_key, posDefault);
             coordinates(element, posDefault.x, posDefault.y);
         });
     });
 
     $('#btnDelete').click(function () {
-        MessageUtil.confirm('Delete '+IOT_FOOTPRINT.name,function () {
-            AjaxUtil.delete('/rest-api/iotFootprints/'+IOT_FOOTPRINT.id).success(function () {
+        MessageUtil.confirm('Delete ' + IOT_FOOTPRINT.name, function () {
+            AjaxUtil.delete('/rest-api/iotFootprints/' + IOT_FOOTPRINT.id).success(function () {
                 $carousel.find('.carousel-item').remove();
                 footprint.renderFootprintList();
             });
@@ -78,6 +84,6 @@ $(function () {
     });
 })
 
-$("#save_form").submit(function(e) {
+$("#save_form").submit(function (e) {
     e.preventDefault();
 })

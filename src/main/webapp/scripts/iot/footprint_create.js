@@ -5,7 +5,7 @@ var footprint = {};
 const DEFAULT_DEVICE_IMG = "/resources/images/cpu.png";
 const DEFAULT_FLOOR_IMG = "/resources/images/floorplan/exampleFloorplan.jpg";
 var IOT_FOOTPRINT = {};
-const $fileNameField= $('[for="imgInp"]');
+const $fileNameField = $('[for="imgInp"]');
 var $carousel = $('#carousel-list');
 $(document).on({
     ajaxStart: function () {
@@ -46,13 +46,13 @@ footprint.renderFootprintList = function (foceId) {
             updateDropZone();
             rightEnable(3);
         } else {
-            if(foceId){
+            if (foceId) {
                 footprint.renderByFootprintId(foceId);
-            }else{
+            } else {
                 footprint.renderByFootprintId(data[0].id);
             }
             rightEnable();
-            if(data.length>1){
+            if (data.length > 1) {
                 $('.carousel-control-next,.carousel-control-prev').show();
             }
 
@@ -65,6 +65,7 @@ footprint.renderFootprintList = function (foceId) {
  ***************************************************/
 footprint.renderByFootprintId = function (id) {
     var v = footprint.dataList[id];
+    $("#imgInp").val('');
     $carousel.find('.carousel-item').remove();
     $fileNameField.text('');
     $('#tbFootprint').find('.active').removeClass('active');
@@ -86,9 +87,9 @@ footprint.renderByFootprintId = function (id) {
     AjaxUtil.get('/api/iotfootprints/findByIotFootprint/' + id).success(function (data) {
         $.each(data, function (k, v) {
             $('#divDraggable').append(' <div class="ui-widget-content  draggable inZone dgOriginal">' +
-                '<button class="btnRevert" onclick="revert(this)" style="float: right;">x</button>' +
+                '<button class="btnRevert" onclick="revert(this)" style="display: none"> <div class="closebox">X</div></button>' +
                 '<img class="img-responsive" src="' + DEFAULT_DEVICE_IMG + '"/>' +
-                ' <p style="margin: 0px">' + v.iotMachine.iotDevice.deviceName + '</p>' +
+                ' <p class="deviceName" >' + v.iotMachine.iotDevice.deviceName + '</p>' +
                 ' <p class="desc">' + v.iotMachine.macName + '</p>' +
                 ' </div>');
             var element = $('#divDraggable').find('.draggable').last();
@@ -103,23 +104,22 @@ footprint.renderByFootprintId = function (id) {
             addTooltip(element);
             coordinates(element, v.posX, v.posY);
         });
-        if (data.length > 0) {
-            rightEnable();
-        } else {
-            rightDisabled();
-        }
+        setTimeout(function () {
+            $('#btnRevert').click();
+        },100);
     });
+    rightEnable();
 
 }
 
 footprint.renderEmptyMachine = function () {
     $('#divDraggable').empty();
-    AjaxUtil.get('/api/iotmachines/findByNotInFootprintOuth','',false).success(function (data) {
+    AjaxUtil.get('/api/iotmachines/findByNotInFootprintOuth', '', false).success(function (data) {
         $.each(data, function (k, v) {
             $('#divDraggable').append(' <div class="ui-widget-content draggable empDevice">' +
-                '<button class="btnRevert" onclick="revert(this)" style="float: right;display: none">x</button>' +
+                '<button class="btnRevert" onclick="revert(this)" style="display: none"><div class="closebox">X</div></button>' +
                 '<img class="img-responsive" src="' + DEFAULT_DEVICE_IMG + '"/>' +
-                ' <p style="margin: 0px">' + v.iotDevice.deviceName + '</p>' +
+                ' <p  class="deviceName">' + v.iotDevice.deviceName + '</p>' +
                 ' <p class="desc">' + v.macName + '</p>' +
                 ' </div>');
             $('#divDraggable').find('.draggable').last().data(machine_key, v);
@@ -127,14 +127,20 @@ footprint.renderEmptyMachine = function () {
         $(".draggable").draggable({revert: 'invalid'});
         addTooltip($(".draggable"));
     });
+
 }
 
 function addTooltip(ele) {
     $(ele).mousemove(function (evt) {
         var deviceName = $(this).find('.desc').text();
+        var isInZone = $(this).hasClass('inZone');
+        if (isInZone) {
+            $(this).find('.btnRevert').show();
+        }
         showTooltip(evt, deviceName);
     }).mouseout(function () {
         hideTooltip();
+        $(this).find('.btnRevert').hide();
     });
 }
 
@@ -144,15 +150,16 @@ var coordinates = function (element, per_x, per_y) {
     var height = parseFloat(per_y);
     if (width < 0) width = 0;
     if (height < 0) height = 0;
+
+    $(".dropzone").css({top: 0, position:'inherit'});
+    console.log($(".dropzone").position());
     element.position({
         of: ".dropzone",
         my: "left top",
         at: "left+" + width + "%" + " top+" + height + "%",
         collision: "none none"
-
     });
 }
-
 
 function revert(ele) {
     const draggable = $(ele).closest('.draggable');
@@ -177,11 +184,10 @@ function revertAllEmpty() {
 }
 
 
-
 function updateDropZone() {
     $(".dropzone").droppable({
         drop: function (event, ui) {
-            $(ui.draggable).find('button').show();
+            // $(ui.draggable).find('button').show();
 
             const leftPosition = ui.offset.left - $(this).offset().left;
             const topPosition = ui.offset.top - $(this).offset().top;
@@ -210,7 +216,7 @@ function updateDropZone() {
 }
 
 function sortElement() {
-    const last=$('#divDraggable div').not('.inZone').last();
+    const last = $('#divDraggable div').not('.inZone').last();
     $('#divDraggable div.inZone').each(function () {
         $(this).insertAfter(last);
     });

@@ -204,6 +204,8 @@
         </dependency>
 
 
+
+
     </dependencies>
 
 
@@ -224,8 +226,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot.experimental</groupId>
+                        <artifactId>spring-boot-thin-layout</artifactId>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
+
         </plugins>
+
+
     </build>
 
 </project>

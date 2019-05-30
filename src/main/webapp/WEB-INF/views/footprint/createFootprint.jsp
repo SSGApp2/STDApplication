@@ -81,9 +81,19 @@
         <div class="col-lg-9">
             <div class="card-box">
 
-                <div id="divDraggable">
-                    <jsp:text/>
+
+                <div class="container">
+                    <h3>Device</h3>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="divDraggable">
+                                <jsp:text/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
                 <form id="save_form" style="width: 100%" action="./">
                     <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                         <label for="txtFpName" class="col-sm-2 col-form-label">Foorprint Name<span

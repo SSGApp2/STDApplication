@@ -5,9 +5,17 @@ const tooltip = document.getElementById("tooltip");
  **************************************************************************/
 $('#myCarousel').on('slid.bs.carousel', function () {
     console.log('after');
-})
-$('#myCarousel').on('slide.bs.carousel', function () {
+});
+$('#myCarousel').on('slide.bs.carousel', function (e) {
     console.log('before');
+    $(e.relatedTarget).find('img').each(function() {
+        var $this = $(this);
+        var src = $this.data('lazy-load-src');
+        if (typeof src !== "undefined" && src != "") {
+            $this.attr('src', src)
+            $this.data('lazy-load-src', '');  // clean up
+        }
+    });
 });
 
 function carouselNext() {

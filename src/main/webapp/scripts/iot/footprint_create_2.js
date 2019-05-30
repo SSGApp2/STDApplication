@@ -24,10 +24,10 @@ function readURL(input) {
             $('.carousel-item').removeClass('active');
             $('.carousel-inner').append(' <div class="carousel-item active"> <img class="dropzone" src="' + e.target.result + '" alt=""> </div>');
             updateDropZone();
+            rightEnable(3);
         }
         reader.readAsDataURL(input.files[0]);
         const fileName = input.files[0].name
         $fileNameField.text(fileName);
-
     }
 }

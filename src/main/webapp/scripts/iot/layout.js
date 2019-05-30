@@ -59,7 +59,7 @@ function renderByFootprintId() {
         $.each(data, function (k, v) {
             $('#carouselExampleFade').append(' <div onclick="linkDevice(this)" class="ui-widget-content draggable inZone">' +
                 '<img class="img-responsive" src="' + DEFAULT_DEVICE_IMG + '"/>' +
-                ' <p style="margin: 0px">' + v.iotMachine.iotDevice.deviceName + '</p>' +
+                ' <p class="deviceName" >' + v.iotMachine.iotDevice.deviceName + '</p>' +
                 ' <p class="desc">' + v.iotMachine.macName + '</p>' +
                 ' </div>');
             var element = $('#carouselExampleFade').find('.draggable').last();
