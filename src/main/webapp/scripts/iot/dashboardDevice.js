@@ -13,8 +13,12 @@ $(function () {
                 value = MainSensorCurrent[code];
 
             }
+            $(this).text('');
             var status = MainSensorCurrent[code + "Status"];
-            $(this).text(parseFloat(value).toFixed(3));
+            if(code!="vibra"){
+                $(this).text(parseFloat(value).toFixed(3));
+            }
+
             $(this).removeClass(function (index, className) {
                 return (className.match(/(^|\s)badge-\S+/g) || []).join(' ');
             });

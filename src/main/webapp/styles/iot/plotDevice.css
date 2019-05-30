@@ -3,6 +3,7 @@
     height: 100px;
     background-color: white;
     margin-bottom: 10px;
+    padding-top: 15px;
 }
 .draggable,#draggable {
     width: 50px;
@@ -29,7 +30,7 @@
 }
 
 .draggable p.deviceName{
-    margin-top: -5px;
+    margin-top: -15px;
 }
 
 .btnRevert{

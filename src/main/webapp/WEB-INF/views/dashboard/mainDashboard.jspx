@@ -9,7 +9,9 @@
             height: 300px;
             margin: 0 auto;
         }
-
+        .chart{
+            height: 33%;
+        }
         h4 {
             color: white;
         }
@@ -55,6 +57,7 @@
 
 
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/mainDashboard.js')}" var="mainDashboard"/>
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/maindashboard-vibration.js')}" var="maindashboard-vibration"/>
     <script src="${mainDashboard}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
 

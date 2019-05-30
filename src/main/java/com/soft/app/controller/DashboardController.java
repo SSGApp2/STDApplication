@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 @Controller
 @RequestMapping("dashboard")
 public class DashboardController {
@@ -34,7 +38,14 @@ public class DashboardController {
         }
         model.put("macName", iotMachine.getMacName());
         model.put("deviceCode", iotMachine.getIotDevice().getDeviceCode());
-        model.put("iotSensors", iotMachine.getIotSensor());
+        List<IotSensor> iotSensorList= iotMachine.getIotSensor();
+        Collections.sort(iotSensorList, new Comparator<IotSensor>() {
+            @Override
+            public int compare(IotSensor o1, IotSensor o2) {
+                return o1.getSensorCode().compareTo(o2.getSensorCode());
+            }
+        });
+        model.put("iotSensors", iotSensorList);
         return "dashboard/mainDashboard";
     }
 

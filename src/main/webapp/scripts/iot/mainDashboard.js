@@ -55,6 +55,20 @@ function setAlertTime(sensorCode, status) {
 var chartData = [];
 
 function initialHighChart(element, sensorCode) {
+
+    if(sensorCode=="vibra"){
+        $('#'+element).append('<div id="vibX" class="chart">x</div>');
+        createSensorElement("vibX",sensorCode+"_x","X");
+        $('#'+element).append('<div id="vibY" class="chart">x</div>');
+        createSensorElement("vibY",sensorCode+"_y","Y");
+        $('#'+element).append('<div id="vibZ" class="chart">x</div>');
+        createSensorElement("vibZ",sensorCode+"_z","Z");
+    }else {
+        console.log(element);
+        createSensorElement(element,sensorCode);
+    }
+}
+function createSensorElement(element,sensorCode,titile) {
     Highcharts.chart(element, {
         chart: {
             type: 'spline',
@@ -67,11 +81,15 @@ function initialHighChart(element, sensorCode) {
 
                     setInterval(function () {
                         //realTime data
-                        var x = (new Date(MainSensorCurrent['dateTime'])).getTime(), // current time
-                            y = parseFloat(MainSensorCurrent[sensorCode]);
+                        var x = (new Date(MainSensorCurrent['dateTime'])).getTime(); // current time
+                        var y = parseFloat(MainSensorCurrent[sensorCode]);
 
+                        switch (sensorCode){
+                            case 'vibra_x' :y= MainSensorCurrent['vibra'][0].x;break;
+                            case 'vibra_y' :y= MainSensorCurrent['vibra'][0].y;break;
+                            case 'vibra_z' :y= MainSensorCurrent['vibra'][0].z;break;
+                        }
                         var data = [x, y];
-
                         var len = series.data.length - 1;
                         var lastData = [null, null];
                         if (series.data.length > 0) {
@@ -81,7 +99,6 @@ function initialHighChart(element, sensorCode) {
                         } else {
                             var shift = series.data.length > _MAX_DATA_TIME;
                             series.addPoint(data, true, shift);
-
                             var status = MainSensorCurrent[sensorCode + "Status"];
                             setAlertTime(sensorCode, status);
                         }
@@ -119,7 +136,8 @@ function initialHighChart(element, sensorCode) {
         },
         yAxis: {
             title: {
-                text: 'Value'
+                text: titile!=undefined?titile:'Value',
+                rotation: titile!=undefined?0:-90,
             },
             plotLines: [{
                 value: 0,
