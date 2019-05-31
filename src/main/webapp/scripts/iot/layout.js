@@ -22,6 +22,14 @@ $(window).on('load', function (e) {
 });
 
 
+$(window).on('resize', function(){
+    $('.draggable').each(function () {
+        var element=$(this);
+        var pos=element.data(position_key);
+        coordinates(element, pos.x, pos.y);
+    });
+});
+
 function showTooltip(evt, deviceName) {
     var text = "<p><h5 class='text-success' >" + deviceName + "</h5></p>";
     text += "<p><span class='fa fa-battery-full logo text-success'/> <label>Good</label></p>";

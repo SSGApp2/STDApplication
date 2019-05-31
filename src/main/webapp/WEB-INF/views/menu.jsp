@@ -53,9 +53,9 @@ To change this template use File | Settings | File Templates.
     <script type="text/javascript">
         var cookieMenu = "historyMenu";
 
-        $(function () {
-            generateMenuHistory();
-        });
+        // $(function () {
+        generateMenuHistory();
+        // });
 
         function generateMenuHistory() {
             $('.treeview-item').removeClass('active');
