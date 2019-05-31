@@ -358,7 +358,7 @@ function setTableCombineDetail(data) {
                countCol=0;
            }
        }
-       if(countCol<5 && countCol != 0){
+       if(countCol<6 && countCol != 0){
             for(var x=countCol; x < 6; x++){
                 tabletHtml += '<td></td>';
                 if(x==5){
