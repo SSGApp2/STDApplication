@@ -200,10 +200,7 @@ $('#form_save_combine').submit(function(e) {
     saveOrUpdate();
 });
 
-function saveOrUpdate(isUpdate) {
-    if(isUpdate != undefined && isUpdate != null && isUpdate != '') {
-        create_or_update = isUpdate;
-    }
+function saveOrUpdate() {
     const deviceID = $('#inputDevices').data("iddevice");
     var iotSensorCombineDetail = [];
     var countID = 0;
@@ -269,6 +266,8 @@ function saveOrUpdate(isUpdate) {
                 var idMachine = $('#ddlMachine').val();
                 findSensorComdineDetailByMachineId(idMachine);
                 MessageUtil.alert("Save successfully.");
+                removeSensorItemAll();
+                create_or_update = 0;
             }
         });
     }else{
@@ -278,8 +277,10 @@ function saveOrUpdate(isUpdate) {
                 if(tempDeleteCombineDetail.length != 0){
                     deleteCombineDetail();
                     tempDeleteCombineDetail = [];
+                    create_or_update = 0;
                 }else {
                     MessageUtil.alert("Save successfully.");
+                    create_or_update = 0;
                 }
                 removeSensorItemAll();
                 $('#btnNew').hide();
@@ -385,6 +386,7 @@ function setTableCombineDetail(data) {
            if(xhr.status == 200) {
                var idMachine = $('#ddlMachine').val();
                findSensorComdineDetailByMachineId(idMachine);
+               create_or_update = 0;
               // location.reload();
            }
        });
@@ -394,6 +396,7 @@ function setTableCombineDetail(data) {
 
 function editCombineSetting(e) {
     create_or_update = 1;
+    // console.log(create_or_update);
     var idCombine = e.data("idcombine");
     idCombineEdit = idCombine
     var idMachine = e.data("idmachine");
@@ -429,6 +432,8 @@ function setForTemplateEdit(datadetail, datasensor) {
                 }
 
     }
+    var plbmachine = $("#lbmachine").position().top;
+    $("html, body").animate({ scrollTop: plbmachine-50 }, "slow");
 }
 
 $(function () {
@@ -437,6 +442,7 @@ $(function () {
    var idMachine = $('#ddlMachine').val();
     sensorOfMachine = getSensorByMachineID(idMachine);
     findSensorComdineDetailByMachineId(idMachine);
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 });
 
 $('#ddlMachine').change(function () {
@@ -451,8 +457,10 @@ $('#ddlMachine').change(function () {
 });
 
 $('#btnNew').click(function () {
+    create_or_update = 0;
     $('#btnNew').hide();
     removeSensorItemAll();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 });
 
 $('.app-sidebar__toggle').click(function () {
