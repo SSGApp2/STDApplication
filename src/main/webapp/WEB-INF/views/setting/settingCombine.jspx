@@ -44,7 +44,7 @@
 
             <form id="form_save_combine">
                 <div class="form-group offset-sm-4">
-                    <label class="col-sm-5">Machine</label>
+                    <label id="lbmachine" class="col-sm-5">Machine</label>
                     <div class="col-sm-5">
                         <select id="ddlMachine" class="form-control">
                             <c:forEach items="${iotMachine}" var="iotmachine">
