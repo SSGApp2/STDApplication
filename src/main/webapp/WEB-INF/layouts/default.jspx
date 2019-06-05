@@ -144,7 +144,7 @@
         if (isOpenMenu) {
             $('.app').toggleClass('sidenav-toggled');
         }
-        console.log(this);
+        // console.log(this);
     });
 
 </script>
