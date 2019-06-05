@@ -9,6 +9,9 @@ function DateUtil() {
 DateUtil.currentDate = function () {
     return new Date();
 }
+DateUtil.parse=function (date) {
+    return dateFns.parse(date);
+}
 
 DateUtil.format = function (date, format,locale) {
     if (locale != undefined) {

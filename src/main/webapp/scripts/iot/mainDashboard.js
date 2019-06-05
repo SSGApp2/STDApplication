@@ -19,7 +19,7 @@ $(function () {
 
     intervalFetchData = setInterval(function () {
         MainSensorCurrent = socketSensor.setCurrentData();
-        var current_datetime = (new Date(MainSensorCurrent['dateTime']));
+        var current_datetime = DateUtil.parse(MainSensorCurrent['dateTime']);
         var formatted_date = current_datetime.getDate() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
         $('#txtStatus').text('Status : ' + SOCKET_DISPLAY_STATUS);
         $('#txtLastUpdate').text('Update : ' + formatted_date);
@@ -81,7 +81,7 @@ function createSensorElement(element,sensorCode,titile) {
 
                     setInterval(function () {
                         //realTime data
-                        var x = (new Date(MainSensorCurrent['dateTime'])).getTime(); // current time
+                        var x = (DateUtil.parse(MainSensorCurrent['dateTime'])).getTime(); // current time
                         var y = parseFloat(MainSensorCurrent[sensorCode]);
 
                         switch (sensorCode){

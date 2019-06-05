@@ -165,14 +165,20 @@
         <spring:url value="${urls.getForLookupPath('/resources/styles/iot/plotDevice.css')}" var="plotdevice_css"/>
         <link rel="stylesheet" type="text/css" href="${plotdevice_css}"/>
 
+
+
         <%--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"><!-- required for FF3 and Opera --></script>--%>
         <spring:url value="/resources/scripts/util/validatr.min.js" var="utilformdatachangevalidation"/>
+        <spring:url value="/resources/scripts/util/jquery.ui.touch-punch.min.js" var="touch_punch_js"/>
         <spring:url value="${urls.getForLookupPath('/resources/scripts/util/CommonMessage.js')}" var="common_message"/>
         <script src="${common_message}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-        <script src="${utilformdatachangevalidation}"
-                type="text/javascript"><!-- required for FF3 and Opera --></script>
+        <script src="${utilformdatachangevalidation}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"><!-- required for FF3 and Opera --></script>
+        <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"><!-- required for FF3 and Opera --></script>
+        <script src="${touch_punch_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
         <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create.js')}"
                     var="footprint_create"/>
         <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/footprint_create_1.js')}"

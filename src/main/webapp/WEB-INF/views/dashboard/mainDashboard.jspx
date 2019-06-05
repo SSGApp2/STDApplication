@@ -44,13 +44,14 @@
     <script src="https://code.highcharts.com/highcharts.js"><!-- required for FF3 and Opera --></script>
     <script src="https://code.highcharts.com/modules/exporting.js"><!-- required for FF3 and Opera --></script>
     <script src="https://code.highcharts.com/modules/export-data.js"><!-- required for FF3 and Opera --></script>
-
+    <script src="http://cdn.date-fns.org/v1.3.0/date_fns.min.js"><!-- required for FF3 and Opera --></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"><!-- required for FF3 and Opera --></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"><!-- required for FF3 and Opera --></script>
 
-
+    <spring:url value="${urls.getForLookupPath('/resources/scripts/util/DateUtils.js')}" var="dateutils_js"/>
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/highcharts_theme.js')}" var="highcharts_theme_js"/>
     <script src="${highcharts_theme_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${dateutils_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
     <spring:url value="${urls.getForLookupPath('/resources/scripts/iot/util/connectRealTimeMainSensor.js')}" var="connectRealTimeMainSensor"/>
     <script src="${connectRealTimeMainSensor}" type="text/javascript"><!-- required for FF3 and Opera --></script>
