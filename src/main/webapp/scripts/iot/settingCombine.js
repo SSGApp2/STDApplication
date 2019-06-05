@@ -74,6 +74,13 @@ function createCriteriaTemplate(datasensor,mode,datadetail) {
         $('input#txtRate_'+keyid).data("normalvalue",datasensorNormal);
     });
 
+    $('input[type="radio"]').click(function () {
+        var keyName = $(this).attr('name').split('_')[1];
+        // console.log(keyName);
+        calNomal(null,keyName);
+
+    });
+
     $.each(datasensor,function (k, v) {
         $ddlSensor.append('<option  value="' + v.id + '" code="' + v.sensorCode + '" version="' + v.version + '"data-normalvalue="'+ v.normalValue +'" >' + v.sensorName + '</option>');
     });
@@ -139,14 +146,25 @@ function calAmount(a,b) {
     return [a-b,a+b];
 }
 
-function calNomal(e) {
-    var keyID = e.id.split('_')[1];
-    var thisValue = e.value;
+function calNomal(e,k) {
+    var keyID;
+    var thisValue;
+    if(e == null){
+        keyID = k;
+        thisValue = $('input#txtRate_'+k).val();
+    }else{
+        keyID = e.id.split('_')[1];
+        thisValue = e.value;
+    }
+
     var option1 =   $('input[type="radio"][name="optradio1_'+keyID+'"]:checked').data("idtype");
     var option2 =   $('input[type="radio"][name="optradio2_'+keyID+'"]:checked').data("displaytype");
     var normalValue = $('#ddlSensor_'+ keyID).find('option:selected').data("normalvalue");
     if(normalValue != '' && thisValue != '') {
         calBothPositiveNegatine(keyID, option2, option1, parseFloat(normalValue), parseFloat(thisValue));
+    }else{
+        $('#formRate_'+keyID).find('input.rate1').val('');
+        $('#formRate_'+keyID).find('input.rate2').val('');
     }
 }
 
