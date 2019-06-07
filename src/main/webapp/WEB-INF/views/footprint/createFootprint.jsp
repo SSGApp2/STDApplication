@@ -175,7 +175,7 @@
         <script src="${utilformdatachangevalidation}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
 
-        <%--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"><!-- required for FF3 and Opera --></script>--%>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"><!-- required for FF3 and Opera --></script>
         <%--<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"><!-- required for FF3 and Opera --></script>--%>
         <script src="${touch_punch_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
 
