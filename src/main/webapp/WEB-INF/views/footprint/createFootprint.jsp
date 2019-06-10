@@ -65,7 +65,7 @@
                             <div class="custom-file">
                                 <input id="imgInp" type="file" name="file" accept="image/*"
                                        aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label text-left" for="imgInp">Choose file</label>
+                                <label class="custom-file-label text-left" for="imgInp" style="overflow: hidden">Choose file</label>
                             </div>
                         </form>
                         <button id="btnNew" style="margin-left: 10px" class="btn btn-success btn-md ">New</button>
